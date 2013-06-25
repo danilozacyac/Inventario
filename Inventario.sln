@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Inventario", "Inventario\Inventario.csproj", "{39BB2AFD-8BFE-4419-8E23-5F23782E65AA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{39BB2AFD-8BFE-4419-8E23-5F23782E65AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{39BB2AFD-8BFE-4419-8E23-5F23782E65AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{39BB2AFD-8BFE-4419-8E23-5F23782E65AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{39BB2AFD-8BFE-4419-8E23-5F23782E65AA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

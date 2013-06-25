@@ -1,0 +1,437 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{39BB2AFD-8BFE-4419-8E23-5F23782E65AA}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Inventario</RootNamespace>
+    <AssemblyName>Inventario</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>Inventario.Program</StartupObject>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="itextsharp">
+      <HintPath>..\..\Inventario45\Inventario45\bin\Debug\itextsharp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="telerik.windows.controls, Version=2013.2.611.40, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL" />
+    <Reference Include="telerik.windows.controls.gridview, Version=2013.2.611.40, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL" />
+    <Reference Include="Telerik.Windows.Controls.Input, Version=2013.2.611.40, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL" />
+    <Reference Include="Telerik.Windows.Controls.Navigation, Version=2013.2.611.40, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL" />
+    <Reference Include="telerik.windows.controls.ribbonview, Version=2013.2.611.40, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL" />
+    <Reference Include="Telerik.Windows.Data, Version=2013.2.611.40, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL" />
+    <Reference Include="UIAutomationProvider">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="UIAutomationTypes">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="UIControls">
+      <HintPath>..\..\..\..\..\Downloads\SearchTextBox\UIControls_35\UIControls\bin\Debug\UIControls.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="CatalogoTipos.xaml.cs">
+      <DependentUpon>CatalogoTipos.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Configuracion\ConfigClass.cs" />
+    <Compile Include="Configuracion\ConfigControls\ReporteConfig.xaml.cs">
+      <DependentUpon>ReporteConfig.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Configuracion\ConfigOptions.xaml.cs">
+      <DependentUpon>ConfigOptions.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Converters\AreaToStringConverter.cs" />
+    <Compile Include="Converters\ExpedienteConverter.cs" />
+    <Compile Include="Converters\MobDescripcionConverter.cs" />
+    <Compile Include="Converters\TituloToStringConverter.cs" />
+    <Compile Include="Converters\UbicacionToStringConverter.cs" />
+    <Compile Include="Dao\Common.cs" />
+    <Compile Include="Dao\CommonProperties.cs" />
+    <Compile Include="Dao\Equipos.cs" />
+    <Compile Include="Dao\HistorialMobiliario.cs" />
+    <Compile Include="Dao\HistorialPc.cs" />
+    <Compile Include="Dao\Mobiliario.cs" />
+    <Compile Include="Dao\ServidoresPublicos.cs" />
+    <Compile Include="Formularios\Areas\AddUpdateArea.xaml.cs">
+      <DependentUpon>AddUpdateArea.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\EquiposFolder\AddEquipos.xaml.cs">
+      <DependentUpon>AddEquipos.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\EquiposFolder\AddSubEquipos.xaml.cs">
+      <DependentUpon>AddSubEquipos.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\EquiposFolder\BuscarEquipo.xaml.cs">
+      <DependentUpon>BuscarEquipo.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\EquiposFolder\DeleteEquipo.xaml.cs">
+      <DependentUpon>DeleteEquipo.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\EquiposFolder\HistorialEquipo.xaml.cs">
+      <DependentUpon>HistorialEquipo.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\EquiposFolder\UpdateEquipo.xaml.cs">
+      <DependentUpon>UpdateEquipo.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\EquiposFolder\UpdateUsuarioEquipo.xaml.cs">
+      <DependentUpon>UpdateUsuarioEquipo.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\MobiliarioFolder\AddUpdateMobiliario.xaml.cs">
+      <DependentUpon>AddUpdateMobiliario.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\MobiliarioFolder\BuscarMobiliario.xaml.cs">
+      <DependentUpon>BuscarMobiliario.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\MobiliarioFolder\UpdateMobiliarioUsuario.xaml.cs">
+      <DependentUpon>UpdateMobiliarioUsuario.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\ServidoresFolder\AddUpdateUsuarios.xaml.cs">
+      <DependentUpon>AddUpdateUsuarios.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Model\AreasModel.cs" />
+    <Compile Include="Model\EquiposModel.cs" />
+    <Compile Include="Model\MobiliarioModel.cs" />
+    <Compile Include="Model\ServidoresModel.cs" />
+    <Compile Include="Model\TiposEquiposModel.cs" />
+    <Compile Include="Model\TitulosModel.cs" />
+    <Compile Include="Model\UbicacionModel.cs" />
+    <Compile Include="Reportes\Exporta\ExportaEquipo.cs" />
+    <Compile Include="Reportes\Exporta\ExportaMobiliario.cs" />
+    <Compile Include="Reportes\Fuentes.cs" />
+    <Compile Include="Reportes\HeaderFooter.cs" />
+    <Compile Include="Reportes\IReportePdf.cs" />
+    <Compile Include="Reportes\RElementosComunes.cs" />
+    <Compile Include="Reportes\REquipoComputo.cs" />
+    <Compile Include="Reportes\RMobiliario.cs" />
+    <Compile Include="Singleton\AreasSingleton.cs" />
+    <Compile Include="Singleton\ServidoresSingleton.cs" />
+    <Compile Include="Singleton\TiposEquiposSingleton.cs" />
+    <Compile Include="Singleton\TitulosSingleton.cs" />
+    <Compile Include="Singleton\UbicacionesSingleton.cs" />
+    <Compile Include="UserControls\ListaAreas.xaml.cs">
+      <DependentUpon>ListaAreas.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\PresentaUsuarios.xaml.cs">
+      <DependentUpon>PresentaUsuarios.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Utils\ConstVariables.cs" />
+    <Compile Include="Utils\MisFunt.cs" />
+    <Compile Include="VerificaInsertaTipos.xaml.cs">
+      <DependentUpon>VerificaInsertaTipos.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WMain.xaml.cs">
+      <DependentUpon>WMain.xaml</DependentUpon>
+    </Compile>
+    <Page Include="CatalogoTipos.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Configuracion\ConfigControls\ReporteConfig.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Configuracion\ConfigOptions.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Formularios\Areas\AddUpdateArea.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Formularios\EquiposFolder\AddEquipos.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Formularios\EquiposFolder\AddSubEquipos.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Formularios\EquiposFolder\BuscarEquipo.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Formularios\EquiposFolder\DeleteEquipo.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Formularios\EquiposFolder\HistorialEquipo.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Formularios\EquiposFolder\UpdateEquipo.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Formularios\EquiposFolder\UpdateUsuarioEquipo.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Formularios\MobiliarioFolder\AddUpdateMobiliario.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Formularios\MobiliarioFolder\BuscarMobiliario.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Formularios\MobiliarioFolder\UpdateMobiliarioUsuario.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Formularios\ServidoresFolder\AddUpdateUsuarios.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DbAccess\Conexion.cs" />
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="Themes\Botones.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\ShinyBlue.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\ShinyRed.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\ListaAreas.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\PresentaUsuarios.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="VerificaInsertaTipos.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="WMain.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Model\AccesoModel.cs" />
+    <Compile Include="Model\AccesoUsuarioModel.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="App.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\close.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\add.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\addMob.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\area.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\asigMob.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\binoc.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\catalog.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\clock.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\config.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\delete.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\delMob.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\edit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\editMob.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\excel.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\first.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\last.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\mueble.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\next.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\noPic.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\pcAdd.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\pcAsigna.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\pcBaja.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\pcEdit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\pcReasigna.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\pdf.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\previous.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\rAreas.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\ReasigMob.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\reportfolder.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\rGral.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\rPersonal.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\scjn.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\search.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\useradd.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\userdelete.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\useredit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\userhelp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\userinfo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\usersearch.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\usertiles.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\userwarning.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\xml.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+ <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
