@@ -211,6 +211,16 @@ namespace Inventario.Properties {
         }
         
         /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Byte[].
+        /// </summary>
+        internal static byte[] itextsharp {
+            get {
+                object obj = ResourceManager.GetObject("itextsharp", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap last {
@@ -387,6 +397,76 @@ namespace Inventario.Properties {
             get {
                 object obj = ResourceManager.GetObject("search", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Byte[].
+        /// </summary>
+        internal static byte[] Telerik_Windows_Controls {
+            get {
+                object obj = ResourceManager.GetObject("Telerik_Windows_Controls", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Byte[].
+        /// </summary>
+        internal static byte[] Telerik_Windows_Controls_GridView {
+            get {
+                object obj = ResourceManager.GetObject("Telerik_Windows_Controls_GridView", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Byte[].
+        /// </summary>
+        internal static byte[] Telerik_Windows_Controls_Input {
+            get {
+                object obj = ResourceManager.GetObject("Telerik_Windows_Controls_Input", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Byte[].
+        /// </summary>
+        internal static byte[] Telerik_Windows_Controls_Navigation {
+            get {
+                object obj = ResourceManager.GetObject("Telerik_Windows_Controls_Navigation", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Byte[].
+        /// </summary>
+        internal static byte[] Telerik_Windows_Controls_RibbonView {
+            get {
+                object obj = ResourceManager.GetObject("Telerik_Windows_Controls_RibbonView", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Byte[].
+        /// </summary>
+        internal static byte[] Telerik_Windows_Data {
+            get {
+                object obj = ResourceManager.GetObject("Telerik_Windows_Data", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Byte[].
+        /// </summary>
+        internal static byte[] UIControls {
+            get {
+                object obj = ResourceManager.GetObject("UIControls", resourceCulture);
+                return ((byte[])(obj));
             }
         }
         
