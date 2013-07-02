@@ -12,7 +12,7 @@
         <Grid.Resources>
             <Converters:ExpedienteConverter x:Key="ExpedienteConverter" />
         </Grid.Resources>
-        
+
         <telerik:RadGridView x:Name="RgridHistorial"
                              HorizontalAlignment="Stretch"
                              VerticalAlignment="Stretch"

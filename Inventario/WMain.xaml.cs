@@ -286,5 +286,11 @@ namespace Inventario
 
             MessageBox.Show("Exportación finalizada");
         }
+
+        private void RbtnDelMobiliario_Click(object sender, RoutedEventArgs e)
+        {
+            DeleteMobiliario delete = new DeleteMobiliario(UcUsuarios.MobilSeleccionado);
+            delete.Show();
+        }
     }
 }

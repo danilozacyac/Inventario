@@ -169,7 +169,7 @@
                                                  IsReadOnly="True"
                                                  ItemsSource="{Binding Mobiliario}"
                                                  ShowGroupPanel="False"
-                                                 Visibility="Visible">
+                                                 Visibility="Visible" SelectionChanged="GridMobiliario_SelectionChanged">
                                 <telerik:RadGridView.Columns>
 
                                     <telerik:GridViewDataColumn DataMemberBinding="{Binding Inventario}" Header="No. de Inventario" />

@@ -222,7 +222,6 @@ namespace Inventario.Model
             dr["FechaModificacion"] = DateTime.Now.ToString("yyyy/MM/dd");
             dr.EndEdit();
 
-            dataSet.Tables["Mobiliario"].Rows.Add(dr);
 
             dataAdapter.UpdateCommand = connectionEpsSql.CreateCommand();
             dataAdapter.UpdateCommand.CommandText = "UPDATE Mobiliario SET idTipo = @idTipo, NoInventario = @NoInventario," +
@@ -323,5 +322,127 @@ namespace Inventario.Model
             dataSet.Dispose();
             dataAdapter.Dispose();
         }
+
+        public void BajaMobiliario( String observaciones)
+        {
+            SqlConnection sqlConne = Conexion.GetConexion();
+            SqlCommand cmd;
+
+            cmd = sqlConne.CreateCommand();
+            cmd.Connection = sqlConne;
+
+            try
+            {
+                sqlConne.Open();
+
+                    this.ActualizaObservacionesMobiliarioBaja(mobiliario, observaciones);
+                    cmd.CommandText = "DELETE FROM Equipos WHERE SC_Equipo = '" + mobiliario.Inventario + "'";
+                    cmd.ExecuteNonQuery();
+            }
+            catch (SqlException sql)
+            {
+                MessageBox.Show("Error ({0}) : {1}" + sql.Source + sql.Message, "Error Interno");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error ({0}) : {1}" + ex.Source + ex.Message, "Error Interno");
+            }
+            finally
+            {
+                sqlConne.Close();
+            }
+        }
+        
+        private void ActualizaObservacionesMobiliarioBaja(Mobiliario mobiliario, String observaciones)
+        {
+            SqlConnection connectionEpsSql = Conexion.GetConexion();
+            SqlDataAdapter dataAdapter = new SqlDataAdapter();
+
+            DataSet dataSet = new DataSet();
+            DataRow dr;
+
+            string sqlCadena = "SELECT * FROM Equipos WHERE SC_Equipo = '" + mobiliario.Inventario + "'";
+
+            dataAdapter.SelectCommand = new SqlCommand(sqlCadena, connectionEpsSql);
+            dataAdapter.Fill(dataSet, "Mobiliario");
+
+            dr = dataSet.Tables["Mobiliario"].Rows[0];
+            dr.BeginEdit();
+            dr["Observaciones"] = observaciones;
+            dr.EndEdit();
+
+
+            dataAdapter.UpdateCommand = connectionEpsSql.CreateCommand();
+            dataAdapter.UpdateCommand.CommandText = "UPDATE Mobiliario SET  Observaciones = @Observaciones " +
+                                                    "WHERE NoInventario = @NoInventario ";
+
+            dataAdapter.UpdateCommand.Parameters.Add("@Observaciones", SqlDbType.VarChar, 0, "Observaciones");
+            dataAdapter.UpdateCommand.Parameters.Add("@NoInventario", SqlDbType.VarChar, 0, "NoInventario");
+
+            dataAdapter.Update(dataSet, "Mobiliario");
+
+            dataSet.Dispose();
+            dataAdapter.Dispose();
+        }
+
+
+        #region Historial
+
+
+        /// <summary>
+        /// Devuelve el listado de movimientos que ha registrado un equipo
+        /// </summary>
+        /// <param name="equipo"></param>
+        /// <returns></returns>
+        public ObservableCollection<HistorialMobiliario> GetHistorial(Equipos equipo)
+        {
+            ObservableCollection<HistorialMobiliario> historiales = new ObservableCollection<HistorialMobiliario>();
+
+            SqlConnection sqlConne = Conexion.GetConexion();
+            SqlDataReader dataReader;
+
+            try
+            {
+                sqlConne.Open();
+
+                string selstr = "SELECT * FROM HistorialMobiliario  WHERE NoInventario = @Inventario ORDER BY fechaReasignacion ";
+                SqlCommand cmd = new SqlCommand(selstr, sqlConne);
+                SqlParameter inventario = cmd.Parameters.Add("@Inventario", SqlDbType.Int, 0);
+                inventario.Value = equipo.ScEquipo;
+
+                dataReader = cmd.ExecuteReader();
+
+                if (dataReader.HasRows)
+                {
+                    while (dataReader.Read())
+                    {
+                        HistorialMobiliario historial = new HistorialMobiliario();
+                        historial.IdMovimiento = Convert.ToInt32(dataReader["IdMovimiento"]);
+                        historial.ExpAnterior = Convert.ToInt32(dataReader["ExpAnterior"]);
+                        historial.ExpActual = Convert.ToInt32(dataReader["ExpActual"]);
+                        historial.Observaciones = dataReader["Observaciones"].ToString();
+                        historial.FechaReasignacion = MiscFunt.ConvertReaderToDateTime(dataReader, "FechaReasignacion"); 
+
+                        historiales.Add(historial);
+                    }
+                }
+            }
+            catch (SqlException sql)
+            {
+                MessageBox.Show("Error ({0}) : {1}" + sql.Source + sql.Message, "Error Interno");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error ({0}) : {1}" + ex.Source + ex.Message, "Error Interno");
+            }
+            finally
+            {
+                sqlConne.Close();
+            }
+            return historiales;
+        }
+
+        #endregion
+
     }
 }

@@ -24,7 +24,7 @@
             <telerik:RadRibbonButton x:Name="RbtnBajaEquipo"
                                      LargeImage="/Inventario;component/Resources/pcBaja.png"
                                      Size="Large"
-                                     Text="Dar equipo de baja" />
+                                     Text="Dar equipo de baja" Click="RbtnBajaEquipo_Click" />
             <telerik:RadRibbonButton x:Name="RbtnEditaEquipo"
                                      LargeImage="/Inventario;component/Resources/pcEdit.png"
                                      Size="Large"

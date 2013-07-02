@@ -10,7 +10,7 @@ namespace Inventario.Dao
         private int expAnterior;
         private int expActual;
         private String observaciones;
-        private DateTime fechaReasignacion;
+        private DateTime? fechaReasignacion;
         private String usuarioModifica;
 
         public int IdMobiliario
@@ -73,7 +73,7 @@ namespace Inventario.Dao
             }
         }
 
-        public DateTime FechaReasignacion
+        public DateTime? FechaReasignacion
         {
             get
             {

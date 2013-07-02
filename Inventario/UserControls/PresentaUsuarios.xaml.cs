@@ -91,5 +91,10 @@ namespace Inventario.UserControls
             TileServidores.DataContext = temp;
             // }
         }
+
+        private void GridMobiliario_SelectionChanged(object sender, SelectionChangeEventArgs e)
+        {
+            MobilSeleccionado = ((RadGridView)sender).SelectedItem as Mobiliario;
+        }
     }
 }

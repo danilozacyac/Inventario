@@ -61,7 +61,7 @@
                          Margin="91,6,0,0"
                          HorizontalAlignment="Left"
                          VerticalAlignment="Top"
-                         IsEnabled="False"
+                         IsEnabled="True"
                          Text="{Binding ScEquipo,
                                         Mode=TwoWay}" />
                 <TextBox Name="TxtMarca"

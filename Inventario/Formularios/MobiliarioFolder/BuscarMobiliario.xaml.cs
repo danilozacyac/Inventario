@@ -62,5 +62,13 @@ namespace Inventario.Formularios.MobiliarioFolder
             update.Show();
             this.Close();
         }
+
+        private void RbtnBajaEquipo_Click(object sender, RoutedEventArgs e)
+        {
+            DeleteMobiliario delete = new DeleteMobiliario(mobiliario);
+            delete.Owner = this.Owner;
+            delete.Show();
+            this.Close();
+        }
     }
 }

@@ -264,6 +264,7 @@
                                              Text="Agregar Mobiliario"
                                              telerik:KeyTipService.AccessText="G" />
                     <telerik:RadRibbonButton x:Name="RbtnDelMobiliario"
+                                             Click="RbtnDelMobiliario_Click"
                                              CollapseToSmall="WhenGroupIsSmall"
                                              LargeImage="Resources/delMob.png"
                                              Size="Large"
@@ -285,6 +286,7 @@
                                              Text="Reasignar Mobiliario" />
 
                 </telerik:RadRibbonGroup>
+                <telerik:RadRibbonGroup />
             </telerik:RadRibbonTab>
         </telerik:RadRibbonView>
 

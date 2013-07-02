@@ -61,6 +61,11 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\Downloads\RadControls_for_WPF_2013_2_0625_DEV_hotfix\Binaries\WPF40\Telerik.Windows.Controls.dll</HintPath>
     </Reference>
+    <Reference Include="Telerik.Windows.Controls.Docking, Version=2013.2.625.40, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\Downloads\RadControls_for_WPF_2013_2_0625_DEV_hotfix\Binaries\WPF40\Telerik.Windows.Controls.Docking.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Telerik.Windows.Controls.GridView, Version=2013.2.611.40, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\Downloads\RadControls_for_WPF_2013_2_0625_DEV_hotfix\Binaries\WPF40\Telerik.Windows.Controls.GridView.dll</HintPath>
@@ -152,6 +157,9 @@
     <Compile Include="Formularios\MobiliarioFolder\BuscarMobiliario.xaml.cs">
       <DependentUpon>BuscarMobiliario.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Formularios\MobiliarioFolder\DeleteMobiliario.xaml.cs">
+      <DependentUpon>DeleteMobiliario.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Formularios\MobiliarioFolder\UpdateMobiliarioUsuario.xaml.cs">
       <DependentUpon>UpdateMobiliarioUsuario.xaml</DependentUpon>
     </Compile>
@@ -241,6 +249,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Formularios\MobiliarioFolder\BuscarMobiliario.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Formularios\MobiliarioFolder\DeleteMobiliario.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
