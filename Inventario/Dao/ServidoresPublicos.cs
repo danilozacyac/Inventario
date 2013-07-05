@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 
 namespace Inventario.Dao
 {
-    public class ServidoresPublicos
+    public class ServidoresPublicos : INotifyPropertyChanged
     {
         private int expediente;
         private int idTitulo;
@@ -189,7 +190,7 @@ namespace Inventario.Dao
             set
             {
                 this.equipos = value;
-                //this.OnPropertyChanged("Equipos");
+                this.OnPropertyChanged("Equipos");
             }
         }
 
@@ -202,9 +203,10 @@ namespace Inventario.Dao
             set
             {
                 this.mobiliario = value;
-                //this.OnPropertyChanged("Mobiliario");
+                this.OnPropertyChanged("Mobiliario");
             }
         }
+
         public String Image
         {
             get
@@ -217,7 +219,16 @@ namespace Inventario.Dao
             }
         }
 
+        #region INotifyPropertyChanged Members
 
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+            if (this.PropertyChanged != null)
+                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+        }
+        
+        #endregion // INotifyPropertyChanged Members
     }
 }
-

@@ -124,8 +124,7 @@ namespace Inventario.Model
                         //servidorP.Equipos = new EquiposModel().GetEquiposPorParametro("Expediente", servidorP.Expediente.ToString());
                         servidorP.Equipos = new List<Equipos>();
                         foreach (Equipos equipo in new EquiposModel().GetEquiposPorParametro("Expediente", servidorP.Expediente.ToString()))
-                            servidorP.Equipos.Add(equipo);
-
+                           servidorP.Equipos.Add(equipo);
 
                         servidorP.Mobiliario = (AccesoUsuarioModel.Grupo == 2 || AccesoUsuarioModel.IsSuper) ? new MobiliarioModel().GetMobiliarioPorParametro("Expediente", servidorP.Expediente.ToString()) :
                                                new ObservableCollection<Mobiliario>();

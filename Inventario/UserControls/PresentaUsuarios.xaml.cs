@@ -5,6 +5,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using Inventario.Dao;
+using Inventario.Model;
 using Inventario.Singleton;
 using Telerik.Windows.Controls;
 
@@ -38,36 +39,6 @@ namespace Inventario.UserControls
             ServidorSeleccionado = TileServidores.SelectedItem as ServidoresPublicos;
         }
 
-        private void TileServidores_TilesSelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-        }
-
-        private void TileServidores_TileSelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-        }
-
-        private void TileServidores_TileStateChanged(object sender, Telerik.Windows.RadRoutedEventArgs e)
-        {
-        }
-
-        private void RbtnMobiliario_Click(object sender, RoutedEventArgs e)
-        {
-        }
-
-        private void SearchBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            String tempString = ((TextBox)sender).Text.ToUpper();
-
-            //if (tempString.Length > 3 && tempString.Length % 2 == 0)
-            //{
-            ObservableCollection<ServidoresPublicos> temp = (ObservableCollection<ServidoresPublicos>)(from n in listaServidores
-                                                                                                       where n.Nombre.ToUpper().Contains(tempString)
-                                                                                                       select n);
-
-            TileServidores.DataContext = temp;
-            // }
-        }
-
         private void RbtnCerrar_Click(object sender, RoutedEventArgs e)
         {
             this.Visibility = System.Windows.Visibility.Collapsed;
@@ -82,19 +53,38 @@ namespace Inventario.UserControls
         {
             String tempString = ((TextBox)sender).Text.ToUpper();
 
-            //if (tempString.Length > 3 && tempString.Length % 2 == 0)
-            //{
             List<ServidoresPublicos> temp = (from n in listaServidores
                                              where n.Nombre.ToUpper().Contains(tempString)
                                              select n).ToList();
 
             TileServidores.DataContext = temp;
-            // }
         }
 
         private void GridMobiliario_SelectionChanged(object sender, SelectionChangeEventArgs e)
         {
             MobilSeleccionado = ((RadGridView)sender).SelectedItem as Mobiliario;
+        }
+
+        private void Rpanels_Loaded(object sender, RoutedEventArgs e)
+        {
+            RadPanelBarItem item = sender as RadPanelBarItem;
+
+            if (item.Name.Equals("RpanelComputo"))
+            {
+                if (AccesoUsuarioModel.Grupo == 1 || AccesoUsuarioModel.IsSuper)
+                {
+                    item.Visibility = Visibility.Visible;
+                    item.IsExpanded = true;
+                }
+            }
+            else if (item.Name.Equals("RpanelMobiliario"))
+            {
+                if (AccesoUsuarioModel.Grupo == 2 || AccesoUsuarioModel.IsSuper)
+                {
+                    item.Visibility = Visibility.Visible;
+                    item.IsExpanded = (AccesoUsuarioModel.IsSuper) ? false : true;
+                }
+            }
         }
     }
 }

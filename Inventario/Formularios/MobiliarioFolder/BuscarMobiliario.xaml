@@ -22,9 +22,10 @@
                     Orientation="Horizontal"
                     Visibility="Collapsed">
             <telerik:RadRibbonButton x:Name="RbtnBajaEquipo"
+                                     Click="RbtnBajaEquipo_Click"
                                      LargeImage="/Inventario;component/Resources/pcBaja.png"
                                      Size="Large"
-                                     Text="Dar equipo de baja" Click="RbtnBajaEquipo_Click" />
+                                     Text="Dar equipo de baja" />
             <telerik:RadRibbonButton x:Name="RbtnEditaEquipo"
                                      LargeImage="/Inventario;component/Resources/pcEdit.png"
                                      Size="Large"
