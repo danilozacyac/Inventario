@@ -12,7 +12,10 @@ namespace Inventario.Splash
         {
             Splashes splasher = new Splashes();
             splasher.Show();
-            
+
+            object obj = AreasSingleton.Areas;
+            obj = UbicacionesSingleton.Ubicaciones;
+            obj = TiposEquiposSingleton.Tipos;
 
             for (int i = 0; i < 5000; i++)
             {
@@ -20,7 +23,8 @@ namespace Inventario.Splash
                 Thread.Sleep(1);
             }
 
-            object obj = ServidoresSingleton.Servidores;
+            obj = ServidoresSingleton.Servidores;
+           
 
             splasher.Close();
         }

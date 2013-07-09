@@ -120,11 +120,11 @@ namespace DaoProject.Model
                         servidorP.Puerta = dataReader["puerta"].ToString();
                         servidorP.Extension = dataReader["Extension"] as int?;
                         servidorP.IdAdscripcion = Convert.ToInt32(dataReader["idadscripcion"]);
-                        //servidorP.Equipos = (AccesoUsuarioModel.Grupo == 1 || AccesoUsuarioModel.IsSuper) ? new EquiposModel().GetEquiposPorParametro("Expediente", servidorP.Expediente.ToString()) :
-                        //                    new ObservableCollection<Equipos>();
+                        servidorP.Equipos = (AccesoUsuarioModel.Grupo == 1 || AccesoUsuarioModel.IsSuper) ? new EquiposModel().GetEquiposPorParametro("Expediente", servidorP.Expediente.ToString()) :
+                                            new ObservableCollection<Equipos>();
 
-                        //servidorP.Mobiliario = (AccesoUsuarioModel.Grupo == 2 || AccesoUsuarioModel.IsSuper) ? new MobiliarioModel().GetMobiliarioPorParametro("Expediente", servidorP.Expediente.ToString()) :
-                                               //new ObservableCollection<Mobiliario>();
+                        servidorP.Mobiliario = (AccesoUsuarioModel.Grupo == 2 || AccesoUsuarioModel.IsSuper) ? new MobiliarioModel().GetMobiliarioPorParametro("Expediente", servidorP.Expediente.ToString()) :
+                                               new ObservableCollection<Mobiliario>();
 
                         servidores.Add(servidorP);
                     }
