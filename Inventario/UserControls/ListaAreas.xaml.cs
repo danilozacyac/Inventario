@@ -2,8 +2,8 @@
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using Inventario.Dao;
-using Inventario.Singleton;
+using DaoProject.Dao;
+using DaoProject.Singleton;
 
 namespace Inventario.UserControls
 {

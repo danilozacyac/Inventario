@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Linq;
 using System.Windows;
-using Inventario.Dao;
-using Inventario.Model;
-using Inventario.Singleton;
-using Inventario.Utils;
+using DaoProject.Dao;
+using DaoProject.Model;
+using DaoProject.Singleton;
+using DaoProject.Utilities;
 
 namespace Inventario.Formularios.EquiposFolder
 {
@@ -86,7 +86,7 @@ namespace Inventario.Formularios.EquiposFolder
                 }
 
                 ConstVariables.ListaSubEquipos.Add(equipo);
-                //ServidoresSingleton.AddEquiposAUsuario(expediente, ConstVariables.ListaSubEquipos);
+                ServidoresSingleton.AddEquiposAUsuario(expediente, ConstVariables.ListaSubEquipos);
 
                 //Al final limpiamos la Lista de subequipos de ConstVariables
                 ConstVariables.ListaSubEquipos.Clear();

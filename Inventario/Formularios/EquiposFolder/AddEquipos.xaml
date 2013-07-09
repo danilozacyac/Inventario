@@ -223,7 +223,7 @@
                                        VerticalAlignment="Top"
                                        Click="RbtnBuscar_Click"
                                        Visibility="Visible">
-                        <Image Source="/Inventario45;component/Resources/search.png" />
+                        <Image Source="/Inventario;component/Resources/search.png" />
                     </telerik:RadButton>
                     <telerik:RadComboBox Name="RcbTitulos"
                                          Width="76"

@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Linq;
 using System.Windows;
-using Inventario.Dao;
-using Inventario.Model;
+using DaoProject.Dao;
+using DaoProject.Model;
 
 namespace Inventario.Formularios.MobiliarioFolder
 {

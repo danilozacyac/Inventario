@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
-using Inventario.Dao;
-using Inventario.Model;
-using Inventario.Singleton;
+using DaoProject.Dao;
+using DaoProject.Model;
+using DaoProject.Singleton;
 using Telerik.Windows.Controls;
 
 namespace Inventario

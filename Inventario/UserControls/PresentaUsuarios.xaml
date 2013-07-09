@@ -9,6 +9,7 @@
              xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
              HorizontalAlignment="Stretch"
              VerticalAlignment="Stretch"
+             IsVisibleChanged="UserControl_IsVisibleChanged_1"
              Loaded="UserControl_Loaded"
              d:DesignHeight="224"
              d:DesignWidth="414"

@@ -2,10 +2,10 @@
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
-using Inventario.Dao;
-using Inventario.Model;
-using Inventario.Singleton;
-using Inventario.Utils;
+using DaoProject.Dao;
+using DaoProject.Model;
+using DaoProject.Singleton;
+using DaoProject.Utilities;
 
 namespace Inventario.Formularios.ServidoresFolder
 {

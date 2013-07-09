@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Windows.Data;
-using Inventario.Singleton;
+using DaoProject.Singleton;
 
 namespace Inventario.Converters
 {

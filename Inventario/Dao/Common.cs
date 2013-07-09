@@ -12,8 +12,8 @@ namespace Inventario.Dao
     {
         public AvailableTemplates()
         {
-            Add(new DataItem("Excel", "", "", @"/Inventario45;component/Resources/excel.png", ""));
-            Add(new DataItem("XML", "", "", @"/Inventario45;component/Resources/xml.png", ""));
+            Add(new DataItem("Excel", "", "", @"/Inventario;component/Resources/excel.png", ""));
+            Add(new DataItem("XML", "", "", @"/Inventario;component/Resources/xml.png", ""));
             //Add(new DataItem("Recent    templates", "", "", @"/RibbonView;component/Images/RibbonView/FirstLook/Backstage/DocTemplateRecent.png", ""));
             //Add(new DataItem("Sample    templates", "", "", @"/RibbonView;component/Images/RibbonView/FirstLook/Backstage/DocTemplateSamples.png", ""));
             //Add(new DataItem("My templates", "", "", @"/RibbonView;component/Images/RibbonView/Backstage/FirstLook/DocTemplateMy.png", ""));

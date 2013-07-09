@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Linq;
 using System.Windows;
-using Inventario.Dao;
-using Inventario.Model;
-using Inventario.Singleton;
-using Inventario.Utils;
+using DaoProject.Dao;
+using DaoProject.Model;
+using DaoProject.Singleton;
+using DaoProject.Utilities;
 
 namespace Inventario.Formularios.MobiliarioFolder
 {
@@ -74,7 +74,7 @@ namespace Inventario.Formularios.MobiliarioFolder
 
                 MobiliarioModel model = new MobiliarioModel(mobiliario);
                 model.SetNewMobiliario();
-                //ServidoresSingleton.AddMobiliarioUsuario(mobiliario.Expediente, new ObservableCollection<Mobiliario>() { mobiliario });
+                ServidoresSingleton.AddMobiliarioUsuario(mobiliario.Expediente,  mobiliario );
 
                 this.Close();
             }

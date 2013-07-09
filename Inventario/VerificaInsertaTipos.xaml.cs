@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
-using Inventario.Dao;
+using DaoProject.Dao;
 
 namespace Inventario
 {

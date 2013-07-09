@@ -23,6 +23,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -36,35 +37,23 @@
   <PropertyGroup>
     <StartupObject>Inventario.Program</StartupObject>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>favicon.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
-    <Reference Include="itextsharp">
-      <HintPath>..\..\Inventario45\Inventario45\bin\Debug\itextsharp.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.Office.Interop.Excel, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-    </Reference>
     <Reference Include="System" />
-    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
-    <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.XML" />
     <Reference Include="Telerik.Windows.Controls, Version=2013.2.611.40, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\Downloads\RadControls_for_WPF_2013_2_0625_DEV_hotfix\Binaries\WPF40\Telerik.Windows.Controls.dll</HintPath>
-    </Reference>
-    <Reference Include="Telerik.Windows.Controls.Docking, Version=2013.2.625.40, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\Downloads\RadControls_for_WPF_2013_2_0625_DEV_hotfix\Binaries\WPF40\Telerik.Windows.Controls.Docking.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="Telerik.Windows.Controls.GridView, Version=2013.2.611.40, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -121,12 +110,6 @@
     <Compile Include="Converters\TituloToStringConverter.cs" />
     <Compile Include="Converters\UbicacionToStringConverter.cs" />
     <Compile Include="Dao\Common.cs" />
-    <Compile Include="Dao\CommonProperties.cs" />
-    <Compile Include="Dao\Equipos.cs" />
-    <Compile Include="Dao\HistorialMobiliario.cs" />
-    <Compile Include="Dao\HistorialPc.cs" />
-    <Compile Include="Dao\Mobiliario.cs" />
-    <Compile Include="Dao\ServidoresPublicos.cs" />
     <Compile Include="Formularios\Areas\AddUpdateArea.xaml.cs">
       <DependentUpon>AddUpdateArea.xaml</DependentUpon>
     </Compile>
@@ -166,34 +149,12 @@
     <Compile Include="Formularios\ServidoresFolder\AddUpdateUsuarios.xaml.cs">
       <DependentUpon>AddUpdateUsuarios.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Model\AreasModel.cs" />
-    <Compile Include="Model\EquiposModel.cs" />
-    <Compile Include="Model\MobiliarioModel.cs" />
-    <Compile Include="Model\ServidoresModel.cs" />
-    <Compile Include="Model\TiposEquiposModel.cs" />
-    <Compile Include="Model\TitulosModel.cs" />
-    <Compile Include="Model\UbicacionModel.cs" />
-    <Compile Include="Reportes\Exporta\ExportaEquipo.cs" />
-    <Compile Include="Reportes\Exporta\ExportaMobiliario.cs" />
-    <Compile Include="Reportes\Fuentes.cs" />
-    <Compile Include="Reportes\HeaderFooter.cs" />
-    <Compile Include="Reportes\IReportePdf.cs" />
-    <Compile Include="Reportes\RElementosComunes.cs" />
-    <Compile Include="Reportes\REquipoComputo.cs" />
-    <Compile Include="Reportes\RMobiliario.cs" />
-    <Compile Include="Singleton\AreasSingleton.cs" />
-    <Compile Include="Singleton\ServidoresSingleton.cs" />
-    <Compile Include="Singleton\TiposEquiposSingleton.cs" />
-    <Compile Include="Singleton\TitulosSingleton.cs" />
-    <Compile Include="Singleton\UbicacionesSingleton.cs" />
     <Compile Include="UserControls\ListaAreas.xaml.cs">
       <DependentUpon>ListaAreas.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\PresentaUsuarios.xaml.cs">
       <DependentUpon>PresentaUsuarios.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Utils\ConstVariables.cs" />
-    <Compile Include="Utils\MisFunt.cs" />
     <Compile Include="VerificaInsertaTipos.xaml.cs">
       <DependentUpon>VerificaInsertaTipos.xaml</DependentUpon>
     </Compile>
@@ -272,7 +233,6 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="DbAccess\Conexion.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -307,8 +267,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Model\AccesoModel.cs" />
-    <Compile Include="Model\AccesoUsuarioModel.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
@@ -461,9 +419,6 @@
     <Resource Include="Resources\xml.png" />
   </ItemGroup>
   <ItemGroup>
-    <WCFMetadata Include="Service References\" />
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="Resources\Telerik.Windows.Controls.dll" />
   </ItemGroup>
   <ItemGroup>
@@ -486,6 +441,28 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\UIControls.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="favicon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Lock48.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\shut_down.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DaoProject\DaoProject.csproj">
+      <Project>{b1dcf934-af99-4e12-a640-006ca7d7cb15}</Project>
+      <Name>DaoProject</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Reporting\Reporting.csproj">
+      <Project>{ccc8a44e-79fe-445b-b9f6-28395c9ab053}</Project>
+      <Name>Reporting</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="AfterResolveReferences">

@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{B1DCF934-AF99-4E12-A640-006CA7D7CB15}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DaoProject</RootNamespace>
+    <AssemblyName>DaoProject</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.XML" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Dao\CommonProperties.cs" />
+    <Compile Include="Dao\Equipos.cs" />
+    <Compile Include="Dao\HistorialMobiliario.cs" />
+    <Compile Include="Dao\HistorialPc.cs" />
+    <Compile Include="Dao\Mobiliario.cs" />
+    <Compile Include="DbAccess\Conexion.cs" />
+    <Compile Include="Model\AccesoModel.cs" />
+    <Compile Include="Model\AccesoUsuarioModel.cs" />
+    <Compile Include="Model\AreasModel.cs" />
+    <Compile Include="Model\EquiposModel.cs" />
+    <Compile Include="Model\MobiliarioModel.cs" />
+    <Compile Include="Model\ServidoresModel.cs" />
+    <Compile Include="Model\TiposEquiposModel.cs" />
+    <Compile Include="Model\TitulosModel.cs" />
+    <Compile Include="Model\UbicacionModel.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Dao\ServidoresPublicos.cs" />
+    <Compile Include="Singleton\AreasSingleton.cs" />
+    <Compile Include="Singleton\ServidoresSingleton.cs" />
+    <Compile Include="Singleton\TiposEquiposSingleton.cs" />
+    <Compile Include="Singleton\TitulosSingleton.cs" />
+    <Compile Include="Singleton\UbicacionesSingleton.cs" />
+    <Compile Include="Utilities\ConstVariables.cs" />
+    <Compile Include="Utilities\MisFunt.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

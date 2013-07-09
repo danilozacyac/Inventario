@@ -2,16 +2,16 @@
 using System.Linq;
 using System.Windows;
 using System.Windows.Media.Imaging;
+using DaoProject.Dao;
+using DaoProject.Model;
+using DaoProject.Singleton;
 using Inventario.Configuracion;
-using Inventario.Dao;
 using Inventario.Formularios.Areas;
 using Inventario.Formularios.EquiposFolder;
 using Inventario.Formularios.MobiliarioFolder;
 using Inventario.Formularios.ServidoresFolder;
-using Inventario.Model;
-using Inventario.Reportes;
-using Inventario.Reportes.Exporta;
-using Inventario.Singleton;
+using Reporting;
+using Reporting.Exporta;
 using Telerik.Windows.Controls;
 
 namespace Inventario
@@ -19,7 +19,7 @@ namespace Inventario
     /// <summary>
     /// Interaction logic for WMain.xaml
     /// </summary>
-    public partial class WMain
+    public partial class WMain 
     {
         private IReportePdf reporte;
 
@@ -47,7 +47,7 @@ namespace Inventario
             var window = control.ParentOfType<Window>();
             window.ShowInTaskbar = true;
             window.Title = title;
-            var uri = new Uri("pack://application:,,,/Inventario;component/Resources/edit.png");
+            var uri = new Uri("pack://application:,,,/Inventario;component/Resources/icon.png");
             window.Icon = BitmapFrame.Create(uri);
         }
 
@@ -67,6 +67,8 @@ namespace Inventario
 
         private void RbtnListaUsuarios_Click(object sender, RoutedEventArgs e)
         {
+            
+
             this.UcUsuarios.Visibility = System.Windows.Visibility.Visible;
         }
 

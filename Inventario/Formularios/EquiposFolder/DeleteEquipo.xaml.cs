@@ -1,10 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
-using Inventario.Dao;
-using Inventario.Model;
-using Inventario.Singleton;
+using DaoProject.Dao;
+using DaoProject.Model;
+using DaoProject.Singleton;
 using Telerik.Windows.Controls;
 
 namespace Inventario.Formularios.EquiposFolder
@@ -14,7 +14,7 @@ namespace Inventario.Formularios.EquiposFolder
     /// </summary>
     public partial class DeleteEquipo
     {
-        private List<Equipos> equipos;
+        private ObservableCollection<Equipos> equipos;
         private int currentIndex = 0;
         private Equipos equipo;
 
@@ -56,13 +56,13 @@ namespace Inventario.Formularios.EquiposFolder
             if (ChkOtros.IsChecked == true)
             {
                 model.BajaEquipo(equipos, observacionesDelete);
-                //ServidoresSingleton.RemoveEquipoUsuario(equipo.Expediente, equipos);
+                ServidoresSingleton.RemoveEquipoUsuario(equipo.Expediente, equipos);
             }
             else
             {
-                List<Equipos> lEquipos = new List<Equipos>() { equipos[currentIndex] };
+                ObservableCollection<Equipos> lEquipos = new ObservableCollection<Equipos>() { equipos[currentIndex] };
                 model.BajaEquipo(lEquipos, observacionesDelete);
-                //ServidoresSingleton.RemoveEquipoUsuario(equipos[currentIndex].Expediente, lEquipos);
+                ServidoresSingleton.RemoveEquipoUsuario(equipos[currentIndex].Expediente, lEquipos);
 
             }
 

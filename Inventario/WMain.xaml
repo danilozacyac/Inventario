@@ -87,8 +87,11 @@
                                                     Header="Configurar"
                                                     Icon="Resources/config.png"
                                                     IsSelectable="False" />
-                    <telerik:RadRibbonBackstageItem Header="Exit"
-                                                    Icon="Resources/next.png"
+                    <telerik:RadRibbonBackstageItem Header="Cerrar sesión"
+                                                    Icon="/Inventario;component/Resources/Lock48.png"
+                                                    IsSelectable="False" />
+                    <telerik:RadRibbonBackstageItem Header="Salir"
+                                                    Icon="/Inventario;component/Resources/shut_down.png"
                                                     IsSelectable="False" />
                 </telerik:RadRibbonBackstage>
             </telerik:RadRibbonView.Backstage>
@@ -300,7 +303,7 @@
                                        Grid.Row="1"
                                        HorizontalAlignment="Stretch"
                                        VerticalAlignment="Stretch"
-                                       Visibility="Hidden" />
+                                       Visibility="Collapsed" />
 
 
     </Grid>

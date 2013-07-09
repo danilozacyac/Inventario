@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Windows;
-using Inventario.Model;
+using DaoProject.Model;
 
 namespace Inventario
 {
@@ -10,13 +10,14 @@ namespace Inventario
     /// </summary>
     public partial class MainWindow : Window
     {
+
+
         public MainWindow()
         {
             InitializeComponent();
-
             TxtUsuario.Focus();
-
-            // new UsersLoading();
+            //worker.DoWork += this.WorkerDoWork;
+                        
         }
 
         private void RbtnCancelar_Click(object sender, RoutedEventArgs e)
@@ -31,8 +32,6 @@ namespace Inventario
 
             if (AccesoModel.IsLogginCorrect())
             {
-                //permite el Acceso a la aplicación
-                // MessageBox.Show("Bienvenido", "Atención", MessageBoxButton.OK, MessageBoxImage.Warning);
                 WMain main = new WMain();
                 main.Show();
                 main.BringToFront();
@@ -43,6 +42,10 @@ namespace Inventario
                 MessageBox.Show("El usuario y/o contraseña que ingreso son incorrectos", "Atención", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
+
+
+       
+
 
 
     }

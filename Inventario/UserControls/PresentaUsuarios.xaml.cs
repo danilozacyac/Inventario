@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using Inventario.Dao;
-using Inventario.Model;
-using Inventario.Singleton;
+using DaoProject.Dao;
+using DaoProject.Model;
+using DaoProject.Singleton;
 using Telerik.Windows.Controls;
 
 namespace Inventario.UserControls
@@ -29,9 +28,9 @@ namespace Inventario.UserControls
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            listaServidores = ServidoresSingleton.Servidores;
+            //listaServidores = ServidoresSingleton.Servidores;
 
-            this.DataContext = listaServidores;
+            //this.DataContext = listaServidores;
         }
 
         private void TileServidores_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -84,6 +83,16 @@ namespace Inventario.UserControls
                     item.Visibility = Visibility.Visible;
                     item.IsExpanded = (AccesoUsuarioModel.IsSuper) ? false : true;
                 }
+            }
+        }
+
+        private void UserControl_IsVisibleChanged_1(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            if (this.IsVisible == true)
+            {
+                listaServidores = ServidoresSingleton.Servidores;
+
+                this.DataContext = listaServidores;
             }
         }
     }

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Linq;
 using System.Windows;
-using Inventario.Dao;
-using Inventario.Singleton;
-using Inventario.Utils;
+using DaoProject.Dao;
+using DaoProject.Singleton;
+using DaoProject.Utilities;
 
 namespace Inventario.Formularios.EquiposFolder
 {
