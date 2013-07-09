@@ -149,6 +149,12 @@
     <Compile Include="Formularios\ServidoresFolder\AddUpdateUsuarios.xaml.cs">
       <DependentUpon>AddUpdateUsuarios.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Splash\DispatcherHelper.cs" />
+    <Compile Include="Splash\LaunchSplash.cs" />
+    <Compile Include="Splash\MessageListener.cs" />
+    <Compile Include="Splash\Splashes.xaml.cs">
+      <DependentUpon>Splashes.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\ListaAreas.xaml.cs">
       <DependentUpon>ListaAreas.xaml</DependentUpon>
     </Compile>
@@ -237,6 +243,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Splash\Splashes.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Themes\Botones.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

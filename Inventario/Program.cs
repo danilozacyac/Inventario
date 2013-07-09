@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using Inventario.Splash;
 
 namespace Inventario
 {
@@ -10,6 +11,9 @@ namespace Inventario
         [STAThreadAttribute]
         public static void Main()
         {
+            
+           
+
             var assemblies = new Dictionary<string, Assembly>();
             var executingAssembly = Assembly.GetExecutingAssembly();
             var resources = executingAssembly.GetManifestResourceNames().Where(n => n.EndsWith(".dll"));
@@ -47,6 +51,8 @@ namespace Inventario
 
                 return null;
             };
+
+            LaunchSplash launch = new LaunchSplash();
 
             App.Main();
         }
