@@ -82,7 +82,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="UIControls">
-      <HintPath>..\..\..\..\..\Downloads\SearchTextBox\UIControls_35\UIControls\bin\Debug\UIControls.dll</HintPath>
+      <HintPath>..\..\..\..\..\Desktop\Nueva carpeta\UIControls.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="WindowsBase" />

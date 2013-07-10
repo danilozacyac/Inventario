@@ -38,7 +38,7 @@ namespace Inventario.Formularios.EquiposFolder
         {
             equipo.IdTipo = Convert.ToInt32(RcbTipoEquipo.SelectedValue);
             EquiposModel upd = new EquiposModel(equipo);
-            upd.UpdateEquipo();
+            upd.UpdateEquipo((equipo.ScEquipo.Equals(TxtScEquipo.Text)) ? String.Empty : TxtScEquipo.Text  );
 
             DialogResult = true;
 

@@ -217,8 +217,11 @@ namespace DaoProject.Model
         /// <summary>
         /// Actualiza los datos generales del equipo
         /// </summary>
-        public void UpdateEquipo()
+        public void UpdateEquipo(String nuevoSc)
         {
+
+            
+
             SqlConnection connectionEpsSql = Conexion.GetConexion();
             SqlDataAdapter dataAdapter = new SqlDataAdapter();
 
@@ -232,7 +235,7 @@ namespace DaoProject.Model
 
             dr = dataSet.Tables["Equipos"].Rows[0];
             dr.BeginEdit();
-            dr["SC_Equipo"] = equipo.ScEquipo;
+            dr["SC_Equipo"] = (String.IsNullOrEmpty(nuevoSc)) ? equipo.ScEquipo : nuevoSc;
             dr["Expediente"] = equipo.Expediente;
             dr["idTipo"] = equipo.IdTipo;
             dr["Marca"] = equipo.Marca;

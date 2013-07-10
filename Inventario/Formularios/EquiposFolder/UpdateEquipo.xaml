@@ -62,8 +62,7 @@
                          HorizontalAlignment="Left"
                          VerticalAlignment="Top"
                          IsEnabled="True"
-                         Text="{Binding ScEquipo,
-                                        Mode=TwoWay}" />
+                         Text="{Binding ScEquipo,Mode=OneTime}" />
                 <TextBox Name="TxtMarca"
                          Width="124"
                          Height="23"
