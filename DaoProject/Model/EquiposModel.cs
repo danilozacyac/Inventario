@@ -217,7 +217,9 @@ namespace DaoProject.Model
         /// <summary>
         /// Actualiza los datos generales del equipo
         /// </summary>
-        public void UpdateEquipo(String nuevoSc)
+        /// <param name="nuevoSc">nuevoSc del equipo</param>
+        /// <param name="nuevoTipo">nuevo tipo de equipo</param>
+        public void UpdateEquipo(String nuevoSc,int nuevoTipo)
         {
 
             
@@ -237,7 +239,7 @@ namespace DaoProject.Model
             dr.BeginEdit();
             dr["SC_Equipo"] = (String.IsNullOrEmpty(nuevoSc)) ? equipo.ScEquipo : nuevoSc;
             dr["Expediente"] = equipo.Expediente;
-            dr["idTipo"] = equipo.IdTipo;
+            dr["idTipo"] = (equipo.IdEquipo != nuevoTipo) ? nuevoTipo : equipo.IdTipo;
             dr["Marca"] = equipo.Marca;
             dr["Modelo"] = equipo.Modelo;
             dr["NoSerie"] = equipo.NoSerie;

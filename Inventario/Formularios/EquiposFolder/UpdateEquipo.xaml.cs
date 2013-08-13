@@ -36,9 +36,9 @@ namespace Inventario.Formularios.EquiposFolder
 
         private void RbtnAceptar_Click(object sender, RoutedEventArgs e)
         {
-            equipo.IdTipo = Convert.ToInt32(RcbTipoEquipo.SelectedValue);
+            //equipo.IdTipo = Convert.ToInt32(RcbTipoEquipo.SelectedValue);
             EquiposModel upd = new EquiposModel(equipo);
-            upd.UpdateEquipo((equipo.ScEquipo.Equals(TxtScEquipo.Text)) ? String.Empty : TxtScEquipo.Text  );
+            upd.UpdateEquipo(((equipo.ScEquipo.Equals(TxtScEquipo.Text)) ? String.Empty : TxtScEquipo.Text), Convert.ToInt32(RcbTipoEquipo.SelectedValue) );
 
             DialogResult = true;
 
