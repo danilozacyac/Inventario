@@ -211,33 +211,49 @@ namespace DaoProject.Model
 
             string sqlCadena = "SELECT * FROM Mobiliario WHERE idMobiliario = " + mobiliario.IdMobiliario;
 
-            dataAdapter.SelectCommand = new SqlCommand(sqlCadena, connectionEpsSql);
-            dataAdapter.Fill(dataSet, "Mobiliario");
+            try
+            {
 
-            dr = dataSet.Tables["Mobiliario"].Rows[0];
-            dr.BeginEdit();
-            dr["idTipo"] = mobiliario.IdTipoMobiliario;
-            dr["NoInventario"] = mobiliario.Inventario;
-            dr["Observaciones"] = mobiliario.Observaciones;
-            dr["FechaModificacion"] = DateTime.Now.ToString("yyyy/MM/dd");
-            dr.EndEdit();
+                dataAdapter.SelectCommand = new SqlCommand(sqlCadena, connectionEpsSql);
+                dataAdapter.Fill(dataSet, "Mobiliario");
+
+                dr = dataSet.Tables["Mobiliario"].Rows[0];
+                dr.BeginEdit();
+                dr["idTipo"] = mobiliario.IdTipoMobiliario;
+                dr["NoInventario"] = mobiliario.Inventario;
+                dr["Observaciones"] = mobiliario.Observaciones;
+                dr["FechaModificacion"] = DateTime.Now.ToString("yyyy/MM/dd");
+                dr.EndEdit();
 
 
-            dataAdapter.UpdateCommand = connectionEpsSql.CreateCommand();
-            dataAdapter.UpdateCommand.CommandText = "UPDATE Mobiliario SET idTipo = @idTipo, NoInventario = @NoInventario," +
-                                                    "Observaciones = @Observaciones, FechaModificacion = @FechaModificacion " +
-                                                    "WHERE idMobiliario = @idMobiliario";
+                dataAdapter.UpdateCommand = connectionEpsSql.CreateCommand();
+                dataAdapter.UpdateCommand.CommandText = "UPDATE Mobiliario SET idTipo = @idTipo, NoInventario = @NoInventario," +
+                                                        "Observaciones = @Observaciones, FechaModificacion = @FechaModificacion " +
+                                                        "WHERE idMobiliario = @idMobiliario";
 
-            dataAdapter.UpdateCommand.Parameters.Add("@idTipo", SqlDbType.Int, 0, "idTipo");
-            dataAdapter.UpdateCommand.Parameters.Add("@NoInventario", SqlDbType.VarChar, 0, "NoInventario");
-            dataAdapter.UpdateCommand.Parameters.Add("@Observaciones", SqlDbType.Text, 0, "Observaciones");
-            dataAdapter.UpdateCommand.Parameters.Add("@FechaModificacion", SqlDbType.Date, 0, "FechaModificacion");
-            dataAdapter.UpdateCommand.Parameters.Add("@idMobiliario", SqlDbType.Int, 0, "idMobiliario");
+                dataAdapter.UpdateCommand.Parameters.Add("@idTipo", SqlDbType.Int, 0, "idTipo");
+                dataAdapter.UpdateCommand.Parameters.Add("@NoInventario", SqlDbType.VarChar, 0, "NoInventario");
+                dataAdapter.UpdateCommand.Parameters.Add("@Observaciones", SqlDbType.Text, 0, "Observaciones");
+                dataAdapter.UpdateCommand.Parameters.Add("@FechaModificacion", SqlDbType.Date, 0, "FechaModificacion");
+                dataAdapter.UpdateCommand.Parameters.Add("@idMobiliario", SqlDbType.Int, 0, "idMobiliario");
 
-            dataAdapter.Update(dataSet, "Mobiliario");
+                dataAdapter.Update(dataSet, "Mobiliario");
 
-            dataSet.Dispose();
-            dataAdapter.Dispose();
+                dataSet.Dispose();
+                dataAdapter.Dispose();
+            }
+            catch (SqlException sql)
+            {
+                MessageBox.Show("Error ({0}) : {1}" + sql.Source + sql.Message, "Error Interno");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error ({0}) : {1}" + ex.Source + ex.Message, "Error Interno");
+            }
+            finally
+            {
+                connectionEpsSql.Close();
+            }
         }
 
 
@@ -251,31 +267,47 @@ namespace DaoProject.Model
 
             string sqlCadena = "SELECT * FROM Mobiliario WHERE idMobiliario = " + mobiliario.IdMobiliario;
 
-            dataAdapter.SelectCommand = new SqlCommand(sqlCadena, connectionEpsSql);
-            dataAdapter.Fill(dataSet, "Mobiliario");
+            try
+            {
 
-            dr = dataSet.Tables["Mobiliario"].Rows[0];
-            dr.BeginEdit();
-            dr["Expediente"] = historial.ExpActual;
-            dr["Observaciones"] = historial.Observaciones;
-            dr.EndEdit();
+                dataAdapter.SelectCommand = new SqlCommand(sqlCadena, connectionEpsSql);
+                dataAdapter.Fill(dataSet, "Mobiliario");
 
-            dataSet.Tables["Mobiliario"].Rows.Add(dr);
+                dr = dataSet.Tables["Mobiliario"].Rows[0];
+                dr.BeginEdit();
+                dr["Expediente"] = historial.ExpActual;
+                dr["Observaciones"] = historial.Observaciones;
+                dr.EndEdit();
 
-            dataAdapter.UpdateCommand = connectionEpsSql.CreateCommand();
-            dataAdapter.UpdateCommand.CommandText = "UPDATE Mobiliario SET Expediente = @Expediente,Observaciones = @Observaciones,FechaModificacion = SysDateTime() " +
-                                                    "WHERE idMobiliario = @idMobiliario";
+                dataSet.Tables["Mobiliario"].Rows.Add(dr);
 
-            dataAdapter.UpdateCommand.Parameters.Add("@Expediente", SqlDbType.Int, 0, "Expediente");
-            dataAdapter.UpdateCommand.Parameters.Add("@Observaciones", SqlDbType.Text, 0, "Observaciones");
-            dataAdapter.UpdateCommand.Parameters.Add("@idMobiliario", SqlDbType.Int, 0, "idMobiliario");
+                dataAdapter.UpdateCommand = connectionEpsSql.CreateCommand();
+                dataAdapter.UpdateCommand.CommandText = "UPDATE Mobiliario SET Expediente = @Expediente,Observaciones = @Observaciones,FechaModificacion = SysDateTime() " +
+                                                        "WHERE idMobiliario = @idMobiliario";
 
-            dataAdapter.Update(dataSet, "Mobiliario");
+                dataAdapter.UpdateCommand.Parameters.Add("@Expediente", SqlDbType.Int, 0, "Expediente");
+                dataAdapter.UpdateCommand.Parameters.Add("@Observaciones", SqlDbType.Text, 0, "Observaciones");
+                dataAdapter.UpdateCommand.Parameters.Add("@idMobiliario", SqlDbType.Int, 0, "idMobiliario");
 
-            dataSet.Dispose();
-            dataAdapter.Dispose();
+                dataAdapter.Update(dataSet, "Mobiliario");
 
-            this.InsertaHistorialMobiliario(historial);
+                dataSet.Dispose();
+                dataAdapter.Dispose();
+
+                this.InsertaHistorialMobiliario(historial);
+            }
+            catch (SqlException sql)
+            {
+                MessageBox.Show("Error ({0}) : {1}" + sql.Source + sql.Message, "Error Interno");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error ({0}) : {1}" + ex.Source + ex.Message, "Error Interno");
+            }
+            finally
+            {
+                connectionEpsSql.Close();
+            }
         }
 
         /// <summary>
@@ -286,41 +318,57 @@ namespace DaoProject.Model
         private void InsertaHistorialMobiliario(HistorialMobiliario historial)
         {
             SqlConnection connectionEpsSql = Conexion.GetConexion();
-            DbDataAdapter dataAdapter;
+            SqlDataAdapter dataAdapter;
 
             DataSet dataSet = new DataSet();
             DataRow dr;
 
             string sqlCadena = "SELECT * FROM HistorialMobiliario WHERE idMovimiento = 0";
 
-            dataAdapter = new SqlDataAdapter();
-            dataAdapter.SelectCommand = new SqlCommand(sqlCadena, connectionEpsSql);
+            try
+            {
 
-            dataAdapter.Fill(dataSet, "Mobiliario");
+                dataAdapter = new SqlDataAdapter();
+                dataAdapter.SelectCommand = new SqlCommand(sqlCadena, connectionEpsSql);
 
-            dr = dataSet.Tables["Mobiliario"].NewRow();
-            dr["idMobiliario"] = historial.IdMobiliario;
-            dr["expAnterior"] = historial.ExpAnterior;
-            dr["expActual"] = historial.ExpActual;
-            dr["Observaciones"] = historial.Observaciones;
-            dr["usuarioModifica"] = AccesoUsuarioModel.Usuario;
+                dataAdapter.Fill(dataSet, "Mobiliario");
 
-            dataSet.Tables["Mobiliario"].Rows.Add(dr);
+                dr = dataSet.Tables["Mobiliario"].NewRow();
+                dr["idMobiliario"] = historial.IdMobiliario;
+                dr["expAnterior"] = historial.ExpAnterior;
+                dr["expActual"] = historial.ExpActual;
+                dr["Observaciones"] = historial.Observaciones;
+                dr["usuarioModifica"] = AccesoUsuarioModel.Usuario;
 
-            dataAdapter.InsertCommand = connectionEpsSql.CreateCommand();
-            dataAdapter.InsertCommand.CommandText = "INSERT INTO HistorialMobiliario(idMobiliario,expAnterior,expActual,Observaciones,FechaReasignacion,usuarioModifica)" +
-                                                    " VALUES(@idMobiliario,@expAnterior,@expActual,@Observaciones,SysDateTime(),@usuarioModifica)";
+                dataSet.Tables["Mobiliario"].Rows.Add(dr);
 
-            ((SqlDataAdapter)dataAdapter).InsertCommand.Parameters.Add("@idMobiliario", SqlDbType.Int, 0, "idMobiliario");
-            ((SqlDataAdapter)dataAdapter).InsertCommand.Parameters.Add("@expAnterior", SqlDbType.Int, 0, "expAnterior");
-            ((SqlDataAdapter)dataAdapter).InsertCommand.Parameters.Add("@expActual", SqlDbType.Int, 0, "expActual");
-            ((SqlDataAdapter)dataAdapter).InsertCommand.Parameters.Add("@Observaciones", SqlDbType.Text, 0, "Observaciones");
-            ((SqlDataAdapter)dataAdapter).InsertCommand.Parameters.Add("@usuarioModifica", SqlDbType.VarChar, 0, "usuarioModifica");
+                dataAdapter.InsertCommand = connectionEpsSql.CreateCommand();
+                dataAdapter.InsertCommand.CommandText = "INSERT INTO HistorialMobiliario(idMobiliario,expAnterior,expActual,Observaciones,FechaReasignacion,usuarioModifica)" +
+                                                        " VALUES(@idMobiliario,@expAnterior,@expActual,@Observaciones,SysDateTime(),@usuarioModifica)";
 
-            dataAdapter.Update(dataSet, "Mobiliario");
+                dataAdapter.InsertCommand.Parameters.Add("@idMobiliario", SqlDbType.Int, 0, "idMobiliario");
+                dataAdapter.InsertCommand.Parameters.Add("@expAnterior", SqlDbType.Int, 0, "expAnterior");
+                dataAdapter.InsertCommand.Parameters.Add("@expActual", SqlDbType.Int, 0, "expActual");
+                dataAdapter.InsertCommand.Parameters.Add("@Observaciones", SqlDbType.Text, 0, "Observaciones");
+                dataAdapter.InsertCommand.Parameters.Add("@usuarioModifica", SqlDbType.VarChar, 0, "usuarioModifica");
 
-            dataSet.Dispose();
-            dataAdapter.Dispose();
+                dataAdapter.Update(dataSet, "Mobiliario");
+
+                dataSet.Dispose();
+                dataAdapter.Dispose();
+            }
+            catch (SqlException sql)
+            {
+                MessageBox.Show("Error ({0}) : {1}" + sql.Source + sql.Message, "Error Interno");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error ({0}) : {1}" + ex.Source + ex.Message, "Error Interno");
+            }
+            finally
+            {
+                connectionEpsSql.Close();
+            }
         }
 
         public void BajaMobiliario( String observaciones)
@@ -363,26 +411,42 @@ namespace DaoProject.Model
 
             string sqlCadena = "SELECT * FROM Equipos WHERE SC_Equipo = '" + mobiliario.Inventario + "'";
 
-            dataAdapter.SelectCommand = new SqlCommand(sqlCadena, connectionEpsSql);
-            dataAdapter.Fill(dataSet, "Mobiliario");
+            try
+            {
 
-            dr = dataSet.Tables["Mobiliario"].Rows[0];
-            dr.BeginEdit();
-            dr["Observaciones"] = observaciones;
-            dr.EndEdit();
+                dataAdapter.SelectCommand = new SqlCommand(sqlCadena, connectionEpsSql);
+                dataAdapter.Fill(dataSet, "Mobiliario");
+
+                dr = dataSet.Tables["Mobiliario"].Rows[0];
+                dr.BeginEdit();
+                dr["Observaciones"] = observaciones;
+                dr.EndEdit();
 
 
-            dataAdapter.UpdateCommand = connectionEpsSql.CreateCommand();
-            dataAdapter.UpdateCommand.CommandText = "UPDATE Mobiliario SET  Observaciones = @Observaciones " +
-                                                    "WHERE NoInventario = @NoInventario ";
+                dataAdapter.UpdateCommand = connectionEpsSql.CreateCommand();
+                dataAdapter.UpdateCommand.CommandText = "UPDATE Mobiliario SET  Observaciones = @Observaciones " +
+                                                        "WHERE NoInventario = @NoInventario ";
 
-            dataAdapter.UpdateCommand.Parameters.Add("@Observaciones", SqlDbType.VarChar, 0, "Observaciones");
-            dataAdapter.UpdateCommand.Parameters.Add("@NoInventario", SqlDbType.VarChar, 0, "NoInventario");
+                dataAdapter.UpdateCommand.Parameters.Add("@Observaciones", SqlDbType.VarChar, 0, "Observaciones");
+                dataAdapter.UpdateCommand.Parameters.Add("@NoInventario", SqlDbType.VarChar, 0, "NoInventario");
 
-            dataAdapter.Update(dataSet, "Mobiliario");
+                dataAdapter.Update(dataSet, "Mobiliario");
 
-            dataSet.Dispose();
-            dataAdapter.Dispose();
+                dataSet.Dispose();
+                dataAdapter.Dispose();
+            }
+            catch (SqlException sql)
+            {
+                MessageBox.Show("Error ({0}) : {1}" + sql.Source + sql.Message, "Error Interno");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error ({0}) : {1}" + ex.Source + ex.Message, "Error Interno");
+            }
+            finally
+            {
+                connectionEpsSql.Close();
+            }
         }
 
 

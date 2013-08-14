@@ -123,6 +123,7 @@ namespace DaoProject.Model
         /// </summary>
         public void SetNewArea()
         {
+
             SqlConnection connectionEpsSql = Conexion.GetConexion();
             SqlDataAdapter dataAdapter;
 
@@ -131,30 +132,45 @@ namespace DaoProject.Model
 
             string sqlCadena = "SELECT * FROM Areas WHERE idArea = 0";
 
-            dataAdapter = new SqlDataAdapter();
-            dataAdapter.SelectCommand = new SqlCommand(sqlCadena, connectionEpsSql);
+            try
+            {
+                dataAdapter = new SqlDataAdapter();
+                dataAdapter.SelectCommand = new SqlCommand(sqlCadena, connectionEpsSql);
 
-            dataAdapter.Fill(dataSet, "Areas");
+                dataAdapter.Fill(dataSet, "Areas");
 
-            dr = dataSet.Tables["Areas"].NewRow();
-            dr["Area"] = area.Descripcion;
-            dr["Corto"] = area.Corto;
-            dr["Abreviatura"] = area.Abreviatura;
+                dr = dataSet.Tables["Areas"].NewRow();
+                dr["Area"] = area.Descripcion;
+                dr["Corto"] = area.Corto;
+                dr["Abreviatura"] = area.Abreviatura;
 
-            dataSet.Tables["Areas"].Rows.Add(dr);
+                dataSet.Tables["Areas"].Rows.Add(dr);
 
-            dataAdapter.InsertCommand = connectionEpsSql.CreateCommand();
-            dataAdapter.InsertCommand.CommandText = "INSERT INTO Areas(Area,Corto,Abreviatura)" +
-                                                    " VALUES(@Area,@Corto,@Abreviatura)";
+                dataAdapter.InsertCommand = connectionEpsSql.CreateCommand();
+                dataAdapter.InsertCommand.CommandText = "INSERT INTO Areas(Area,Corto,Abreviatura)" +
+                                                        " VALUES(@Area,@Corto,@Abreviatura)";
 
-            dataAdapter.InsertCommand.Parameters.Add("@Area", SqlDbType.VarChar, 0, "Area");
-            dataAdapter.InsertCommand.Parameters.Add("@Corto", SqlDbType.VarChar, 0, "Corto");
-            dataAdapter.InsertCommand.Parameters.Add("@Abreviatura", SqlDbType.VarChar, 0, "Abreviatura");
+                dataAdapter.InsertCommand.Parameters.Add("@Area", SqlDbType.VarChar, 0, "Area");
+                dataAdapter.InsertCommand.Parameters.Add("@Corto", SqlDbType.VarChar, 0, "Corto");
+                dataAdapter.InsertCommand.Parameters.Add("@Abreviatura", SqlDbType.VarChar, 0, "Abreviatura");
 
-            dataAdapter.Update(dataSet, "Areas");
+                dataAdapter.Update(dataSet, "Areas");
 
-            dataSet.Dispose();
-            dataAdapter.Dispose();
+                dataSet.Dispose();
+                dataAdapter.Dispose();
+            }
+            catch (SqlException sql)
+            {
+                MessageBox.Show("Error ({0}) : {1}" + sql.Source + sql.Message, "Error Interno");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error ({0}) : {1}" + ex.Source + ex.Message, "Error Interno");
+            }
+            finally
+            {
+                connectionEpsSql.Close();
+            }
         }
 
         /// <summary>

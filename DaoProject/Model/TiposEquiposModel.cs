@@ -86,32 +86,48 @@ namespace DaoProject.Model
 
             string sqlCadena = "SELECT * FROM TiposEquipos WHERE idTipo = 0";
 
-            dataAdapter = new SqlDataAdapter();
-            dataAdapter.SelectCommand = new SqlCommand(sqlCadena, connectionEpsSql);
+            try
+            {
 
-            dataAdapter.Fill(dataSet, "TiposEquipos");
+                dataAdapter = new SqlDataAdapter();
+                dataAdapter.SelectCommand = new SqlCommand(sqlCadena, connectionEpsSql);
 
-            tipo.IdElemento = this.GetLastId() + 1;
+                dataAdapter.Fill(dataSet, "TiposEquipos");
 
-            dr = dataSet.Tables["TiposEquipos"].NewRow();
-            dr["idTipo"] = tipo.IdElemento;
-            dr["Descripcion"] = tipo.Descripcion;
-            dr["IdInventario"] = AccesoUsuarioModel.Grupo;
+                tipo.IdElemento = this.GetLastId() + 1;
 
-            dataSet.Tables["TiposEquipos"].Rows.Add(dr);
+                dr = dataSet.Tables["TiposEquipos"].NewRow();
+                dr["idTipo"] = tipo.IdElemento;
+                dr["Descripcion"] = tipo.Descripcion;
+                dr["IdInventario"] = AccesoUsuarioModel.Grupo;
 
-            dataAdapter.InsertCommand = connectionEpsSql.CreateCommand();
-            dataAdapter.InsertCommand.CommandText = "INSERT INTO TiposEquipos(IdTipo,Descripcion,IdInventario)" +
-                                                    " VALUES(@IdTipo,@Descripcion,@IdInventario)";
+                dataSet.Tables["TiposEquipos"].Rows.Add(dr);
 
-            dataAdapter.InsertCommand.Parameters.Add("@IdTipo", SqlDbType.Int, 0, "IdTipo");
-            dataAdapter.InsertCommand.Parameters.Add("@Descripcion", SqlDbType.VarChar, 0, "Descripcion");
-            dataAdapter.InsertCommand.Parameters.Add("@IdInventario", SqlDbType.Int, 0, "IdInventario");
+                dataAdapter.InsertCommand = connectionEpsSql.CreateCommand();
+                dataAdapter.InsertCommand.CommandText = "INSERT INTO TiposEquipos(IdTipo,Descripcion,IdInventario)" +
+                                                        " VALUES(@IdTipo,@Descripcion,@IdInventario)";
 
-            dataAdapter.Update(dataSet, "TiposEquipos");
+                dataAdapter.InsertCommand.Parameters.Add("@IdTipo", SqlDbType.Int, 0, "IdTipo");
+                dataAdapter.InsertCommand.Parameters.Add("@Descripcion", SqlDbType.VarChar, 0, "Descripcion");
+                dataAdapter.InsertCommand.Parameters.Add("@IdInventario", SqlDbType.Int, 0, "IdInventario");
 
-            dataSet.Dispose();
-            dataAdapter.Dispose();
+                dataAdapter.Update(dataSet, "TiposEquipos");
+
+                dataSet.Dispose();
+                dataAdapter.Dispose();
+            }
+            catch (SqlException sql)
+            {
+                MessageBox.Show("Error ({0}) : {1}" + sql.Source + sql.Message, "Error Interno");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error ({0}) : {1}" + ex.Source + ex.Message, "Error Interno");
+            }
+            finally
+            {
+                connectionEpsSql.Close();
+            }
 
             return tipo;
         }
@@ -130,30 +146,45 @@ namespace DaoProject.Model
 
             string sqlCadena = "SELECT * FROM TiposEquipos WHERE idTipo = " + tipo.IdElemento + " AND idInventario = " + AccesoUsuarioModel.Grupo;
 
-            dataAdapter = new SqlDataAdapter();
-            dataAdapter.SelectCommand = new SqlCommand(sqlCadena, connectionEpsSql);
+            try
+            {
 
-            dataAdapter.Fill(dataSet, "TiposEquipos");
+                dataAdapter = new SqlDataAdapter();
+                dataAdapter.SelectCommand = new SqlCommand(sqlCadena, connectionEpsSql);
+
+                dataAdapter.Fill(dataSet, "TiposEquipos");
 
 
-            dr = dataSet.Tables["TiposEquipos"].Rows[0];
-            dr.BeginEdit();
-            dr["Descripcion"] = tipo.Descripcion.ToUpper();
-            dr.EndEdit();
+                dr = dataSet.Tables["TiposEquipos"].Rows[0];
+                dr.BeginEdit();
+                dr["Descripcion"] = tipo.Descripcion.ToUpper();
+                dr.EndEdit();
 
-            dataAdapter.UpdateCommand = connectionEpsSql.CreateCommand();
-            dataAdapter.UpdateCommand.CommandText = "UPDATE TiposEquipos SET Descripcion = @Descripcion" +
-                                                    " WHERE IdTipo = @IdTipo and IdInventario = @IdInventario";
+                dataAdapter.UpdateCommand = connectionEpsSql.CreateCommand();
+                dataAdapter.UpdateCommand.CommandText = "UPDATE TiposEquipos SET Descripcion = @Descripcion" +
+                                                        " WHERE IdTipo = @IdTipo and IdInventario = @IdInventario";
 
-            dataAdapter.UpdateCommand.Parameters.Add("@Descripcion", SqlDbType.VarChar, 0, "Descripcion");
-            dataAdapter.UpdateCommand.Parameters.Add("@IdTipo", SqlDbType.Int, 0, "IdTipo");
-            dataAdapter.UpdateCommand.Parameters.Add("@IdInventario", SqlDbType.Int, 0, "IdInventario");
+                dataAdapter.UpdateCommand.Parameters.Add("@Descripcion", SqlDbType.VarChar, 0, "Descripcion");
+                dataAdapter.UpdateCommand.Parameters.Add("@IdTipo", SqlDbType.Int, 0, "IdTipo");
+                dataAdapter.UpdateCommand.Parameters.Add("@IdInventario", SqlDbType.Int, 0, "IdInventario");
 
-            dataAdapter.Update(dataSet, "TiposEquipos");
+                dataAdapter.Update(dataSet, "TiposEquipos");
 
-            dataSet.Dispose();
-            dataAdapter.Dispose();
-
+                dataSet.Dispose();
+                dataAdapter.Dispose();
+            }
+            catch (SqlException sql)
+            {
+                MessageBox.Show("Error ({0}) : {1}" + sql.Source + sql.Message, "Error Interno");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error ({0}) : {1}" + ex.Source + ex.Message, "Error Interno");
+            }
+            finally
+            {
+                connectionEpsSql.Close();
+            }
             return tipo;
         }
 
