@@ -52,13 +52,13 @@ namespace DaoProject.Singleton
             int index = servidores.IndexOf(servidor);
 
 
-            foreach (Equipos mobil in equiposBaja)
+            foreach (Equipos equipo in equiposBaja)
             {
                 int indexes = -1;
 
                 for (int x = 0; x < servidores[index].Equipos.Count; x++)
                 {
-                    if (servidores[index].Equipos[x].ScEquipo == mobil.ScEquipo && servidores[index].Equipos[x].IdTipo == mobil.IdTipo)
+                    if (servidores[index].Equipos[x].ScEquipo == equipo.ScEquipo && servidores[index].Equipos[x].IdTipo == equipo.IdTipo)
                     {
                         indexes = x;
                     }
@@ -79,6 +79,38 @@ namespace DaoProject.Singleton
             int index = servidores.IndexOf(servidor);
 
             servidores[index].Mobiliario.Add(nuevoMobiliario);
+        }
+
+        public static void RemoveMobiliarioUsuario(int expediente, Mobiliario mobiliarioBaja)
+        {
+            ServidoresPublicos servidor = (from n in servidores
+                                           where n.Expediente == expediente
+                                           select n).ToList()[0];
+
+            int index = servidores.IndexOf(servidor);
+
+            int mobIndex = servidor.Mobiliario.IndexOf(mobiliarioBaja);
+
+            if (mobIndex != -1)
+                servidor.Mobiliario.RemoveAt(mobIndex);
+
+
+            //foreach (Mobiliario mobiliario in mobiliarioBaja)
+            //{
+            //    int indexes = -1;
+
+            //    for (int x = 0; x < servidores[index].Mobiliario.Count; x++)
+            //    {
+            //        if (servidores[index].Mobiliario[x].Inventario == mobiliario.Inventario )
+            //        {
+            //            indexes = x;
+            //        }
+            //    }
+
+            //    if (indexes != -1)
+            //        servidores[index].Mobiliario.RemoveAt(indexes);
+
+            //}
         }
     }
 }

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Data;
-using System.Data.Common;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Windows.Forms;
@@ -384,7 +383,7 @@ namespace DaoProject.Model
                 sqlConne.Open();
 
                     this.ActualizaObservacionesMobiliarioBaja(mobiliario, observaciones);
-                    cmd.CommandText = "DELETE FROM Equipos WHERE SC_Equipo = '" + mobiliario.Inventario + "'";
+                    cmd.CommandText = "DELETE FROM Mobiliario WHERE NoInventario = '" + mobiliario.Inventario + "'";
                     cmd.ExecuteNonQuery();
             }
             catch (SqlException sql)
@@ -409,7 +408,7 @@ namespace DaoProject.Model
             DataSet dataSet = new DataSet();
             DataRow dr;
 
-            string sqlCadena = "SELECT * FROM Equipos WHERE SC_Equipo = '" + mobiliario.Inventario + "'";
+            string sqlCadena = "SELECT * FROM Mobiliario WHERE NoInventario = '" + mobiliario.Inventario + "'";
 
             try
             {

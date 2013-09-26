@@ -123,7 +123,7 @@ namespace DaoProject.Model
                         servidorP.Equipos = (AccesoUsuarioModel.Grupo == 1 || AccesoUsuarioModel.IsSuper) ? new EquiposModel().GetEquiposPorParametro("Expediente", servidorP.Expediente.ToString()) :
                                             new ObservableCollection<Equipos>();
 
-                        servidorP.Mobiliario = (AccesoUsuarioModel.Grupo == 2 || AccesoUsuarioModel.IsSuper) ? new MobiliarioModel().GetMobiliarioPorParametro("Expediente", servidorP.Expediente.ToString()) :
+                        servidorP.Mobiliario = (AccesoUsuarioModel.Grupo == 1 || AccesoUsuarioModel.IsSuper) ? new MobiliarioModel().GetMobiliarioPorParametro("Expediente", servidorP.Expediente.ToString()) :
                                                new ObservableCollection<Mobiliario>();
 
                         servidores.Add(servidorP);

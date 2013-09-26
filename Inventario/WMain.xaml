@@ -286,7 +286,7 @@
                                              CollapseToSmall="WhenGroupIsSmall"
                                              LargeImage="Resources/ReasigMob.png"
                                              Size="Large"
-                                             Text="Reasignar Mobiliario" />
+                                             Text="Reasignar Mobiliario" Click="RbtnReasigMobiliario_Click" />
 
                 </telerik:RadRibbonGroup>
                 <telerik:RadRibbonGroup />

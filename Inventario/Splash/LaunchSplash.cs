@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using System.Threading;
-using System.Windows;
 using DaoProject.Singleton;
 
 namespace Inventario.Splash
@@ -17,7 +16,7 @@ namespace Inventario.Splash
             obj = UbicacionesSingleton.Ubicaciones;
             obj = TiposEquiposSingleton.Tipos;
 
-            for (int i = 0; i < 5000; i++)
+            for (int i = 0; i < 3500; i++)
             {
                 MessageListener.Instance.ReceiveMessage(string.Format("Load module {0}", i));
                 Thread.Sleep(1);

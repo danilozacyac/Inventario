@@ -51,30 +51,12 @@
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
     <Reference Include="System.XML" />
-    <Reference Include="Telerik.Windows.Controls, Version=2013.2.611.40, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\Downloads\RadControls_for_WPF_2013_2_0625_DEV_hotfix\Binaries\WPF40\Telerik.Windows.Controls.dll</HintPath>
-    </Reference>
-    <Reference Include="Telerik.Windows.Controls.GridView, Version=2013.2.611.40, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\Downloads\RadControls_for_WPF_2013_2_0625_DEV_hotfix\Binaries\WPF40\Telerik.Windows.Controls.GridView.dll</HintPath>
-    </Reference>
-    <Reference Include="Telerik.Windows.Controls.Input, Version=2013.2.611.40, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\Downloads\RadControls_for_WPF_2013_2_0625_DEV_hotfix\Binaries\WPF40\Telerik.Windows.Controls.Input.dll</HintPath>
-    </Reference>
-    <Reference Include="Telerik.Windows.Controls.Navigation, Version=2013.2.611.40, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\Downloads\RadControls_for_WPF_2013_2_0625_DEV_hotfix\Binaries\WPF40\Telerik.Windows.Controls.Navigation.dll</HintPath>
-    </Reference>
-    <Reference Include="Telerik.Windows.Controls.RibbonView, Version=2013.2.611.40, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\Downloads\RadControls_for_WPF_2013_2_0625_DEV_hotfix\Binaries\WPF40\Telerik.Windows.Controls.RibbonView.dll</HintPath>
-    </Reference>
-    <Reference Include="Telerik.Windows.Data, Version=2013.2.611.40, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\Downloads\RadControls_for_WPF_2013_2_0625_DEV_hotfix\Binaries\WPF40\Telerik.Windows.Data.dll</HintPath>
-    </Reference>
+    <Reference Include="Telerik.Windows.Controls, Version=2013.2.724.40, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL" />
+    <Reference Include="Telerik.Windows.Controls.GridView, Version=2013.2.724.40, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL" />
+    <Reference Include="Telerik.Windows.Controls.Input, Version=2013.2.724.40, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL" />
+    <Reference Include="Telerik.Windows.Controls.Navigation, Version=2013.2.724.40, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL" />
+    <Reference Include="Telerik.Windows.Controls.RibbonView, Version=2013.2.724.40, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL" />
+    <Reference Include="Telerik.Windows.Data, Version=2013.2.724.40, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL" />
     <Reference Include="UIAutomationProvider">
       <Private>True</Private>
     </Reference>
@@ -429,24 +411,6 @@
     <Resource Include="Resources\xml.png" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\Telerik.Windows.Controls.dll" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Resources\Telerik.Windows.Controls.GridView.dll" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Resources\Telerik.Windows.Controls.Input.dll" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Resources\Telerik.Windows.Controls.Navigation.dll" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Resources\Telerik.Windows.Controls.RibbonView.dll" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Resources\Telerik.Windows.Data.dll" />
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="Resources\itextsharp.dll" />
   </ItemGroup>
   <ItemGroup>
@@ -473,6 +437,24 @@
       <Project>{ccc8a44e-79fe-445b-b9f6-28395c9ab053}</Project>
       <Name>Reporting</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Telerik.Windows.Controls.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Telerik.Windows.Controls.GridView.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Telerik.Windows.Controls.Input.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Telerik.Windows.Controls.Navigation.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Telerik.Windows.Controls.RibbonView.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Telerik.Windows.Data.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="AfterResolveReferences">

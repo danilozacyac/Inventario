@@ -15,10 +15,10 @@ namespace Inventario.Formularios.MobiliarioFolder
         private ServidoresPublicos servidorNuevo;
         private readonly Mobiliario mobiliario;
 
-        public UpdateMobiliarioUsuario()
-        {
-            InitializeComponent();
-        }
+        //public UpdateMobiliarioUsuario()
+        //{
+        //    InitializeComponent();
+        //}
 
         public UpdateMobiliarioUsuario(ServidoresPublicos servidorActual, Mobiliario mobiliario)
         {

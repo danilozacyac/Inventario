@@ -3,6 +3,7 @@ using System.Linq;
 using System.Windows;
 using DaoProject.Dao;
 using DaoProject.Model;
+using DaoProject.Singleton;
 using Telerik.Windows.Controls;
 
 namespace Inventario.Formularios.MobiliarioFolder
@@ -37,6 +38,7 @@ namespace Inventario.Formularios.MobiliarioFolder
             parameters.Owner = this;
 
            new MobiliarioModel(mobiliario).BajaMobiliario(observacionesDelete);
+           ServidoresSingleton.RemoveMobiliarioUsuario(mobiliario.Expediente, mobiliario);
 
            this.Close();
         }

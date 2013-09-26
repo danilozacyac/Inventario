@@ -294,5 +294,15 @@ namespace Inventario
             DeleteMobiliario delete = new DeleteMobiliario(UcUsuarios.MobilSeleccionado);
             delete.Show();
         }
+
+        private void RbtnReasigMobiliario_Click(object sender, RoutedEventArgs e)
+        {
+            if (UcUsuarios.MobilSeleccionado == null)
+                return;
+
+            UpdateMobiliarioUsuario update = new UpdateMobiliarioUsuario(UcUsuarios.ServidorSeleccionado,UcUsuarios.MobilSeleccionado);
+            update.Owner = this;
+            update.Show();
+        }
     }
 }

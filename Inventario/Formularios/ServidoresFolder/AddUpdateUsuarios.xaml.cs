@@ -39,8 +39,11 @@ namespace Inventario.Formularios.ServidoresFolder
 
             this.DataContext = servidor;
             this.RcbTitulo.DataContext = TitulosSingleton.Titulos;
+            this.RcbTitulo.SelectedValue = servidor.IdTitulo;
             this.RcbArea.DataContext = AreasSingleton.Areas;
+            this.RcbArea.SelectedValue = servidor.IdArea;
             this.RcbUbicacion.DataContext = UbicacionesSingleton.Ubicaciones;
+            this.RcbUbicacion.SelectedValue = servidor.IdUbicacion;
         }
 
         private void RbtnBuscar_Click(object sender, RoutedEventArgs e)
