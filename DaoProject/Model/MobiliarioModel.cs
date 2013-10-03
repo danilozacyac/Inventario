@@ -278,7 +278,7 @@ namespace DaoProject.Model
                 dr["Observaciones"] = historial.Observaciones;
                 dr.EndEdit();
 
-                dataSet.Tables["Mobiliario"].Rows.Add(dr);
+                //dataSet.Tables["Mobiliario"].Rows.Add(dr);
 
                 dataAdapter.UpdateCommand = connectionEpsSql.CreateCommand();
                 dataAdapter.UpdateCommand.CommandText = "UPDATE Mobiliario SET Expediente = @Expediente,Observaciones = @Observaciones,FechaModificacion = SysDateTime() " +

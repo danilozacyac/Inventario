@@ -3,6 +3,7 @@ using System.Linq;
 using System.Windows;
 using DaoProject.Dao;
 using DaoProject.Model;
+using DaoProject.Singleton;
 
 namespace Inventario.Formularios.MobiliarioFolder
 {
@@ -47,8 +48,10 @@ namespace Inventario.Formularios.MobiliarioFolder
             historial.ExpActual = servidorNuevo.Expediente;
             historial.Observaciones = txtAObservaciones.Text;
 
-            MobiliarioModel model = new MobiliarioModel();
+            MobiliarioModel model = new MobiliarioModel(mobiliario);
             model.UpdateMobiliario(historial);
+            ServidoresSingleton.RemoveMobiliarioUsuario(servidorActual.Expediente, mobiliario);
+            ServidoresSingleton.AddMobiliarioUsuario(servidorNuevo.Expediente, mobiliario);
 
             this.Close();
         }
