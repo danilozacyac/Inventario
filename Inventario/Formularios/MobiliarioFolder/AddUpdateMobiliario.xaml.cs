@@ -20,6 +20,7 @@ namespace Inventario.Formularios.MobiliarioFolder
         public AddUpdateMobiliario()
         {
             InitializeComponent();
+            mobiliario = new Mobiliario();
         }
 
         public AddUpdateMobiliario(Mobiliario mobiliario)
@@ -35,6 +36,13 @@ namespace Inventario.Formularios.MobiliarioFolder
             RcbAreas.DataContext = AreasSingleton.Areas;
             RcbTitulos.DataContext = TitulosSingleton.Titulos;
             RcbUbicacion.DataContext = UbicacionesSingleton.Ubicaciones;
+            this.DataContext = mobiliario;
+
+            if (isUpdating)
+            {
+                ChkAsignar.Visibility = Visibility.Hidden;
+                RcbTipoEquipo.SelectedValue = mobiliario.IdTipoMobiliario;
+            }
         }
 
         private void RbtnBuscar_Click(object sender, RoutedEventArgs e)
@@ -60,23 +68,33 @@ namespace Inventario.Formularios.MobiliarioFolder
 
         private void RbtnAceptar_Click(object sender, RoutedEventArgs e)
         {
-            if (ChkAsignar.IsChecked == true && !isServidorExist)
+            if (!isUpdating)
             {
-                MessageBox.Show("No ha ingresado un número de expediente válido para asignar el equipo, si no tiene el número de expediente o no desea asignar el equipo en este momento quite la selección de la casilla \"Asignar equipo\"", "Error:", MessageBoxButton.OK, MessageBoxImage.Error);
+                if (ChkAsignar.IsChecked == true && !isServidorExist)
+                {
+                    MessageBox.Show("No ha ingresado un número de expediente válido para asignar el equipo, si no tiene el número de expediente o no desea asignar el equipo en este momento quite la selección de la casilla \"Asignar equipo\"", "Error:", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                else
+                {
+
+                    mobiliario.IdTipoMobiliario = Convert.ToInt32(RcbTipoEquipo.SelectedValue);
+                    mobiliario.Inventario = Convert.ToInt32(TxtInventario.Text);
+                    mobiliario.Expediente = Convert.ToInt32(TxtExpediente.Text);// (ChkAsignar.IsChecked == true) ? Convert.ToInt32(TxtExpediente.Text) : 10;
+                    mobiliario.Observaciones = TxtObservaciones.Text;
+
+                    MobiliarioModel model = new MobiliarioModel(mobiliario);
+                    model.SetNewMobiliario();
+                    ServidoresSingleton.AddMobiliarioUsuario(mobiliario.Expediente, mobiliario);
+
+                    this.Close();
+                }
             }
             else
             {
-                mobiliario = new Mobiliario();
                 mobiliario.IdTipoMobiliario = Convert.ToInt32(RcbTipoEquipo.SelectedValue);
-                mobiliario.Inventario = Convert.ToInt32(TxtInventario.Text);
-                mobiliario.Expediente = Convert.ToInt32(TxtExpediente.Text);// (ChkAsignar.IsChecked == true) ? Convert.ToInt32(TxtExpediente.Text) : 10;
-                mobiliario.Observaciones = TxtObservaciones.Text;
 
                 MobiliarioModel model = new MobiliarioModel(mobiliario);
-                model.SetNewMobiliario();
-                ServidoresSingleton.AddMobiliarioUsuario(mobiliario.Expediente,  mobiliario );
-
-                this.Close();
+                model.UpdateMobiliario();
             }
         }
 

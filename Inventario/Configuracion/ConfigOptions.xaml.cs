@@ -12,5 +12,10 @@ namespace Inventario.Configuracion
         {
             InitializeComponent();
         }
+
+        private void RadWindow_Loaded(object sender, System.Windows.RoutedEventArgs e)
+        {
+
+        }
     }
 }

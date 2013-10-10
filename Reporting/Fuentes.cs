@@ -74,7 +74,8 @@ namespace Reporting
         {
             get
             {
-                Font font = FontFactory.GetFont("Arial", 11, Font.NORMAL, black);
+                Font font = FontFactory.GetFont(ConfigurationManager.AppSettings.Get("EncabezadoReportesFont"),
+                                                Convert.ToInt32(ConfigurationManager.AppSettings.Get("ContenidoReportesSize")) , Font.NORMAL, black);
                 return font;
             }
         }

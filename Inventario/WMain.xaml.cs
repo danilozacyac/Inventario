@@ -304,5 +304,23 @@ namespace Inventario
             update.Owner = this;
             update.Show();
         }
+
+        private void RbtnEditMobiliario_Click(object sender, RoutedEventArgs e)
+        {
+            if (UcUsuarios.MobilSeleccionado == null)
+            {
+                MessageBox.Show("Selecciona el artículo que deseas actualizar");
+                return;
+            }
+
+            AddUpdateMobiliario add = new AddUpdateMobiliario(UcUsuarios.MobilSeleccionado);
+            add.ShowDialog();
+        }
+
+        private void ListaMobiliario_Click(object sender, RoutedEventArgs e)
+        {
+            CatalogoTipos catalog = new CatalogoTipos();
+            catalog.ShowDialog();
+        }
     }
 }

@@ -2,6 +2,7 @@
 using System.Configuration;
 using System.Linq;
 using DaoProject.Dao;
+using DaoProject.Model;
 using DaoProject.Utilities;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
@@ -28,7 +29,6 @@ namespace Reporting
             Image gif = Image.GetInstance(ConfigurationManager.AppSettings.Get("ImagenReportes"));
             gif.ScalePercent(24f);
 
-
             PdfPCell cell = new PdfPCell();
             cell.Border = 0;
             cell.AddElement(gif);
@@ -41,7 +41,11 @@ namespace Reporting
             para.Add(ConfigurationManager.AppSettings.Get("AreaCorteL2"));
             para.Alignment = Element.ALIGN_CENTER;
             cell.AddElement(para);
-            para = new Paragraph(ConfigurationManager.AppSettings.Get("TituloComputo"), Fuentes.EncabezadoReportesTitulo);
+
+            if (AccesoUsuarioModel.Grupo == 1)
+                para = new Paragraph(ConfigurationManager.AppSettings.Get("TituloComputo"), Fuentes.EncabezadoReportesTitulo);
+            else
+                para = new Paragraph(ConfigurationManager.AppSettings.Get("TituloMobiliario"), Fuentes.EncabezadoReportesTitulo);
             para.Alignment = Element.ALIGN_CENTER;
             cell.AddElement(para);
             table.AddCell(cell);
@@ -66,7 +70,6 @@ namespace Reporting
             }
             return myDocument;
         }
-
 
         /// <summary>
         /// Agrega la información del usuario en cuestión al su resguardo
@@ -123,43 +126,60 @@ namespace Reporting
         /// <returns></returns>
         public static iTextSharp.text.Document SetPageFooter(iTextSharp.text.Document myDocument, ServidoresPublicos serv)
         {
-            Phrase phrase = new Phrase("                                  Entrega: ", Fuentes.RelacionIus);
-            Paragraph para = new Paragraph(phrase);
-
-            phrase = new Phrase("                                                                                     ", Fuentes.RelacionIus);
-            para.Add(phrase);
-            phrase = new Phrase("Recibe: ", Fuentes.RelacionIus);
-            para.Add(phrase);
-            myDocument.Add(para);
-
-            myDocument = RElementosComunes.SetSpaces(myDocument, 2);
-
-
             PdfPTable firma = new PdfPTable(3);
             //table.TotalWidth = 400;
             firma.WidthPercentage = 100;
 
-            firma.SpacingBefore = 20f;
+            //Evitan que la tabla se separe si quedca entre dos paginas
+            firma.KeepTogether = true;
+            firma.SplitLate = true;
+            firma.SplitRows = false;
+
+            //firma.SpacingBefore = 20f;
             firma.SpacingAfter = 30f;
 
             float[] widths = new float[] { 2f, 1f, 2f };
             firma.SetWidths(widths);
 
+            PdfPCell cell = new PdfPCell(new Phrase(" Entrega:" , Fuentes.ContenidoCelda));
+            cell.Colspan = 0;
+            cell.Border = 0;
+            cell.HorizontalAlignment = 1; //0=Left, 1=Centre, 2=Right
+            firma.AddCell(cell);
 
-            PdfPCell cell = new PdfPCell(new Phrase("        " + ConfigurationManager.AppSettings.Get("ResponsableComputo"), Fuentes.RelacionIus));
+            cell = new PdfPCell(new Phrase("", Fuentes.ContenidoCelda));
+            cell.Colspan = 0;
+            cell.Border = 0;
+            cell.HorizontalAlignment = 1; //0=Left, 1=Centre, 2=Right
+            firma.AddCell(cell);
+
+            cell = new PdfPCell(new Phrase("Recibe:", Fuentes.ContenidoCelda));
+            cell.Colspan = 0;
+            cell.Border = 0;
+            cell.HorizontalAlignment = 1; //0=Left, 1=Centre, 2=Right
+            firma.AddCell(cell);
+
+            cell = new PdfPCell(new Phrase("   ", Fuentes.ContenidoCelda));
+            cell.Border = 0;
+            for(int cellX = 0;cellX < 6 ;cellX++)
+                firma.AddCell(cell);
+            
+            
+
+            cell = new PdfPCell(new Phrase("        " + ConfigurationManager.AppSettings.Get("ResponsableComputo"), Fuentes.ContenidoCelda));
             cell.Colspan = 0;
             cell.Border = Rectangle.TOP_BORDER;
             cell.BorderWidthTop = 1f;
             cell.HorizontalAlignment = 1; //0=Left, 1=Centre, 2=Right
             firma.AddCell(cell);
 
-            cell = new PdfPCell(new Phrase("", Fuentes.RelacionIus));
+            cell = new PdfPCell(new Phrase("", Fuentes.ContenidoCelda));
             cell.Colspan = 0;
             cell.Border = 0;
             cell.HorizontalAlignment = 1; //0=Left, 1=Centre, 2=Right
             firma.AddCell(cell);
 
-            cell = new PdfPCell(new Phrase(MiscFunt.GetTituloDescrip(serv.IdTitulo) + " " + serv.Nombre, Fuentes.RelacionIus));
+            cell = new PdfPCell(new Phrase(MiscFunt.GetTituloDescrip(serv.IdTitulo) + " " + serv.Nombre, Fuentes.ContenidoCelda));
             cell.Colspan = 0;
             cell.Border = Rectangle.TOP_BORDER;
             cell.BorderWidthTop = 1f;
@@ -169,6 +189,5 @@ namespace Reporting
 
             return myDocument;
         }
-
     }
 }

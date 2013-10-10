@@ -62,27 +62,62 @@
                    Text="Tipo de letra"
                    TextWrapping="Wrap" />
 
-        <telerik:RadComboBox x:Name="RcbFonts"
+        <!--<telerik:RadComboBox x:Name="RcbFonts"
                              Width="250"
                              Margin="206,325,0,0"
                              HorizontalAlignment="Left"
                              VerticalAlignment="Top"
-                             ItemsSource="{Binding}"
-                             Text="{Binding TipoLetraReporte}">
+                             ItemsSource="{Binding}">
             <telerik:RadComboBox.ItemTemplate>
                 <DataTemplate>
-                    <TextBlock FontFamily="{Binding}"
+                    <TextBlock FontFamily="{Binding }"
                                FontSize="14"
-                               Text="{Binding}" />
+                               Text="{Binding }" />
                 </DataTemplate>
             </telerik:RadComboBox.ItemTemplate>
-        </telerik:RadComboBox>
+        </telerik:RadComboBox>-->
+
+        <ComboBox xmlns:ComponentModel="clr-namespace:System.ComponentModel;assembly=WindowsBase"
+                  Name="FontCombo"
+                  Margin="206,325,0,0"
+                  VerticalAlignment="Top"
+                  HorizontalAlignment="Left"
+                  Width="250"
+                  ItemTemplate="{DynamicResource FontTemplate}">
+            <ComboBox.Resources>
+
+                <CollectionViewSource x:Key="myFonts" Source="{Binding Source={x:Static Fonts.SystemFontFamilies}}">
+                    <CollectionViewSource.SortDescriptions>
+                        <ComponentModel:SortDescription PropertyName="Source" />
+                    </CollectionViewSource.SortDescriptions>
+                </CollectionViewSource>
+
+                <Style x:Key="FontStyle">
+                    <Setter Property="Control.FontFamily" Value="{Binding Source}" />
+                    <Setter Property="Control.FontSize" Value="16" />
+                </Style>
+
+                <DataTemplate x:Key="FontTemplate">
+                    <StackPanel VirtualizingStackPanel.IsVirtualizing="True">
+                        <TextBlock Style="{StaticResource FontStyle}"
+                                   Text="{Binding Source}"
+                                   ToolTip="{Binding Source}" />
+                    </StackPanel>
+                </DataTemplate>
+
+            </ComboBox.Resources>
+
+            <ComboBox.ItemsSource>
+                <Binding Source="{StaticResource myFonts}" />
+            </ComboBox.ItemsSource>
+        </ComboBox>
+
         <TextBlock Margin="86,362,0,0"
                    HorizontalAlignment="Left"
                    VerticalAlignment="Top"
                    Text="Tamaño de letra del encabezado"
                    TextWrapping="Wrap" />
-        <telerik:RadNumericUpDown Width="19"
+        <telerik:RadNumericUpDown Width="76"
                                   Margin="278,356,0,0"
                                   HorizontalAlignment="Left"
                                   VerticalAlignment="Top"
@@ -126,7 +161,7 @@
                    VerticalAlignment="Top"
                    Text="Tamaño de letra descripcion"
                    TextWrapping="Wrap" />
-        <telerik:RadNumericUpDown Width="33"
+        <telerik:RadNumericUpDown Width="76"
                                   Margin="278,383,0,0"
                                   HorizontalAlignment="Left"
                                   VerticalAlignment="Top"

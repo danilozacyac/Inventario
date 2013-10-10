@@ -59,10 +59,9 @@ namespace Reporting
 
                     this.SetEquiposInfo(servidor.Mobiliario);
 
-                    myDocument = RElementosComunes.SetSpaces(myDocument, 3);
+                    myDocument = RElementosComunes.SetSpaces(myDocument, 1);
 
                     myDocument = RElementosComunes.SetPageFooter(myDocument, servidor);
-
                 }
                 myDocument.Close();
                 System.Diagnostics.Process.Start(documento);
@@ -73,7 +72,6 @@ namespace Reporting
             }
             finally
             {
-
             }
         }
 
@@ -89,19 +87,16 @@ namespace Reporting
             try
             {
                 if (idAreaReporte != 0)
-                    servidores = (List<ServidoresPublicos>)(from n in servidores
-                                                            where n.IdArea == idAreaReporte
-                                                            select n);
-
-
+                    servidores = (from n in servidores
+                                  where n.IdArea == idAreaReporte
+                                  select n).ToList();
+                
                 PdfWriter writer = PdfWriter.GetInstance(myDocument, new FileStream(documento, FileMode.Create));
-
 
                 myDocument.Open();
 
                 foreach (ServidoresPublicos usuario in servidores)
                 {
-
                     if (usuario.Mobiliario.Count > 0)
                     {
                         myDocument.NewPage();
@@ -112,14 +107,13 @@ namespace Reporting
 
                         myDocument = RElementosComunes.SetUserInfo(myDocument, usuario);
 
-                        myDocument = RElementosComunes.SetSpaces(myDocument, 1);
+                        //myDocument = RElementosComunes.SetSpaces(myDocument, 1);
 
                         this.SetEquiposInfo(usuario.Mobiliario);
 
-                        myDocument = RElementosComunes.SetSpaces(myDocument, 3);
+                        myDocument = RElementosComunes.SetSpaces(myDocument, 2);
 
                         myDocument = RElementosComunes.SetPageFooter(myDocument, usuario);
-
                     }
                 }
             }
@@ -140,7 +134,7 @@ namespace Reporting
             table.WidthPercentage = 100;
 
             table.SpacingBefore = 20f;
-            table.SpacingAfter = 30f;
+            table.SpacingAfter = 5f;
 
             float[] widths = new float[] { 0.5f, 1f, 2f, 2f };
             table.SetWidths(widths);
@@ -173,6 +167,5 @@ namespace Reporting
 
             myDocument.Add(table);
         }
-
     }
 }

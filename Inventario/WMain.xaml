@@ -257,7 +257,8 @@
                     <telerik:RadRibbonButton LargeImage="/Inventario;component/Resources/area.png"
                                              Size="Large"
                                              Text="Lista de Mobiliario"
-                                             telerik:KeyTipService.AccessText="V" />
+                                             Name="ListaMobiliario"
+                                             telerik:KeyTipService.AccessText="V" Click="ListaMobiliario_Click" />
 
                     <telerik:RadRibbonButton x:Name="RbtnAddMobiliario"
                                              Click="RbtnAddMobiliario_Click"
@@ -273,6 +274,7 @@
                                              Size="Large"
                                              Text="Eliminar Mobiliario" />
                     <telerik:RadRibbonButton x:Name="RbtnEditMobiliario"
+                                             Click="RbtnEditMobiliario_Click"
                                              CollapseToSmall="WhenGroupIsSmall"
                                              LargeImage="Resources/editMob.png"
                                              Size="Large"
@@ -283,10 +285,11 @@
                                              Size="Large"
                                              Text="Asignar Mobiliario" />
                     <telerik:RadRibbonButton x:Name="RbtnReasigMobiliario"
+                                             Click="RbtnReasigMobiliario_Click"
                                              CollapseToSmall="WhenGroupIsSmall"
                                              LargeImage="Resources/ReasigMob.png"
                                              Size="Large"
-                                             Text="Reasignar Mobiliario" Click="RbtnReasigMobiliario_Click" />
+                                             Text="Reasignar Mobiliario" />
 
                 </telerik:RadRibbonGroup>
                 <telerik:RadRibbonGroup />
