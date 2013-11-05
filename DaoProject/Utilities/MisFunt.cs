@@ -7,7 +7,7 @@ using DaoProject.Singleton;
 
 namespace DaoProject.Utilities
 {
-    public class MiscFunt
+    public class MisFunt
     {
         /// <summary>
         /// Verifica que el reader en la columna seleccionada no tenga null como valor
@@ -84,7 +84,7 @@ namespace DaoProject.Utilities
 
         public static String GetTipoMobilDescrip(int idTipoEquipo)
         {
-            return (from n in TiposEquiposSingleton.Tipos
+            return (from n in TiposEquiposSingleton.MySingletonInstance.Tipos
                     where n.IdElemento == idTipoEquipo
                     select n.Descripcion).ToList()[0];
         }

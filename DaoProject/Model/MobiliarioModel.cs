@@ -119,8 +119,8 @@ namespace DaoProject.Model
                         mobiliarioL.Inventario = Convert.ToInt32(dataReader["NoInventario"]);
                         mobiliarioL.Expediente = Convert.ToInt32(dataReader["Expediente"]);
                         mobiliarioL.Observaciones = dataReader["Observaciones"].ToString();
-                        mobiliarioL.FechaAlta = MiscFunt.ConvertReaderToDateTime(dataReader, "FechaAlta");
-                        mobiliarioL.FechaModificacion = MiscFunt.ConvertReaderToDateTime(dataReader, "FechaModificacion");
+                        mobiliarioL.FechaAlta = MisFunt.ConvertReaderToDateTime(dataReader, "FechaAlta");
+                        mobiliarioL.FechaModificacion = MisFunt.ConvertReaderToDateTime(dataReader, "FechaModificacion");
 
                         listaMobiliario.Add(mobiliarioL);
                     }
@@ -484,7 +484,7 @@ namespace DaoProject.Model
                         historial.ExpAnterior = Convert.ToInt32(dataReader["ExpAnterior"]);
                         historial.ExpActual = Convert.ToInt32(dataReader["ExpActual"]);
                         historial.Observaciones = dataReader["Observaciones"].ToString();
-                        historial.FechaReasignacion = MiscFunt.ConvertReaderToDateTime(dataReader, "FechaReasignacion"); 
+                        historial.FechaReasignacion = MisFunt.ConvertReaderToDateTime(dataReader, "FechaReasignacion"); 
 
                         historiales.Add(historial);
                     }

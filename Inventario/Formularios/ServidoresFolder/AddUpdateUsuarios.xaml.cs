@@ -79,7 +79,7 @@ namespace Inventario.Formularios.ServidoresFolder
 
         private void TxtExtension_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-            e.Handled = MiscFunt.IsADigit(e.Text);
+            e.Handled = MisFunt.IsADigit(e.Text);
         }
 
         private void ChkDesactivar_Checked(object sender, RoutedEventArgs e)

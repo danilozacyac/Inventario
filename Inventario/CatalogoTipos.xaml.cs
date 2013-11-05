@@ -23,7 +23,7 @@ namespace Inventario
 
         private void RadWindow_Loaded_1(object sender, RoutedEventArgs e)
         {
-            RlstTipos.DataContext = TiposEquiposSingleton.Tipos;
+            RlstTipos.DataContext = TiposEquiposSingleton.MySingletonInstance.Tipos;
         }
 
         private void RbtnAgregar_Click_1(object sender, RoutedEventArgs e)
@@ -61,7 +61,7 @@ namespace Inventario
                         TiposEquiposModel model = new TiposEquiposModel(common);
                         common = model.SetNewTipoEquipo();
 
-                        TiposEquiposSingleton.AddTipos(common);
+                        TiposEquiposSingleton.MySingletonInstance.AddTipos(common);
 
                         RlstTipos.Items.Refresh();
                     }
@@ -71,11 +71,13 @@ namespace Inventario
                     TiposEquiposModel model = new TiposEquiposModel(common);
                     common = model.SetNewTipoEquipo();
 
-                    TiposEquiposSingleton.AddTipos(common);
+                    TiposEquiposSingleton.MySingletonInstance.AddTipos(common);
 
                     RlstTipos.Items.Refresh();
                 }
             }
+
+            RlstTipos.DataContext = TiposEquiposSingleton.MySingletonInstance.Tipos;
 
         }
 
@@ -113,7 +115,7 @@ namespace Inventario
                 TiposEquiposModel model = new TiposEquiposModel(common);
                 common = model.UpdateTipoEquipo();
 
-                TiposEquiposSingleton.UpdateTipos(tipoSeleccionado, common);
+                TiposEquiposSingleton.MySingletonInstance.UpdateTipos(tipoSeleccionado, common);
 
                 RlstTipos.Items.Refresh();
             }
@@ -142,7 +144,7 @@ namespace Inventario
                 model.DeleteTipoEquipo();
 
                 RlstTipos.SelectedIndex = -1;
-                TiposEquiposSingleton.RemoveTipos(tipoSeleccionado);
+                TiposEquiposSingleton.MySingletonInstance.RemoveTipos(tipoSeleccionado);
                 RlstTipos.Items.Refresh();
             }
 

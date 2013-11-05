@@ -24,7 +24,7 @@ namespace Inventario.Formularios.EquiposFolder
 
         private void RadWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            RcbTipoEquipo.DataContext = TiposEquiposSingleton.Tipos;
+            RcbTipoEquipo.DataContext = TiposEquiposSingleton.MySingletonInstance.Tipos;
             this.DataContext = equipo;
         }
 

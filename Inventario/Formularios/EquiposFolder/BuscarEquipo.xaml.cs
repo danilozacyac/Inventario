@@ -22,7 +22,7 @@ namespace Inventario.Formularios.EquiposFolder
 
         private void RadWindow_Loaded_1(object sender, RoutedEventArgs e)
         {
-            RcbTipoEquipo.DataContext = TiposEquiposSingleton.Tipos;
+            RcbTipoEquipo.DataContext = TiposEquiposSingleton.MySingletonInstance.Tipos;
         }
 
         private void RbtnBuscar_Click(object sender, RoutedEventArgs e)

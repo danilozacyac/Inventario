@@ -1,9 +1,10 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Linq;
 
 namespace DaoProject.Dao
 {
-    public class CommonProperties
+    public class CommonProperties : INotifyPropertyChanged
     {
         private int idElemento;
         private String descripcion;
@@ -58,5 +59,17 @@ namespace DaoProject.Dao
                 this.corto = value;
             }
         }
+
+        #region INotifyPropertyChanged Members
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+            if (this.PropertyChanged != null)
+                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        #endregion // INotifyPropertyChanged Members
     }
 }

@@ -87,30 +87,13 @@ namespace DaoProject.Singleton
                                            where n.Expediente == expediente
                                            select n).ToList()[0];
 
-            int index = servidores.IndexOf(servidor);
+            //int index = servidores.IndexOf(servidor);
 
             int mobIndex = servidor.Mobiliario.IndexOf(mobiliarioBaja);
 
             if (mobIndex != -1)
                 servidor.Mobiliario.RemoveAt(mobIndex);
 
-
-            //foreach (Mobiliario mobiliario in mobiliarioBaja)
-            //{
-            //    int indexes = -1;
-
-            //    for (int x = 0; x < servidores[index].Mobiliario.Count; x++)
-            //    {
-            //        if (servidores[index].Mobiliario[x].Inventario == mobiliario.Inventario )
-            //        {
-            //            indexes = x;
-            //        }
-            //    }
-
-            //    if (indexes != -1)
-            //        servidores[index].Mobiliario.RemoveAt(indexes);
-
-            //}
         }
     }
 }

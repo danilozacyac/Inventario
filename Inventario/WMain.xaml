@@ -254,11 +254,12 @@
                                         telerik:KeyTipService.AccessText="FO"
                                         telerik:ScreenTip.Description="Show the Clipboard Task options."
                                         telerik:ScreenTip.Title="Áreas">
-                    <telerik:RadRibbonButton LargeImage="/Inventario;component/Resources/area.png"
+                    <telerik:RadRibbonButton Name="ListaMobiliario"
+                                             Click="ListaMobiliario_Click"
+                                             LargeImage="/Inventario;component/Resources/area.png"
                                              Size="Large"
                                              Text="Lista de Mobiliario"
-                                             Name="ListaMobiliario"
-                                             telerik:KeyTipService.AccessText="V" Click="ListaMobiliario_Click" />
+                                             telerik:KeyTipService.AccessText="V" />
 
                     <telerik:RadRibbonButton x:Name="RbtnAddMobiliario"
                                              Click="RbtnAddMobiliario_Click"

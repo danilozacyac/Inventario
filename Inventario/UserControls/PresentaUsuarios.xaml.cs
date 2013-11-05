@@ -28,9 +28,12 @@ namespace Inventario.UserControls
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            //listaServidores = ServidoresSingleton.Servidores;
+            if (listaServidores == null)
+            {
+                listaServidores = ServidoresSingleton.Servidores;
 
-            //this.DataContext = listaServidores;
+                this.DataContext = listaServidores;
+            }
         }
 
         private void TileServidores_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -88,12 +91,12 @@ namespace Inventario.UserControls
 
         private void UserControl_IsVisibleChanged_1(object sender, DependencyPropertyChangedEventArgs e)
         {
-            if (this.IsVisible == true)
-            {
-                listaServidores = ServidoresSingleton.Servidores;
+            //if (this.IsVisible == true)
+            //{
+            //    listaServidores = ServidoresSingleton.Servidores;
 
-                this.DataContext = listaServidores;
-            }
+            //    this.DataContext = listaServidores;
+            //}
         }
     }
 }

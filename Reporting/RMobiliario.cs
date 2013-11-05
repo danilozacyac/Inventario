@@ -153,7 +153,7 @@ namespace Reporting
             int id = 1;
             foreach (Mobiliario mobiliario in mobiliarios)
             {
-                string[] descs = { id.ToString(), mobiliario.Inventario.ToString(), MiscFunt.GetTipoMobilDescrip(mobiliario.IdTipoMobiliario), mobiliario.Observaciones };
+                string[] descs = { id.ToString(), mobiliario.Inventario.ToString(), MisFunt.GetTipoMobilDescrip(mobiliario.IdTipoMobiliario), mobiliario.Observaciones };
 
                 foreach (string desc in descs)
                 {

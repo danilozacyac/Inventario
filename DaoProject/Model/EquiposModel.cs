@@ -58,16 +58,16 @@ namespace DaoProject.Model
                         myEquipo.Expediente = Convert.ToInt32(dataReader["Expediente"]);
                         myEquipo.IdEquipo = Convert.ToInt32(dataReader["idEquipo"]);
                         myEquipo.ScEquipo = dataReader["SC_Equipo"].ToString();
-                        myEquipo.ScPrincipal = MiscFunt.VerifyDbNullForStrings(dataReader, "SC_Principal");
+                        myEquipo.ScPrincipal = MisFunt.VerifyDbNullForStrings(dataReader, "SC_Principal");
                         myEquipo.IdTipo = Convert.ToInt32(dataReader["idTipo"]);
                         myEquipo.TipoEquipo = dataReader["Descripcion"].ToString();
-                        myEquipo.Marca = MiscFunt.VerifyDbNullForStrings(dataReader, "Marca");
-                        myEquipo.Modelo = MiscFunt.VerifyDbNullForStrings(dataReader, "Modelo");
-                        myEquipo.NoSerie = MiscFunt.VerifyDbNullForStrings(dataReader, "NoSerie");
-                        myEquipo.Observaciones = MiscFunt.VerifyDbNullForStrings(dataReader, "Observaciones");
-                        myEquipo.Estado = MiscFunt.VerifyDbNullForStrings(dataReader, "Estado");
-                        myEquipo.FechaAlta = MiscFunt.ConvertReaderToDateTime(dataReader, "Alta");
-                        myEquipo.FechaModificacion = MiscFunt.ConvertReaderToDateTime(dataReader, "Modificacion");
+                        myEquipo.Marca = MisFunt.VerifyDbNullForStrings(dataReader, "Marca");
+                        myEquipo.Modelo = MisFunt.VerifyDbNullForStrings(dataReader, "Modelo");
+                        myEquipo.NoSerie = MisFunt.VerifyDbNullForStrings(dataReader, "NoSerie");
+                        myEquipo.Observaciones = MisFunt.VerifyDbNullForStrings(dataReader, "Observaciones");
+                        myEquipo.Estado = MisFunt.VerifyDbNullForStrings(dataReader, "Estado");
+                        myEquipo.FechaAlta = MisFunt.ConvertReaderToDateTime(dataReader, "Alta");
+                        myEquipo.FechaModificacion = MisFunt.ConvertReaderToDateTime(dataReader, "Modificacion");
 
                         listaEquipos.Add(myEquipo);
                     }
@@ -129,16 +129,16 @@ namespace DaoProject.Model
                         myEquipo.Expediente = Convert.ToInt32(dataReader["Expediente"]);
                         myEquipo.IdEquipo = Convert.ToInt32(dataReader["idEquipo"]);
                         myEquipo.ScEquipo = dataReader["SC_Equipo"].ToString();
-                        myEquipo.ScPrincipal = MiscFunt.VerifyDbNullForStrings(dataReader, "SC_Principal");
+                        myEquipo.ScPrincipal = MisFunt.VerifyDbNullForStrings(dataReader, "SC_Principal");
                         myEquipo.IdTipo = Convert.ToInt32(dataReader["idTipo"]);
                         myEquipo.TipoEquipo = dataReader["Descripcion"].ToString();
-                        myEquipo.Marca = MiscFunt.VerifyDbNullForStrings(dataReader, "Marca");
-                        myEquipo.Modelo = MiscFunt.VerifyDbNullForStrings(dataReader, "Modelo");
-                        myEquipo.NoSerie = MiscFunt.VerifyDbNullForStrings(dataReader, "NoSerie");
-                        myEquipo.Observaciones = MiscFunt.VerifyDbNullForStrings(dataReader, "Observaciones");
-                        myEquipo.Estado = MiscFunt.VerifyDbNullForStrings(dataReader, "Estado");
-                        myEquipo.FechaAlta = MiscFunt.ConvertReaderToDateTime(dataReader, "Alta");
-                        myEquipo.FechaModificacion = MiscFunt.ConvertReaderToDateTime(dataReader, "Modificacion");
+                        myEquipo.Marca = MisFunt.VerifyDbNullForStrings(dataReader, "Marca");
+                        myEquipo.Modelo = MisFunt.VerifyDbNullForStrings(dataReader, "Modelo");
+                        myEquipo.NoSerie = MisFunt.VerifyDbNullForStrings(dataReader, "NoSerie");
+                        myEquipo.Observaciones = MisFunt.VerifyDbNullForStrings(dataReader, "Observaciones");
+                        myEquipo.Estado = MisFunt.VerifyDbNullForStrings(dataReader, "Estado");
+                        myEquipo.FechaAlta = MisFunt.ConvertReaderToDateTime(dataReader, "Alta");
+                        myEquipo.FechaModificacion = MisFunt.ConvertReaderToDateTime(dataReader, "Modificacion");
 
                     }
                 }

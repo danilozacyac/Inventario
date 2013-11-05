@@ -23,18 +23,18 @@
                     Visibility="Collapsed">
             <telerik:RadRibbonButton x:Name="RbtnBajaEquipo"
                                      Click="RbtnBajaEquipo_Click"
-                                     LargeImage="/Inventario;component/Resources/pcBaja.png"
+                                     LargeImage="/Inventario;component/Resources/delMob.png"
                                      Size="Large"
-                                     Text="Dar equipo de baja" />
+                                     Text="Dar mobiliario de baja" />
             <telerik:RadRibbonButton x:Name="RbtnEditaEquipo"
-                                     LargeImage="/Inventario;component/Resources/pcEdit.png"
+                                     LargeImage="/Inventario;component/Resources/editMob.png"
                                      Size="Large"
-                                     Text="Editar equipo" />
+                                     Text="Editar mobiliario" />
             <telerik:RadRibbonButton x:Name="RbtnReasignaEquipo"
                                      Click="RbtnReasignaEquipo_Click"
-                                     LargeImage="/Inventario;component/Resources/pcReasigna.png"
+                                     LargeImage="/Inventario;component/Resources/ReasigMob.png"
                                      Size="Large"
-                                     Text="Reasignar equipo" />
+                                     Text="Reasignar mobiliario" />
         </StackPanel>
         <StackPanel Grid.Row="1" Orientation="Vertical">
 

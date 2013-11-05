@@ -32,7 +32,7 @@ namespace Inventario.Formularios.MobiliarioFolder
 
         private void RadWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            RcbTipoEquipo.DataContext = TiposEquiposSingleton.Tipos;
+            RcbTipoEquipo.DataContext = TiposEquiposSingleton.MySingletonInstance.Tipos;
             RcbAreas.DataContext = AreasSingleton.Areas;
             RcbTitulos.DataContext = TitulosSingleton.Titulos;
             RcbUbicacion.DataContext = UbicacionesSingleton.Ubicaciones;
@@ -115,7 +115,7 @@ namespace Inventario.Formularios.MobiliarioFolder
 
         private void TxtExpediente_PreviewTextInput(object sender, System.Windows.Input.TextCompositionEventArgs e)
         {
-            e.Handled = MiscFunt.IsADigit(e.Text);
+            e.Handled = MisFunt.IsADigit(e.Text);
         }
     }
 }

@@ -93,13 +93,13 @@ namespace Reporting
 
             phrase = new Phrase("Área:      ", Fuentes.NomExpd);
             para = new Paragraph(phrase);
-            phrase = new Phrase(MiscFunt.GetAreasDescrip(serv.IdArea), Fuentes.NomExpdUnder);
+            phrase = new Phrase(MisFunt.GetAreasDescrip(serv.IdArea), Fuentes.NomExpdUnder);
             para.Add(phrase);
             myDocument.Add(para);
 
             phrase = new Phrase("Adscripción: ", Fuentes.NomExpd);
             para = new Paragraph(phrase);
-            phrase = new Phrase(MiscFunt.GetAdscripcionDescrip(serv.IdAdscripcion), Fuentes.NomExpdUnder);
+            phrase = new Phrase(MisFunt.GetAdscripcionDescrip(serv.IdAdscripcion), Fuentes.NomExpdUnder);
             para.Add(phrase);
             myDocument.Add(para);
 
@@ -179,7 +179,7 @@ namespace Reporting
             cell.HorizontalAlignment = 1; //0=Left, 1=Centre, 2=Right
             firma.AddCell(cell);
 
-            cell = new PdfPCell(new Phrase(MiscFunt.GetTituloDescrip(serv.IdTitulo) + " " + serv.Nombre, Fuentes.ContenidoCelda));
+            cell = new PdfPCell(new Phrase(MisFunt.GetTituloDescrip(serv.IdTitulo) + " " + serv.Nombre, Fuentes.ContenidoCelda));
             cell.Colspan = 0;
             cell.Border = Rectangle.TOP_BORDER;
             cell.BorderWidthTop = 1f;

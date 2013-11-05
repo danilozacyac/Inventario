@@ -308,7 +308,7 @@ namespace DaoProject.Model
 
         private String ArmaCadena(String descripcionAIngresar)
         {
-            List<String> palabras = MiscFunt.SplitStringWithoutStoppers(descripcionAIngresar);
+            List<String> palabras = MisFunt.SplitStringWithoutStoppers(descripcionAIngresar);
 
             String sqlCadena = "";
 
