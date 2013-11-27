@@ -105,6 +105,7 @@ namespace DaoProject.Dao
             set
             {
                 this.nombre = value;
+                this.OnPropertyChanged("Nombre");
             }
         }
 
