@@ -4255,5 +4255,10 @@
             </Setter.Value>
         </Setter>
     </Style>
+    <Style x:Key="ButtonStyle1" TargetType="{x:Type Button}">
+        <Setter Property="MinWidth" Value="30" />
+        <Setter Property="MinHeight" Value="20" />
+        <Setter Property="Padding" Value="10,1" />
+    </Style>
 
 </ResourceDictionary>

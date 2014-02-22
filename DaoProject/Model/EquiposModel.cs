@@ -139,7 +139,6 @@ namespace DaoProject.Model
                         myEquipo.Estado = MisFunt.VerifyDbNullForStrings(dataReader, "Estado");
                         myEquipo.FechaAlta = MisFunt.ConvertReaderToDateTime(dataReader, "Alta");
                         myEquipo.FechaModificacion = MisFunt.ConvertReaderToDateTime(dataReader, "Modificacion");
-
                     }
                 }
 
@@ -176,7 +175,6 @@ namespace DaoProject.Model
 
             try
             {
-
                 dataAdapter = new SqlDataAdapter();
                 dataAdapter.SelectCommand = new SqlCommand(sqlCadena, connectionEpsSql);
 
@@ -235,11 +233,8 @@ namespace DaoProject.Model
         /// </summary>
         /// <param name="nuevoSc">nuevoSc del equipo</param>
         /// <param name="nuevoTipo">nuevo tipo de equipo</param>
-        public void UpdateEquipo(String nuevoSc,int nuevoTipo)
+        public void UpdateEquipo(String nuevoSc, int nuevoTipo)
         {
-
-            
-
             SqlConnection connectionEpsSql = Conexion.GetConexion();
             SqlDataAdapter dataAdapter = new SqlDataAdapter();
 
@@ -250,7 +245,6 @@ namespace DaoProject.Model
 
             try
             {
-
                 dataAdapter.SelectCommand = new SqlCommand(sqlCadena, connectionEpsSql);
                 dataAdapter.Fill(dataSet, "Equipos");
 
@@ -266,7 +260,6 @@ namespace DaoProject.Model
                 dr["Estado"] = "S";
                 dr["Modificacion"] = DateTime.Now.ToString("yyyy/MM/dd");
                 dr.EndEdit();
-
 
                 dataAdapter.UpdateCommand = connectionEpsSql.CreateCommand();
                 dataAdapter.UpdateCommand.CommandText = "UPDATE Equipos SET SC_Equipo = @SC_Equipo, Expediente = @Expediente, idTipo = @idTipo, Marca = @Marca," +
@@ -320,7 +313,6 @@ namespace DaoProject.Model
 
             try
             {
-
                 dataAdapter.SelectCommand = new SqlCommand(sqlCadena, connectionEpsSql);
                 dataAdapter.Fill(dataSet, "Equipos");
 
@@ -364,8 +356,6 @@ namespace DaoProject.Model
             }
         }
 
-
-
         /// <summary>
         /// Da de baja un equipo, con lo cual este no puede volver a ser asignado
         /// </summary>
@@ -404,7 +394,6 @@ namespace DaoProject.Model
             }
         }
 
-
         private void ActualizaObservacionesEquiposBaja(Equipos equipoEl, String observaciones)
         {
             SqlConnection connectionEpsSql = Conexion.GetConexion();
@@ -417,7 +406,6 @@ namespace DaoProject.Model
 
             try
             {
-
                 dataAdapter.SelectCommand = new SqlCommand(sqlCadena, connectionEpsSql);
                 dataAdapter.Fill(dataSet, "Equipos");
 
@@ -425,7 +413,6 @@ namespace DaoProject.Model
                 dr.BeginEdit();
                 dr["Observaciones"] = observaciones;
                 dr.EndEdit();
-
 
                 dataAdapter.UpdateCommand = connectionEpsSql.CreateCommand();
                 dataAdapter.UpdateCommand.CommandText = "UPDATE Equipos SET  Observaciones = @Observaciones " +
@@ -473,7 +460,6 @@ namespace DaoProject.Model
 
             try
             {
-
                 dataAdapter = new SqlDataAdapter();
                 dataAdapter.SelectCommand = new SqlCommand(sqlCadena, connectionEpsSql);
 
@@ -575,10 +561,7 @@ namespace DaoProject.Model
             }
             return historiales;
         }
-
+        
         #endregion
-
-
     }
 }
-

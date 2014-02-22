@@ -131,6 +131,9 @@
     <Compile Include="Formularios\ServidoresFolder\AddUpdateUsuarios.xaml.cs">
       <DependentUpon>AddUpdateUsuarios.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Formularios\ServidoresFolder\EquiposServidores.xaml.cs">
+      <DependentUpon>EquiposServidores.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Splash\DispatcherHelper.cs" />
     <Compile Include="Splash\LaunchSplash.cs" />
     <Compile Include="Splash\MessageListener.cs" />
@@ -142,6 +145,9 @@
     </Compile>
     <Compile Include="UserControls\PresentaUsuarios.xaml.cs">
       <DependentUpon>PresentaUsuarios.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\PresentaUsuariosInnerGrid.xaml.cs">
+      <DependentUpon>PresentaUsuariosInnerGrid.xaml</DependentUpon>
     </Compile>
     <Compile Include="VerificaInsertaTipos.xaml.cs">
       <DependentUpon>VerificaInsertaTipos.xaml</DependentUpon>
@@ -213,6 +219,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Formularios\ServidoresFolder\EquiposServidores.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -246,6 +256,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\PresentaUsuarios.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\PresentaUsuariosInnerGrid.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

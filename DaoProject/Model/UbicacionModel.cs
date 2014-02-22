@@ -34,7 +34,6 @@ namespace DaoProject.Model
                 {
                     while (dataReader.Read())
                     {
-
                         CommonProperties ubicacion = new CommonProperties();
                         ubicacion.IdElemento = Convert.ToInt32(dataReader["idUbicacion"]);
                         ubicacion.Descripcion = dataReader["Ubicacion"].ToString();

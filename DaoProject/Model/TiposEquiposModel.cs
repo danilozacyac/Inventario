@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
@@ -27,12 +28,12 @@ namespace DaoProject.Model
         /// Devuelve una lista con el tipo de equipos registrados de acuerdo al inventario de que se trate
         /// </summary>
         /// <returns></returns>
-        public List<CommonProperties> GetTiposEquipos()
+        public ObservableCollection<CommonProperties> GetTiposEquipos()
         {
             SqlConnection sqlConne = Conexion.GetConexion();
             SqlDataReader dataReader;
 
-            List<CommonProperties> tipos = new List<CommonProperties>();
+            ObservableCollection<CommonProperties> tipos = new ObservableCollection<CommonProperties>();
 
             try
             {
@@ -88,14 +89,13 @@ namespace DaoProject.Model
 
             try
             {
-
                 dataAdapter = new SqlDataAdapter();
                 dataAdapter.SelectCommand = new SqlCommand(sqlCadena, connectionEpsSql);
 
                 dataAdapter.Fill(dataSet, "TiposEquipos");
 
                 tipo.IdElemento = this.GetLastId() + 1;
-
+                
                 dr = dataSet.Tables["TiposEquipos"].NewRow();
                 dr["idTipo"] = tipo.IdElemento;
                 dr["Descripcion"] = tipo.Descripcion;
@@ -148,12 +148,10 @@ namespace DaoProject.Model
 
             try
             {
-
                 dataAdapter = new SqlDataAdapter();
                 dataAdapter.SelectCommand = new SqlCommand(sqlCadena, connectionEpsSql);
 
                 dataAdapter.Fill(dataSet, "TiposEquipos");
-
 
                 dr = dataSet.Tables["TiposEquipos"].Rows[0];
                 dr.BeginEdit();
@@ -219,7 +217,6 @@ namespace DaoProject.Model
                 sqlConne.Close();
             }
         }
-
 
         private int GetLastId()
         {
@@ -318,8 +315,6 @@ namespace DaoProject.Model
             }
 
             return sqlCadena = sqlCadena.Substring(3);
-
         }
-
     }
 }

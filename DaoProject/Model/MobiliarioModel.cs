@@ -14,71 +14,14 @@ namespace DaoProject.Model
     {
         private readonly Mobiliario mobiliario;
 
-        public MobiliarioModel() { }
+        public MobiliarioModel()
+        {
+        }
+
         public MobiliarioModel(Mobiliario mobiliario)
         {
             this.mobiliario = mobiliario;
         }
-
-
-
-
-        /// <summary>
-        /// Devuelve la lista de mobiliario que tiene cada servidor público bajo su resguardo
-        /// </summary>
-        /// <param name="expediente"></param>
-        /// <returns></returns>
-        //public List<Mobiliario> GetMobiliarioPorServidorPublico(int expediente)
-        //{
-        //    SqlConnection sqlConne = Conexion.GetConexion();
-        //    SqlDataReader dataReader;
-
-        //    List<Mobiliario> listaMobiliario = new List<Mobiliario>();
-
-        //    try
-        //    {
-        //        sqlConne.Open();
-
-        //        string selstr = "SELECT * FROM Mobiliario WHERE Expediente = @Expediente";
-        //        SqlCommand cmd = new SqlCommand(selstr, sqlConne);
-        //        SqlParameter usuario = cmd.Parameters.Add("@Expediente", SqlDbType.NVarChar, 0);
-        //        usuario.Value = expediente;
-
-        //        dataReader = cmd.ExecuteReader();
-
-        //        if (dataReader.HasRows)
-        //        {
-        //            while (dataReader.Read())
-        //            {
-
-        //                Mobiliario mobiliarioL = new Mobiliario();
-        //                mobiliarioL.IdMobiliario = Convert.ToInt32(dataReader["idMobiliario"]);
-        //                mobiliarioL.IdTipoMobiliario = Convert.ToInt32(dataReader["idTipo"]);
-        //                mobiliarioL.Inventario = Convert.ToInt32(dataReader["NoInventario"]);
-        //                mobiliarioL.Expediente = expediente;
-        //                mobiliarioL.Observaciones = dataReader["Observaciones"].ToString();
-        //                mobiliarioL.FechaAlta = MiscFunt.ConvertReaderToDateTime(dataReader, "FechaAlta");
-        //                mobiliarioL.FechaModificacion = MiscFunt.ConvertReaderToDateTime(dataReader, "FechaModificacion");
-
-        //                listaMobiliario.Add(mobiliarioL);
-        //            }
-        //        }
-        //    }
-        //    catch (SqlException sql)
-        //    {
-        //        MessageBox.Show("Error ({0}) : {1}" + sql.Source + sql.Message, "Error Interno");
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        MessageBox.Show("Error ({0}) : {1}" + ex.Source + ex.Message, "Error Interno");
-        //    }
-        //    finally
-        //    {
-        //        sqlConne.Close();
-        //    }
-        //    return listaMobiliario;
-        //}
-
 
         /// <summary>
         /// Devuelve la lista de mobiliario de acuerdo al parametro solicitado
@@ -99,8 +42,8 @@ namespace DaoProject.Model
             {
                 sqlConne.Open();
 
-                string selstr = "SELECT M.*,T.Descripcion FROM Mobiliario M INNER JOIN TiposEquipos T ON T.idTipo = M.idTipo WHERE "
-                    + parametro + " = @Parametro AND T.idInventario = 2";
+                string selstr = "SELECT M.*,T.Descripcion FROM Mobiliario M INNER JOIN TiposEquipos T ON T.idTipo = M.idTipo WHERE " +
+                                parametro + " = @Parametro AND T.idInventario = 2";
                 SqlCommand cmd = new SqlCommand(selstr, sqlConne);
                 SqlParameter param = cmd.Parameters.Add("@Parametro", (number > 0) ? SqlDbType.Int : SqlDbType.NVarChar, 0);
                 param.Value = valor;
@@ -111,7 +54,6 @@ namespace DaoProject.Model
                 {
                     while (dataReader.Read())
                     {
-
                         Mobiliario mobiliarioL = new Mobiliario();
                         mobiliarioL.IdMobiliario = Convert.ToInt32(dataReader["idMobiliario"]);
                         mobiliarioL.IdTipoMobiliario = Convert.ToInt32(dataReader["idTipo"]);
@@ -212,7 +154,6 @@ namespace DaoProject.Model
 
             try
             {
-
                 dataAdapter.SelectCommand = new SqlCommand(sqlCadena, connectionEpsSql);
                 dataAdapter.Fill(dataSet, "Mobiliario");
 
@@ -223,7 +164,6 @@ namespace DaoProject.Model
                 dr["Observaciones"] = mobiliario.Observaciones;
                 dr["FechaModificacion"] = DateTime.Now.ToString("yyyy/MM/dd");
                 dr.EndEdit();
-
 
                 dataAdapter.UpdateCommand = connectionEpsSql.CreateCommand();
                 dataAdapter.UpdateCommand.CommandText = "UPDATE Mobiliario SET idTipo = @idTipo, NoInventario = @NoInventario," +
@@ -255,7 +195,6 @@ namespace DaoProject.Model
             }
         }
 
-
         public void UpdateMobiliario(HistorialMobiliario historial)
         {
             SqlConnection connectionEpsSql = Conexion.GetConexion();
@@ -268,7 +207,6 @@ namespace DaoProject.Model
 
             try
             {
-
                 dataAdapter.SelectCommand = new SqlCommand(sqlCadena, connectionEpsSql);
                 dataAdapter.Fill(dataSet, "Mobiliario");
 
@@ -326,7 +264,6 @@ namespace DaoProject.Model
 
             try
             {
-
                 dataAdapter = new SqlDataAdapter();
                 dataAdapter.SelectCommand = new SqlCommand(sqlCadena, connectionEpsSql);
 
@@ -370,7 +307,7 @@ namespace DaoProject.Model
             }
         }
 
-        public void BajaMobiliario( String observaciones)
+        public void BajaMobiliario(String observaciones)
         {
             SqlConnection sqlConne = Conexion.GetConexion();
             SqlCommand cmd;
@@ -382,9 +319,9 @@ namespace DaoProject.Model
             {
                 sqlConne.Open();
 
-                    this.ActualizaObservacionesMobiliarioBaja(mobiliario, observaciones);
-                    cmd.CommandText = "DELETE FROM Mobiliario WHERE NoInventario = '" + mobiliario.Inventario + "'";
-                    cmd.ExecuteNonQuery();
+                this.ActualizaObservacionesMobiliarioBaja(mobiliario, observaciones);
+                cmd.CommandText = "DELETE FROM Mobiliario WHERE NoInventario = '" + mobiliario.Inventario + "'";
+                cmd.ExecuteNonQuery();
             }
             catch (SqlException sql)
             {
@@ -412,7 +349,6 @@ namespace DaoProject.Model
 
             try
             {
-
                 dataAdapter.SelectCommand = new SqlCommand(sqlCadena, connectionEpsSql);
                 dataAdapter.Fill(dataSet, "Mobiliario");
 
@@ -420,7 +356,6 @@ namespace DaoProject.Model
                 dr.BeginEdit();
                 dr["Observaciones"] = observaciones;
                 dr.EndEdit();
-
 
                 dataAdapter.UpdateCommand = connectionEpsSql.CreateCommand();
                 dataAdapter.UpdateCommand.CommandText = "UPDATE Mobiliario SET  Observaciones = @Observaciones " +
@@ -448,9 +383,7 @@ namespace DaoProject.Model
             }
         }
 
-
         #region Historial
-
 
         /// <summary>
         /// Devuelve el listado de movimientos que ha registrado un equipo
@@ -504,8 +437,7 @@ namespace DaoProject.Model
             }
             return historiales;
         }
-
+        
         #endregion
-
     }
 }
