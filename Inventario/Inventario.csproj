@@ -107,6 +107,9 @@
     <Compile Include="Formularios\EquiposFolder\DeleteEquipo.xaml.cs">
       <DependentUpon>DeleteEquipo.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Formularios\EquiposFolder\EquiposAsignados.xaml.cs">
+      <DependentUpon>EquiposAsignados.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Formularios\EquiposFolder\HistorialEquipo.xaml.cs">
       <DependentUpon>HistorialEquipo.xaml</DependentUpon>
     </Compile>
@@ -125,6 +128,9 @@
     <Compile Include="Formularios\MobiliarioFolder\DeleteMobiliario.xaml.cs">
       <DependentUpon>DeleteMobiliario.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Formularios\MobiliarioFolder\MobiliarioAsignado.xaml.cs">
+      <DependentUpon>MobiliarioAsignado.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Formularios\MobiliarioFolder\UpdateMobiliarioUsuario.xaml.cs">
       <DependentUpon>UpdateMobiliarioUsuario.xaml</DependentUpon>
     </Compile>
@@ -139,6 +145,9 @@
     <Compile Include="Splash\MessageListener.cs" />
     <Compile Include="Splash\Splashes.xaml.cs">
       <DependentUpon>Splashes.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\GridUsuarios.xaml.cs">
+      <DependentUpon>GridUsuarios.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\ListaAreas.xaml.cs">
       <DependentUpon>ListaAreas.xaml</DependentUpon>
@@ -187,6 +196,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Formularios\EquiposFolder\EquiposAsignados.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Formularios\EquiposFolder\HistorialEquipo.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -208,6 +221,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Formularios\MobiliarioFolder\DeleteMobiliario.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Formularios\MobiliarioFolder\MobiliarioAsignado.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -250,6 +267,10 @@
     <Page Include="Themes\ShinyRed.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\GridUsuarios.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\ListaAreas.xaml">
       <SubType>Designer</SubType>

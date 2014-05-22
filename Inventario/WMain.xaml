@@ -309,6 +309,10 @@
                                        VerticalAlignment="Stretch"
                                        Visibility="Collapsed" />
 
+        <UserControls:GridUsuarios x:Name="GrUsuarios"
+                                   Grid.Row="1"
+                                   HorizontalAlignment="Stretch"
+                                   VerticalAlignment="Stretch" />
 
     </Grid>
 </telerik:RadWindow>

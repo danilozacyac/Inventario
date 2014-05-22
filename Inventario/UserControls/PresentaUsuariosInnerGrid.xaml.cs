@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -20,7 +21,7 @@ namespace Inventario.UserControls
         public Equipos EquipoSeleccionado = null;
         public Mobiliario MobilSeleccionado = null;
 
-        private List<ServidoresPublicos> listaServidores;
+        private ObservableCollection<ServidoresPublicos> listaServidores;
 
         public PresentaUsuariosInnerGrid()
         {

@@ -9,13 +9,13 @@ namespace DaoProject.Singleton
 {
     public class ServidoresSingleton
     {
-        private static List<ServidoresPublicos> servidores;
+        private static ObservableCollection<ServidoresPublicos> servidores;
 
         private ServidoresSingleton()
         {
         }
 
-        public static List<ServidoresPublicos> Servidores
+        public static ObservableCollection<ServidoresPublicos> Servidores
         {
             get
             {

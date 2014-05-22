@@ -16,11 +16,11 @@ namespace Reporting
         private iTextSharp.text.Document myDocument;
         //private Paragraph para;
 
-        private List<ServidoresPublicos> servidores;
+        private ObservableCollection<ServidoresPublicos> servidores;
         private readonly ServidoresPublicos servidor;
         private readonly int idAreaReporte;
 
-        public RMobiliario(List<ServidoresPublicos> servidores, int idAreaReporte)
+        public RMobiliario(ObservableCollection<ServidoresPublicos> servidores, int idAreaReporte)
         {
             this.servidores = servidores;
             this.idAreaReporte = idAreaReporte;
@@ -51,7 +51,7 @@ namespace Reporting
 
                     myDocument = RElementosComunes.SetPageHeader(myDocument);
 
-                    myDocument = RElementosComunes.SetSpaces(myDocument, 1);
+                    //myDocument = RElementosComunes.SetSpaces(myDocument, 1);
 
                     myDocument = RElementosComunes.SetUserInfo(myDocument, servidor);
 
@@ -87,9 +87,9 @@ namespace Reporting
             try
             {
                 if (idAreaReporte != 0)
-                    servidores = (from n in servidores
+                    servidores = ((from n in servidores
                                   where n.IdArea == idAreaReporte
-                                  select n).ToList();
+                                  select n).ToList()).ToObservableCollection();
                 
                 PdfWriter writer = PdfWriter.GetInstance(myDocument, new FileStream(documento, FileMode.Create));
 

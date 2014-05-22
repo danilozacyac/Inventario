@@ -1,10 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using DaoProject.Dao;
+using DaoProject.Utilities;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
 
@@ -15,11 +15,11 @@ namespace Reporting
         private iTextSharp.text.Document myDocument;
         //private Paragraph para;
 
-        private List<ServidoresPublicos> servidores;
+        private ObservableCollection<ServidoresPublicos> servidores;
         private readonly ServidoresPublicos servidor;
         private readonly int idAreaReporte;
 
-        public REquipoComputo(List<ServidoresPublicos> servidores, int idAreaReporte)
+        public REquipoComputo(ObservableCollection<ServidoresPublicos> servidores, int idAreaReporte)
         {
             this.servidores = servidores;
             this.idAreaReporte = idAreaReporte;
@@ -61,7 +61,6 @@ namespace Reporting
                     myDocument = RElementosComunes.SetSpaces(myDocument, 3);
 
                     myDocument = RElementosComunes.SetPageFooter(myDocument, servidor);
-
                 }
             }
             catch (Exception ex)
@@ -70,8 +69,11 @@ namespace Reporting
             }
             finally
             {
-                myDocument.Close();
-                System.Diagnostics.Process.Start(documento);
+                if (servidor.Equipos.Count > 0)
+                {
+                    myDocument.Close();
+                    System.Diagnostics.Process.Start(documento);
+                }
             }
         }
 
@@ -87,19 +89,16 @@ namespace Reporting
             try
             {
                 if (idAreaReporte != 0)
-                    servidores = (List<ServidoresPublicos>)(from n in servidores
-                                                            where n.IdArea == idAreaReporte
-                                                            select n);
-
+                    servidores = ((from n in servidores
+                                   where n.IdArea == idAreaReporte
+                                   select n).ToList()).ToObservableCollection();
 
                 PdfWriter writer = PdfWriter.GetInstance(myDocument, new FileStream(documento, FileMode.Create));
-
 
                 myDocument.Open();
 
                 foreach (ServidoresPublicos usuario in servidores)
                 {
-
                     if (usuario.Equipos.Count > 0)
                     {
                         myDocument.NewPage();
@@ -117,7 +116,6 @@ namespace Reporting
                         myDocument = RElementosComunes.SetSpaces(myDocument, 3);
 
                         myDocument = RElementosComunes.SetPageFooter(myDocument, usuario);
-
                     }
                 }
             }
@@ -140,8 +138,6 @@ namespace Reporting
 
             table.SpacingBefore = 20f;
             table.SpacingAfter = 30f;
-
-
 
             string[] encabezado = { "Equipo", "SC Equipo", "Marca", "No. Serie", "Observaciones" };
             PdfPCell cell;
@@ -169,7 +165,5 @@ namespace Reporting
 
             myDocument.Add(table);
         }
-
-
     }
 }

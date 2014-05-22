@@ -67,9 +67,26 @@ namespace Inventario.Formularios.ServidoresFolder
                     model.ActualizaInfoServidores();
             }
             else
-                new ServidoresModel(servidor).SetNewUser();
+            {
+             int userId =  new ServidoresModel(servidor).SetNewServidor();
 
-            this.Close();
+             switch (userId)
+             {
+                 case -1:
+                     MessageBox.Show("Ya existe el número de inventario.\\nVerifique por favor.");
+                     break;
+                 case -2:
+                     MessageBox.Show("El servidor público que intenta registrar, ya se encuentra registrado");
+                     break;
+                 default:
+                     MessageBox.Show("Registro exitoso.\\nExpediente: " + userId.ToString());
+                     ServidoresSingleton.Servidores.Add(servidor);
+                     this.Close();
+                     break;
+             }
+
+            }
+            
         }
 
         private void RbtnCancelar_Click(object sender, RoutedEventArgs e)

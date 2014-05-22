@@ -86,7 +86,7 @@ namespace Inventario
 
         private void RbtnReportePersonal_Click(object sender, RoutedEventArgs e)
         {
-            ServidoresPublicos servidor = UcUsuarios.ServidorSeleccionado;
+            ServidoresPublicos servidor = GrUsuarios.ServidorSeleccionado;
 
             if (servidor == null)
                 MessageBox.Show("Seleccione el usuario del cual quiere generar el resguardo");

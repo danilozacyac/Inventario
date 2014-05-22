@@ -24,7 +24,7 @@ namespace Reporting
             table.SetWidths(new Single[] { 35, 150 });
 
             table.SpacingBefore = 20f;
-            table.SpacingAfter = 30f;
+            table.SpacingAfter = 10f;
 
             Image gif = Image.GetInstance(ConfigurationManager.AppSettings.Get("ImagenReportes"));
             gif.ScalePercent(24f);

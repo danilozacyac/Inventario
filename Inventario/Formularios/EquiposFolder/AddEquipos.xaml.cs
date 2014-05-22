@@ -72,26 +72,39 @@ namespace Inventario.Formularios.EquiposFolder
                 equipo.Expediente = expediente;
                 equipo.IdTipo = Convert.ToInt32(RcbTipoEquipo.SelectedValue);
 
-                new EquiposModel(equipo).SetNewEquipo();
+               int userId =  new EquiposModel(equipo).SetNewEquipo();
 
-                //Agregamos cada uno de los subequipos
-                foreach (Equipos equipoAlta in ConstVariables.ListaSubEquipos)
-                {
-                    if (ChkAsignar.IsChecked == true && Convert.ToInt32(TxtExpediente.Text) != expediente)
-                    {
-                        equipoAlta.Expediente = Convert.ToInt32(TxtExpediente.Text);
-                    }
+               if (userId == -1)
+               {
+                   MessageBox.Show("El equipo que intenta ingresar ya esta registrado. Verifique por favor");
+               }else
+               {
+                   //Agregamos cada uno de los subequipos
+                   foreach (Equipos equipoAlta in ConstVariables.ListaSubEquipos)
+                   {
+                       if (ChkAsignar.IsChecked == true && Convert.ToInt32(TxtExpediente.Text) != expediente)
+                       {
+                           equipoAlta.Expediente = Convert.ToInt32(TxtExpediente.Text);
+                       }
 
-                    new EquiposModel(equipoAlta).SetNewEquipo();
-                }
+                      userId =  new EquiposModel(equipoAlta).SetNewEquipo();
 
-                ConstVariables.ListaSubEquipos.Add(equipo);
-                ServidoresSingleton.AddEquiposAUsuario(expediente, ConstVariables.ListaSubEquipos);
+                      if (userId == -1)
+                      {
+                          MessageBox.Show("El equipo que intenta ingresar ya esta registrado. Verifique por favor");
+                      }
+                   }
 
-                //Al final limpiamos la Lista de subequipos de ConstVariables
-                ConstVariables.ListaSubEquipos.Clear();
-                DialogResult = true;
-                this.Close();
+                   ConstVariables.ListaSubEquipos.Add(equipo);
+                   ServidoresSingleton.AddEquiposAUsuario(expediente, ConstVariables.ListaSubEquipos);
+
+                   //Al final limpiamos la Lista de subequipos de ConstVariables
+                   ConstVariables.ListaSubEquipos.Clear();
+                   DialogResult = true;
+                   this.Close();
+               }
+
+                
             }
         }
 

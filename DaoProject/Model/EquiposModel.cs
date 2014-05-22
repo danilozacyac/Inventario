@@ -163,56 +163,107 @@ namespace DaoProject.Model
         /// <summary>
         /// Agrega los datos de un equipo a la base de datos
         /// </summary>
-        public void SetNewEquipo()
+        //public void SetNewEquipo()
+        //{
+        //    SqlConnection connectionEpsSql = Conexion.GetConexion();
+        //    SqlDataAdapter dataAdapter;
+
+        //    DataSet dataSet = new DataSet();
+        //    DataRow dr;
+
+        //    string sqlCadena = "SELECT * FROM Equipos WHERE expediente = 0";
+
+        //    try
+        //    {
+        //        dataAdapter = new SqlDataAdapter();
+        //        dataAdapter.SelectCommand = new SqlCommand(sqlCadena, connectionEpsSql);
+
+        //        dataAdapter.Fill(dataSet, "Equipos");
+
+        //        dr = dataSet.Tables["Equipos"].NewRow();
+        //        dr["SC_Equipo"] = equipo.ScEquipo;
+        //        dr["Expediente"] = equipo.Expediente;
+        //        dr["idTipo"] = equipo.IdTipo;
+        //        dr["Marca"] = equipo.Marca;
+        //        dr["Modelo"] = equipo.Modelo;
+        //        dr["NoSerie"] = equipo.NoSerie;
+        //        dr["Observaciones"] = equipo.Observaciones;
+        //        dr["Estado"] = "A";
+        //        dr["Alta"] = DateTime.Now.ToString("yyyy/MM/dd");
+        //        dr["Modificacion"] = DateTime.Now.ToString("yyyy/MM/dd");
+
+        //        dataSet.Tables["Equipos"].Rows.Add(dr);
+
+        //        dataAdapter.InsertCommand = connectionEpsSql.CreateCommand();
+        //        dataAdapter.InsertCommand.CommandText = "INSERT INTO Equipos(SC_Equipo,Expediente,idTipo,Marca,Modelo,NoSerie,Observaciones,Estado,Alta,Modificacion)" +
+        //                                                " VALUES(@SC_Equipo,@Expediente,@idTipo,@Marca,@Modelo,@NoSerie,@Observaciones,@Estado,@Alta,@Modificacion)";
+
+        //        dataAdapter.InsertCommand.Parameters.Add("@SC_Equipo", SqlDbType.VarChar, 0, "SC_Equipo");
+        //        dataAdapter.InsertCommand.Parameters.Add("@Expediente", SqlDbType.Int, 0, "Expediente");
+        //        dataAdapter.InsertCommand.Parameters.Add("@idTipo", SqlDbType.Int, 0, "idTipo");
+        //        dataAdapter.InsertCommand.Parameters.Add("@Marca", SqlDbType.VarChar, 0, "Marca");
+        //        dataAdapter.InsertCommand.Parameters.Add("@Modelo", SqlDbType.VarChar, 0, "Modelo");
+        //        dataAdapter.InsertCommand.Parameters.Add("@NoSerie", SqlDbType.VarChar, 0, "NoSerie");
+        //        dataAdapter.InsertCommand.Parameters.Add("@Observaciones", SqlDbType.VarChar, 0, "Observaciones");
+        //        dataAdapter.InsertCommand.Parameters.Add("@Estado", SqlDbType.VarChar, 0, "Estado");
+        //        dataAdapter.InsertCommand.Parameters.Add("@Alta", SqlDbType.Date, 0, "Alta");
+        //        dataAdapter.InsertCommand.Parameters.Add("@Modificacion", SqlDbType.Date, 0, "Modificacion");
+
+        //        dataAdapter.Update(dataSet, "Equipos");
+
+        //        dataSet.Dispose();
+        //        dataAdapter.Dispose();
+        //    }
+        //    catch (SqlException sql)
+        //    {
+        //        MessageBox.Show("Error ({0}) : {1}" + sql.Source + sql.Message, "Error Interno");
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show("Error ({0}) : {1}" + ex.Source + ex.Message, "Error Interno");
+        //    }
+        //    finally
+        //    {
+        //        connectionEpsSql.Close();
+        //    }
+        //}
+
+        public int SetNewEquipo()
         {
-            SqlConnection connectionEpsSql = Conexion.GetConexion();
-            SqlDataAdapter dataAdapter;
-
-            DataSet dataSet = new DataSet();
-            DataRow dr;
-
-            string sqlCadena = "SELECT * FROM Equipos WHERE expediente = 0";
+            //string message = "";
+            int userId = 0;
 
             try
             {
-                dataAdapter = new SqlDataAdapter();
-                dataAdapter.SelectCommand = new SqlCommand(sqlCadena, connectionEpsSql);
+                equipo.ScPrincipal = "";
+                //string constr = Conexion.GetConexion();
+                using (SqlConnection con = Conexion.GetConexion())
+                {
+                    using (SqlCommand cmd = new SqlCommand("Inserta_Equipo"))
+                    {
+                        using (SqlDataAdapter sda = new SqlDataAdapter())
+                        {
+                            cmd.CommandType = CommandType.StoredProcedure;
+                            cmd.Parameters.AddWithValue("@SC_Equipo", equipo.ScEquipo);
+                            cmd.Parameters.AddWithValue("@SC_Principal", equipo.ScPrincipal);
+                            cmd.Parameters.AddWithValue("@Expediente", equipo.Expediente);
+                            cmd.Parameters.AddWithValue("@IdTipo", equipo.IdTipo);
+                            cmd.Parameters.AddWithValue("@Marca", equipo.Marca);
+                            cmd.Parameters.AddWithValue("@Modelo", equipo.Modelo);
+                            cmd.Parameters.AddWithValue("@NoSerie", equipo.NoSerie);
+                            cmd.Parameters.AddWithValue("@Observaciones", "");
+                            cmd.Parameters.AddWithValue("@Estado", "A");
+                            cmd.Parameters.AddWithValue("@Alta", DateTime.Now.ToString("yyyy/MM/dd"));
+                            cmd.Parameters.AddWithValue("@Modificacion", DateTime.Now.ToString("yyyy/MM/dd"));
+                            cmd.Connection = con;
+                            con.Open();
+                            userId = Convert.ToInt32(cmd.ExecuteScalar());
+                            con.Close();
+                        }
+                    }
 
-                dataAdapter.Fill(dataSet, "Equipos");
 
-                dr = dataSet.Tables["Equipos"].NewRow();
-                dr["SC_Equipo"] = equipo.ScEquipo;
-                dr["Expediente"] = equipo.Expediente;
-                dr["idTipo"] = equipo.IdTipo;
-                dr["Marca"] = equipo.Marca;
-                dr["Modelo"] = equipo.Modelo;
-                dr["NoSerie"] = equipo.NoSerie;
-                dr["Observaciones"] = equipo.Observaciones;
-                dr["Estado"] = "A";
-                dr["Alta"] = DateTime.Now.ToString("yyyy/MM/dd");
-                dr["Modificacion"] = DateTime.Now.ToString("yyyy/MM/dd");
-
-                dataSet.Tables["Equipos"].Rows.Add(dr);
-
-                dataAdapter.InsertCommand = connectionEpsSql.CreateCommand();
-                dataAdapter.InsertCommand.CommandText = "INSERT INTO Equipos(SC_Equipo,Expediente,idTipo,Marca,Modelo,NoSerie,Observaciones,Estado,Alta,Modificacion)" +
-                                                        " VALUES(@SC_Equipo,@Expediente,@idTipo,@Marca,@Modelo,@NoSerie,@Observaciones,@Estado,@Alta,@Modificacion)";
-
-                dataAdapter.InsertCommand.Parameters.Add("@SC_Equipo", SqlDbType.VarChar, 0, "SC_Equipo");
-                dataAdapter.InsertCommand.Parameters.Add("@Expediente", SqlDbType.Int, 0, "Expediente");
-                dataAdapter.InsertCommand.Parameters.Add("@idTipo", SqlDbType.Int, 0, "idTipo");
-                dataAdapter.InsertCommand.Parameters.Add("@Marca", SqlDbType.VarChar, 0, "Marca");
-                dataAdapter.InsertCommand.Parameters.Add("@Modelo", SqlDbType.VarChar, 0, "Modelo");
-                dataAdapter.InsertCommand.Parameters.Add("@NoSerie", SqlDbType.VarChar, 0, "NoSerie");
-                dataAdapter.InsertCommand.Parameters.Add("@Observaciones", SqlDbType.VarChar, 0, "Observaciones");
-                dataAdapter.InsertCommand.Parameters.Add("@Estado", SqlDbType.VarChar, 0, "Estado");
-                dataAdapter.InsertCommand.Parameters.Add("@Alta", SqlDbType.Date, 0, "Alta");
-                dataAdapter.InsertCommand.Parameters.Add("@Modificacion", SqlDbType.Date, 0, "Modificacion");
-
-                dataAdapter.Update(dataSet, "Equipos");
-
-                dataSet.Dispose();
-                dataAdapter.Dispose();
+                }
             }
             catch (SqlException sql)
             {
@@ -224,9 +275,11 @@ namespace DaoProject.Model
             }
             finally
             {
-                connectionEpsSql.Close();
+                //connectionEpsSql.Close();
             }
+            return userId;
         }
+
 
         /// <summary>
         /// Actualiza los datos generales del equipo
