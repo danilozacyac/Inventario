@@ -1,0 +1,33 @@
+﻿<telerik:RadWindow x:Class="Inventario.Configuracion.ConfigOptions"
+                   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                   xmlns:Controles="clr-namespace:Inventario.Configuracion.ConfigControls"
+                   xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+                   Width="776.384"
+                   Height="544.832"
+                   Background="#F0F0F0"
+                   Header="ConfigOptions">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="180" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <telerik:RadListBox Grid.Column="0"
+                            Width="167"
+                            Height="457"
+                            Margin="10,10,0,0"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Top">
+            <telerik:RadListBoxItem Content="General" />
+            <telerik:RadListBoxItem Content="Reportes" />
+
+        </telerik:RadListBox>
+
+        <Grid Grid.Column="1"
+              Margin="10,10,10,36"
+              Background="White">
+            <Controles:ReporteConfig HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+        </Grid>
+
+    </Grid>
+</telerik:RadWindow>

@@ -1,0 +1,87 @@
+﻿<UserControl x:Class="Inventario.UserControls.GridUsuarios"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:Converters="clr-namespace:Inventario.Converters"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:search="clr-namespace:UIControls;assembly=UIControls"
+             xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+             Loaded="UserControl_Loaded"
+             d:DesignHeight="300"
+             d:DesignWidth="300"
+             mc:Ignorable="d">
+    <UserControl.Resources>
+        <Converters:AreaToStringConverter x:Key="AreaConverter" />
+        <Converters:UbicacionToStringConverter x:Key="UbicacionConverter" />
+    </UserControl.Resources>
+    <Grid>
+        <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="35" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0" VerticalAlignment="Top">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <telerik:RadButton x:Name="RbtnCerrar"
+                                   Width="30"
+                                   HorizontalAlignment="Left"
+                                   Click="RbtnCerrar_Click">
+                    <Image Source="/Inventario;component/Resources/close.png" />
+                </telerik:RadButton>
+                <search:SearchTextBox Width="125"
+                                      Height="21"
+                                      Margin="48,0,0,5"
+                                      HorizontalAlignment="Right"
+                                      VerticalAlignment="Bottom"
+                                      Search="SearchTextBox_Search" />
+
+            </Grid>
+            <telerik:RadGridView x:Name="RGridUsers"
+                                 Grid.Row="1"
+                                 HorizontalAlignment="Stretch"
+                                 VerticalAlignment="Stretch"
+                                 AutoGenerateColumns="False"
+                                 IsReadOnly="True"
+                                 ItemsSource="{Binding}"
+                                 MouseDoubleClick="RGridUsers_MouseDoubleClick"
+                                 SelectionChanged="RGridUsers_SelectionChanged"
+                                 ShowGroupPanel="False">
+                <telerik:RadGridView.Columns>
+                    <telerik:GridViewImageColumn Width="45"
+                                                 DataMemberBinding="{Binding Image}"
+                                                 Header="Photo"
+                                                 ImageHeight="35"
+                                                 ImageWidth="35"
+                                                 IsFilterable="False" />
+                    <telerik:GridViewDataColumn DataMemberBinding="{Binding Expediente}"
+                                                Header="Expediente"
+                                                IsFilterable="False" />
+                    <telerik:GridViewDataColumn DataMemberBinding="{Binding Nombre}"
+                                                Header="Nombre"
+                                                IsFilterable="False" />
+
+                    <telerik:GridViewDataColumn DataMemberBinding="{Binding IdArea,
+                                                                            Converter={StaticResource AreaConverter}}"
+                                                Header="Adscripcion"
+                                                IsFilterable="True" />
+
+                    <telerik:GridViewDataColumn DataMemberBinding="{Binding IdUbicacion,
+                                                                            Converter={StaticResource UbicacionConverter}}"
+                                                Header="Ubicacion"
+                                                IsFilterable="False" />
+                    <telerik:GridViewDataColumn DataMemberBinding="{Binding Puerta}"
+                                                Header="Puerta"
+                                                IsFilterable="False" />
+                    <telerik:GridViewDataColumn Width="*"
+                                                DataMemberBinding="{Binding Extension}"
+                                                Header="Extension"
+                                                IsFilterable="False" />
+                </telerik:RadGridView.Columns>
+            </telerik:RadGridView>
+        </Grid>
+    </Grid>
+</UserControl>

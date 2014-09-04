@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
 using System.Data.SqlClient;
@@ -7,7 +6,6 @@ using System.Linq;
 using System.Windows.Forms;
 using DaoProject.Dao;
 using DaoProject.DbAccess;
-using DaoProject.Singleton;
 using DaoProject.Utilities;
 
 namespace DaoProject.Model
@@ -217,40 +215,38 @@ namespace DaoProject.Model
         //    }
         //}// fin InsertarRegistro
 
-
         public int SetNewServidor()
         {
             //string message = "";
             int userId = 0;
 
-            try{
-            
-            //string constr = Conexion.GetConexion();
-            using (SqlConnection con = Conexion.GetConexion())
+            try
             {
-                using (SqlCommand cmd = new SqlCommand("Inserta_Usuario"))
+                //string constr = Conexion.GetConexion();
+                using (SqlConnection con = Conexion.GetConexion())
                 {
-                    using (SqlDataAdapter sda = new SqlDataAdapter())
+                    using (SqlCommand cmd = new SqlCommand("Inserta_Usuario"))
                     {
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.Parameters.AddWithValue("@Expediente", servidor.Expediente);
-                        cmd.Parameters.AddWithValue("@IdTitulo", servidor.IdTitulo);
-                        cmd.Parameters.AddWithValue("@Nombre", servidor.Nombre);
-                        cmd.Parameters.AddWithValue("@IdUbicacion", servidor.IdUbicacion);
-                        cmd.Parameters.AddWithValue("@Puerta", servidor.Puerta);
-                        cmd.Parameters.AddWithValue("@Extension", servidor.Extension);
-                        cmd.Parameters.AddWithValue("@IdArea", servidor.IdArea);
-                        cmd.Parameters.AddWithValue("@IdAdscripcion", servidor.IdAdscripcion);
-                        cmd.Parameters.AddWithValue("@UserStatus", 1);
-                        cmd.Connection = con;
-                        con.Open();
-                        userId = Convert.ToInt32(cmd.ExecuteScalar());
-                        con.Close();
+                        using (SqlDataAdapter sda = new SqlDataAdapter())
+                        {
+                            cmd.CommandType = CommandType.StoredProcedure;
+                            cmd.Parameters.AddWithValue("@Expediente", servidor.Expediente);
+                            cmd.Parameters.AddWithValue("@IdTitulo", servidor.IdTitulo);
+                            cmd.Parameters.AddWithValue("@Nombre", servidor.Nombre);
+                            cmd.Parameters.AddWithValue("@IdUbicacion", servidor.IdUbicacion);
+                            cmd.Parameters.AddWithValue("@Puerta", servidor.Puerta);
+                            cmd.Parameters.AddWithValue("@Extension", servidor.Extension);
+                            cmd.Parameters.AddWithValue("@IdArea", servidor.IdArea);
+                            cmd.Parameters.AddWithValue("@IdAdscripcion", servidor.IdAdscripcion);
+                            cmd.Parameters.AddWithValue("@UserStatus", 1);
+                            cmd.Connection = con;
+                            con.Open();
+                            userId = Convert.ToInt32(cmd.ExecuteScalar());
+                            con.Close();
+                        }
                     }
+                    
                 }
-                
-                
-            }
             }
             catch (SqlException sql)
             {
@@ -266,8 +262,6 @@ namespace DaoProject.Model
             }
             return userId;
         }
-
-
 
         /// <summary>
         /// Actualiza los datos del servidor público en cuestion

@@ -26,12 +26,7 @@
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
-                <telerik:RadButton x:Name="RbtnCerrar"
-                                   Width="30"
-                                   HorizontalAlignment="Left"
-                                   Click="RbtnCerrar_Click">
-                    <Image Source="/Inventario;component/Resources/close.png" />
-                </telerik:RadButton>
+
                 <search:SearchTextBox Width="125"
                                       Height="21"
                                       Margin="48,0,0,5"

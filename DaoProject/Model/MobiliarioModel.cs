@@ -383,6 +383,38 @@ namespace DaoProject.Model
             }
         }
 
+        public DataSet GetBajas()
+        {
+            SqlConnection sqlConne = Conexion.GetConexion();
+            SqlDataAdapter vAdap;
+            DataSet vDs = null;
+
+
+            try
+            {
+                sqlConne.Open();
+                string vQuery = "SELECT * FROM vMBajas ORDER By FechaBaja Desc";
+
+                vDs = new DataSet();
+                vAdap = new SqlDataAdapter(vQuery, sqlConne);
+                vAdap.Fill(vDs, "vMBajas");
+            }
+            catch (SqlException sql)
+            {
+                MessageBox.Show("Error ({0}) : {1}" + sql.Source + sql.Message, "Error Interno");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error ({0}) : {1}" + ex.Source + ex.Message, "Error Interno");
+            }
+            finally
+            {
+                sqlConne.Close();
+            }
+            return vDs;
+        }
+
+
         #region Historial
 
         /// <summary>
@@ -437,7 +469,39 @@ namespace DaoProject.Model
             }
             return historiales;
         }
-        
+
+
+        public DataSet GetHistorial()
+        {
+            SqlConnection sqlConne = Conexion.GetConexion();
+            SqlDataAdapter vAdap;
+            DataSet vDs = null;
+
+
+            try
+            {
+                sqlConne.Open();
+                string vQuery = "SELECT * FROM HMobiliario";
+
+                vDs = new DataSet();
+                vAdap = new SqlDataAdapter(vQuery, sqlConne);
+                vAdap.Fill(vDs, "HMobiliario");
+            }
+            catch (SqlException sql)
+            {
+                MessageBox.Show("Error ({0}) : {1}" + sql.Source + sql.Message, "Error Interno");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error ({0}) : {1}" + ex.Source + ex.Message, "Error Interno");
+            }
+            finally
+            {
+                sqlConne.Close();
+            }
+            return vDs;
+        }
+
         #endregion
     }
 }

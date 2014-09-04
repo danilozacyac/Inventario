@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<Distribution xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Version>2014.2.729.40</Version>
+  <Trial>false</Trial>
+  <Dependencies>
+    <Project>39bb2afd-8bfe-4419-8e23-5f23782e65aa</Project>
+  </Dependencies>
+  <DistributionInfo>
+    <Release Version="2009.3.1314">
+      <ExcludeComponents>
+        <Component AssemblyName="Telerik.Windows.QuickStart" DesignAssemblyReqiredInGAC="false" />
+      </ExcludeComponents>
+      <AdditionalPaths />
+      <DesignAssembliesRelativePath Path="design" />
+    </Release>
+    <Release Version="2010.2.709">
+      <ExcludeComponents>
+        <Component AssemblyName="Telerik.Windows.QuickStart" DesignAssemblyReqiredInGAC="false" />
+        <Component AssemblyName="Telerik.Windows.QuickStartTheme" DesignAssemblyReqiredInGAC="false" />
+        <Component AssemblyName="Telerik.Windows.QuickStartLoader" DesignAssemblyReqiredInGAC="false" />
+      </ExcludeComponents>
+      <AdditionalPaths />
+      <DesignAssembliesRelativePath Path="design" />
+    </Release>
+    <Release Version="2011.2.711">
+      <ExcludeComponents>
+        <Component AssemblyName="Telerik.Windows.QuickStart" DesignAssemblyReqiredInGAC="false" />
+        <Component AssemblyName="Telerik.Windows.QuickStartTheme" DesignAssemblyReqiredInGAC="false" />
+        <Component AssemblyName="Telerik.Windows.QuickStartLoader" DesignAssemblyReqiredInGAC="false" />
+        <Component AssemblyName="Telerik.Windows.Controls.RibbonBar" DesignAssemblyReqiredInGAC="false" />
+        <Component AssemblyName="Telerik.Windows.Controls.Scheduler" DesignAssemblyReqiredInGAC="false" />
+      </ExcludeComponents>
+      <AdditionalPaths />
+      <DesignAssembliesRelativePath Path="design" />
+    </Release>
+    <Release Version="2011.3.1115">
+      <ExcludeComponents>
+        <Component AssemblyName="Telerik.Windows.QuickStart" DesignAssemblyReqiredInGAC="false" />
+        <Component AssemblyName="Telerik.Windows.QuickStartTheme" DesignAssemblyReqiredInGAC="false" />
+        <Component AssemblyName="Telerik.Windows.QuickStartLoader" DesignAssemblyReqiredInGAC="false" />
+        <Component AssemblyName="Telerik.Windows.Controls.RibbonBar" DesignAssemblyReqiredInGAC="false" />
+        <Component AssemblyName="Telerik.Windows.Controls.Scheduler" DesignAssemblyReqiredInGAC="false" />
+        <Component AssemblyName="Telerik.Windows.Controls.Gauge" DesignAssemblyReqiredInGAC="false" />
+      </ExcludeComponents>
+      <AdditionalPaths />
+      <DesignAssembliesRelativePath Path="design" />
+    </Release>
+  </DistributionInfo>
+  <NoXaml>false</NoXaml>
+</Distribution>

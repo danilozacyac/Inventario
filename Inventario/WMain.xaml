@@ -245,6 +245,11 @@
                                              LargeImage="Resources/clock.png"
                                              Size="Large"
                                              Text="Ver historial del equipo" />
+                    <telerik:RadRibbonButton x:Name="RBtnBajas"
+                                             Click="RBtnBajas_Click"
+                                             LargeImage="Resources/down.png"
+                                             Size="Large"
+                                             Text="Ver historial de bajas" />
                 </telerik:RadRibbonGroup>
 
             </telerik:RadRibbonTab>
@@ -291,6 +296,19 @@
                                              LargeImage="Resources/ReasigMob.png"
                                              Size="Large"
                                              Text="Reasignar Mobiliario" />
+                    <telerik:RadRibbonButton x:Name="RBtnHMobiliario"
+                                             Click="RBtnHMobiliario_Click"
+                                             CollapseToSmall="WhenGroupIsSmall"
+                                             LargeImage="Resources/clock.png"
+                                             Size="Large"
+                                             Text="Historial Mobiliario" />
+                    <telerik:RadRibbonButton x:Name="RBtnBMobiliario"
+                                             Click="RBtnBMobiliario_Click"
+                                             CollapseToSmall="WhenGroupIsSmall"
+                                             LargeImage="Resources/down.png"
+                                             Size="Large"
+                                             Text="Bajas Mobiliario" />
+
 
                 </telerik:RadRibbonGroup>
                 <telerik:RadRibbonGroup />
@@ -303,16 +321,26 @@
                                  VerticalAlignment="Stretch"
                                  Visibility="Hidden" />
 
-        <UserControls:PresentaUsuarios x:Name="UcUsuarios"
-                                       Grid.Row="1"
-                                       HorizontalAlignment="Stretch"
-                                       VerticalAlignment="Stretch"
-                                       Visibility="Collapsed" />
-
         <UserControls:GridUsuarios x:Name="GrUsuarios"
                                    Grid.Row="1"
                                    HorizontalAlignment="Stretch"
                                    VerticalAlignment="Stretch" />
+
+        <UserControls:GridBajas x:Name="GrBajas"
+                                Grid.Row="1"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Stretch"
+                                Visibility="Collapsed" />
+        <UserControls:GridHMobiliario x:Name="GrHMob"
+                                      Grid.Row="1"
+                                      HorizontalAlignment="Stretch"
+                                      VerticalAlignment="Stretch"
+                                      Visibility="Collapsed" />
+        <UserControls:GridMBajas x:Name="GrBajasM"
+                                 Grid.Row="1"
+                                 HorizontalAlignment="Stretch"
+                                 VerticalAlignment="Stretch"
+                                 Visibility="Collapsed" />
 
     </Grid>
 </telerik:RadWindow>

@@ -67,9 +67,10 @@ namespace Inventario
 
         private void RbtnListaUsuarios_Click(object sender, RoutedEventArgs e)
         {
-            
-
-            this.UcUsuarios.Visibility = System.Windows.Visibility.Visible;
+            if (GrUsuarios.IsVisible == true)
+                GrUsuarios.Visibility = Visibility.Collapsed;
+            else
+                GrUsuarios.Visibility = Visibility.Visible;
         }
 
         private void RbtnAddMobiliario_Click(object sender, RoutedEventArgs e)
@@ -147,15 +148,15 @@ namespace Inventario
 
         private void RbtnEditaEquipo_Click(object sender, RoutedEventArgs e)
         {
-            UpdateEquipo update = new UpdateEquipo(this.UcUsuarios.EquipoSeleccionado);
-            update.Owner = this;
-            update.Show();
+            //UpdateEquipo update = new UpdateEquipo(this.GrUsuarios.EquipoSeleccionado);
+            //update.Owner = this;
+            //update.Show();
         }
 
         private void RbtnReasignaEquipo_Click(object sender, RoutedEventArgs e)
         {
-            UpdateUsuarioEquipo update = new UpdateUsuarioEquipo(UcUsuarios.ServidorSeleccionado, UcUsuarios.EquipoSeleccionado);
-            update.Show();
+            //UpdateUsuarioEquipo update = new UpdateUsuarioEquipo(GrUsuarios.ServidorSeleccionado, GrUsuarios.EquipoSeleccionado);
+            //update.Show();
         }
 
         private void RbtnListaAreas_Click(object sender, RoutedEventArgs e)
@@ -225,9 +226,9 @@ namespace Inventario
 
         private void RbtnEditarUsuario_Click(object sender, RoutedEventArgs e)
         {
-            if (UcUsuarios.ServidorSeleccionado != null)
+            if (GrUsuarios.ServidorSeleccionado != null)
             {
-                AddUpdateUsuarios update = new AddUpdateUsuarios(UcUsuarios.ServidorSeleccionado);
+                AddUpdateUsuarios update = new AddUpdateUsuarios(GrUsuarios.ServidorSeleccionado);
                 update.Owner = this;
                 update.Show();
             }
@@ -246,16 +247,16 @@ namespace Inventario
 
         private void RbtnHistorial_Click(object sender, RoutedEventArgs e)
         {
-            if (UcUsuarios.EquipoSeleccionado == null)
-                return;
+            //if (GrUsuarios.EquipoSeleccionado == null)
+            //    return;
 
-            if (UcUsuarios.EquipoSeleccionado.Historial == null)
-            {
-                UcUsuarios.EquipoSeleccionado.Historial = new EquiposModel().GetHistorial(UcUsuarios.EquipoSeleccionado);
-            }
+            //if (GrUsuarios.EquipoSeleccionado.Historial == null)
+            //{
+            //    GrUsuarios.EquipoSeleccionado.Historial = new EquiposModel().GetHistorial(GrUsuarios.EquipoSeleccionado);
+            //}
 
-            HistorialEquipo historial = new HistorialEquipo(UcUsuarios.EquipoSeleccionado.Historial);
-            historial.ShowDialog();
+            //HistorialEquipo historial = new HistorialEquipo(GrUsuarios.EquipoSeleccionado.Historial);
+            //historial.ShowDialog();
         }
 
         private void ExportaDocs_Click(object sender, RoutedEventArgs e)
@@ -291,36 +292,60 @@ namespace Inventario
 
         private void RbtnDelMobiliario_Click(object sender, RoutedEventArgs e)
         {
-            DeleteMobiliario delete = new DeleteMobiliario(UcUsuarios.MobilSeleccionado);
-            delete.Show();
+            //DeleteMobiliario delete = new DeleteMobiliario(GrUsuarios.MobilSeleccionado);
+            //delete.Show();
         }
 
         private void RbtnReasigMobiliario_Click(object sender, RoutedEventArgs e)
         {
-            if (UcUsuarios.MobilSeleccionado == null)
-                return;
+            //if (GrUsuarios.MobilSeleccionado == null)
+            //    return;
 
-            UpdateMobiliarioUsuario update = new UpdateMobiliarioUsuario(UcUsuarios.ServidorSeleccionado,UcUsuarios.MobilSeleccionado);
-            update.Owner = this;
-            update.Show();
+            //UpdateMobiliarioUsuario update = new UpdateMobiliarioUsuario(GrUsuarios.ServidorSeleccionado, GrUsuarios.MobilSeleccionado);
+            //update.Owner = this;
+            //update.Show();
         }
 
         private void RbtnEditMobiliario_Click(object sender, RoutedEventArgs e)
         {
-            if (UcUsuarios.MobilSeleccionado == null)
-            {
-                MessageBox.Show("Selecciona el artículo que deseas actualizar");
-                return;
-            }
+            //if (GrUsuarios.MobilSeleccionado == null)
+            //{
+            //    MessageBox.Show("Selecciona el artículo que deseas actualizar");
+            //    return;
+            //}
 
-            AddUpdateMobiliario add = new AddUpdateMobiliario(UcUsuarios.MobilSeleccionado);
-            add.ShowDialog();
+            //AddUpdateMobiliario add = new AddUpdateMobiliario(GrUsuarios.MobilSeleccionado);
+            //add.ShowDialog();
         }
 
         private void ListaMobiliario_Click(object sender, RoutedEventArgs e)
         {
             CatalogoTipos catalog = new CatalogoTipos();
             catalog.ShowDialog();
+        }
+
+        private void RBtnBajas_Click(object sender, RoutedEventArgs e)
+        {
+            if (GrBajas.IsVisible == true)
+                GrBajas.Visibility = Visibility.Collapsed;
+            else
+                GrBajas.Visibility = Visibility.Visible;
+        }
+
+        private void RBtnHMobiliario_Click(object sender, RoutedEventArgs e)
+        {
+            if (GrHMob.IsVisible == true)
+                GrHMob.Visibility = Visibility.Collapsed;
+            else
+                GrHMob.Visibility = Visibility.Visible;
+        }
+
+        private void RBtnBMobiliario_Click(object sender, RoutedEventArgs e)
+        {
+            if (GrBajasM.IsVisible == true)
+                GrBajasM.Visibility = Visibility.Collapsed;
+            else
+                GrBajasM.Visibility = Visibility.Visible;
         }
     }
 }

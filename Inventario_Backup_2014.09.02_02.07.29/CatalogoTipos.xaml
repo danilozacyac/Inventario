@@ -1,0 +1,69 @@
+﻿<telerik:RadWindow x:Class="Inventario.CatalogoTipos"
+                   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                   xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+                   x:Name="WinCatalogoTipos"
+                   Width="526"
+                   Height="624.3"
+                   Background="#F0F0F0"
+                   Header="Lista de equipos registrados"
+                   Loaded="RadWindow_Loaded_1"
+                   ResizeMode="NoResize">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="38" />
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="20" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="20" />
+            </Grid.ColumnDefinitions>
+            <telerik:RadListBox Name="RlstTipos"
+                                Grid.Column="1"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Stretch"
+                                DisplayMemberPath="Descripcion"
+                                ItemsSource="{Binding}"
+                                SelectedValuePath="IdElemento" />
+
+
+        </Grid>
+
+        <Grid Grid.Row="2" Height="50">
+            <telerik:RadButton x:Name="RbtnAgregar"
+                               Width="77"
+                               Margin="20,10,0,0"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Top"
+                               Click="RbtnAgregar_Click_1"
+                               Content="Agregar" />
+            <telerik:RadButton x:Name="RbtnActualizar"
+                               Width="77"
+                               Margin="102,10,0,0"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Top"
+                               Click="RbtnActualizar_Click"
+                               Content="Actualizar" />
+            <telerik:RadButton x:Name="RbtnEliminar"
+                               Width="77"
+                               Margin="184,10,0,0"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Top"
+                               Click="RbtnEliminar_Click"
+                               Content="Eliminar" />
+            <telerik:RadButton x:Name="RbtnCerrar"
+                               Width="77"
+                               Margin="419,10,0,0"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Top"
+                               Click="RbtnCerrar_Click"
+                               Content="Cerrar" />
+
+        </Grid>
+
+    </Grid>
+</telerik:RadWindow>

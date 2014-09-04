@@ -1,0 +1,320 @@
+﻿<telerik:RadWindow x:Class="Inventario.WMain"
+                   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                   xmlns:UserControls="clr-namespace:Inventario.UserControls"
+                   xmlns:common="clr-namespace:Inventario.Dao"
+                   xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+                   Width="1049.423"
+                   Height="695.385"
+                   Header=""
+                   Loaded="RadWindow_Loaded_1"
+                   RestrictedAreaMargin="0,0,0,20"
+                   WindowState="Maximized">
+    <Grid>
+        <Grid.Resources>
+
+            <common:AvailableTemplates x:Key="AvailableTemplates" />
+            <LinearGradientBrush x:Key="DottedLineBrush" MappingMode="Absolute" SpreadMethod="Repeat" StartPoint="0,0.5" EndPoint="4,0.5">
+                <GradientStop Offset="0" Color="#40000000" />
+                <GradientStop Offset="0.5" Color="#40000000" />
+                <GradientStop Offset="0.501" Color="Transparent" />
+            </LinearGradientBrush>
+
+            <DataTemplate x:Key="AvailableTemplatesTemplate">
+                <telerik:RadRibbonButton x:Name="ExportaDocs"
+                                         Margin="0 5 0 0"
+                                         VerticalContentAlignment="Stretch"
+                                         Click="ExportaDocs_Click"
+                                         Command="{Binding ElementName=UserControl,
+                                                           Path=Command}"
+                                         Tag="{Binding Header}">
+                    <Grid Width="180">
+                        <Grid.ColumnDefinitions />
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <Image Width="256"
+                               Height="128"
+                               Source="{Binding ImageSource}" />
+                        <TextBlock Grid.Row="1"
+                                   Margin="2"
+                                   HorizontalAlignment="Center"
+                                   Text="{Binding Header}"
+                                   TextAlignment="Center"
+                                   TextWrapping="Wrap" />
+                    </Grid>
+                </telerik:RadRibbonButton>
+            </DataTemplate>
+        </Grid.Resources>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="150" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <telerik:RadRibbonView x:Name="Ribbon"
+                               Grid.Row="0"
+                               VerticalAlignment="Top"
+                               ApplicationName="Coordinación General de Compilación y Sistematización de Tesis"
+                               SelectionChanged="Ribbon_SelectionChanged">
+            <telerik:RadRibbonView.Backstage>
+                <telerik:RadRibbonBackstage>
+                    <telerik:RadRibbonBackstageItem Header="Exportar como"
+                                                    Icon="Resources/next.png"
+                                                    IsSelectable="True">
+                        <StackPanel Margin="15 15 0 0">
+                            <TextBlock Margin="0 0 0 2"
+                                       FontSize="14"
+                                       FontWeight="Bold"
+                                       Text="Formatos disponibles" />
+                            <Rectangle Height="1" Fill="{StaticResource DottedLineBrush}" />
+                            <ItemsControl ItemTemplate="{StaticResource AvailableTemplatesTemplate}" ItemsSource="{StaticResource AvailableTemplates}">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <telerik:RadWrapPanel />
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                            </ItemsControl>
+                        </StackPanel>
+                    </telerik:RadRibbonBackstageItem>
+                    <telerik:RadRibbonBackstageItem Header="Save As"
+                                                    Icon="Resources/next.png"
+                                                    IsSelectable="False" />
+                    <telerik:RadRibbonBackstageItem Header="Open"
+                                                    Icon="Resources/next.png"
+                                                    IsSelectable="False" />
+                    <telerik:RadRibbonBackstageItem x:Name="RbtnConfig"
+                                                    Click="RbtnConfig_Click"
+                                                    Header="Configurar"
+                                                    Icon="Resources/config.png"
+                                                    IsSelectable="False" />
+                    <telerik:RadRibbonBackstageItem Header="Cerrar sesión"
+                                                    Icon="/Inventario;component/Resources/Lock48.png"
+                                                    IsSelectable="False" />
+                    <telerik:RadRibbonBackstageItem Header="Salir"
+                                                    Icon="/Inventario;component/Resources/shut_down.png"
+                                                    IsSelectable="False" />
+                </telerik:RadRibbonBackstage>
+            </telerik:RadRibbonView.Backstage>
+            <telerik:RadRibbonTab Header="General">
+                <telerik:RadRibbonGroup DialogLauncherVisibility="Visible"
+                                        Header="Áreas"
+                                        Icon="/Inventario;component/Resources/search.png"
+                                        telerik:KeyTipService.AccessText="FO"
+                                        telerik:ScreenTip.Description="Show the Clipboard Task options."
+                                        telerik:ScreenTip.Title="Áreas">
+                    <telerik:RadRibbonButton x:Name="RbtnListaAreas"
+                                             Click="RbtnListaAreas_Click"
+                                             LargeImage="/Inventario;component/Resources/area.png"
+                                             Size="Large"
+                                             Text="Áreas"
+                                             telerik:KeyTipService.AccessText="V" />
+                    <StackPanel>
+                        <telerik:RadRibbonButton x:Name="RbtnAddArea"
+                                                 Click="RbtnAddArea_Click"
+                                                 CollapseToSmall="WhenGroupIsSmall"
+                                                 Size="Medium"
+                                                 SmallImage="/Inventario;component/Resources/add.png"
+                                                 Text="Agregar"
+                                                 telerik:KeyTipService.AccessText="G" />
+                        <telerik:RadRibbonButton x:Name="RbtnEliminarArea"
+                                                 Click="RbtnEliminarArea_Click"
+                                                 CollapseToSmall="WhenGroupIsSmall"
+                                                 Size="Medium"
+                                                 SmallImage="/Inventario;component/Resources/delete.png"
+                                                 Text="Eliminar"
+                                                 telerik:KeyTipService.AccessText="D" />
+                        <telerik:RadRibbonButton x:Name="RbtnUpdateArea"
+                                                 Click="RbtnUpdateArea_Click"
+                                                 CollapseToSmall="WhenGroupIsSmall"
+                                                 Size="Medium"
+                                                 SmallImage="/Inventario;component/Resources/edit.png"
+                                                 Text="Editar"
+                                                 telerik:KeyTipService.AccessText="J" />
+
+                    </StackPanel>
+                </telerik:RadRibbonGroup>
+                <telerik:RadRibbonGroup DialogLauncherVisibility="Visible"
+                                        Header="Usuarios"
+                                        telerik:KeyTipService.AccessText="FO"
+                                        telerik:ScreenTip.Description="Show the Clipboard Task options."
+                                        telerik:ScreenTip.Title="Áreas">
+                    <telerik:RadRibbonButton x:Name="RbtnListaUsuarios"
+                                             Click="RbtnListaUsuarios_Click"
+                                             LargeImage="/Inventario;component/Resources/usertiles.png"
+                                             Size="Large"
+                                             Text="Lista de Usuarios"
+                                             telerik:KeyTipService.AccessText="V" />
+                    <StackPanel>
+                        <telerik:RadRibbonButton x:Name="AgregaUsuario"
+                                                 Click="AgregaUsuario_Click"
+                                                 CollapseToSmall="WhenGroupIsSmall"
+                                                 Size="Medium"
+                                                 SmallImage="/Inventario;component/Resources/useradd.png"
+                                                 Text="Agregar"
+                                                 telerik:KeyTipService.AccessText="G" />
+                        <telerik:RadRibbonButton CollapseToSmall="WhenGroupIsSmall"
+                                                 Size="Medium"
+                                                 SmallImage="/Inventario;component/Resources/userdelete.png"
+                                                 Text="Eliminar"
+                                                 telerik:KeyTipService.AccessText="D" />
+                        <telerik:RadRibbonButton x:Name="RbtnEditarUsuario"
+                                                 Click="RbtnEditarUsuario_Click"
+                                                 CollapseToSmall="WhenGroupIsSmall"
+                                                 Size="Medium"
+                                                 SmallImage="/Inventario;component/Resources/useredit.png"
+                                                 Text="Editar"
+                                                 telerik:KeyTipService.AccessText="J" />
+
+                    </StackPanel>
+                </telerik:RadRibbonGroup>
+                <telerik:RadRibbonGroup Header="Reportes">
+                    <telerik:RadRibbonButton Name="RribReporteGral"
+                                             Click="RribReporteGral_Click"
+                                             LargeImage="Resources/rGral.png"
+                                             Size="Large"
+                                             Text="Reporte General"
+                                             telerik:KeyTipService.AccessText="V" />
+                    <telerik:RadRibbonButton Name="RbtnReportePersonal"
+                                             Click="RbtnReportePersonal_Click"
+                                             LargeImage="Resources/rPersonal.png"
+                                             Size="Large"
+                                             Text="Reporte Personal" />
+                    <StackPanel>
+
+                        <telerik:RadRibbonComboBox x:Name="RcbAreasReporte"
+                                                   Width="150"
+                                                   DisplayMemberPath="Corto"
+                                                   ItemsSource="{Binding}"
+                                                   SelectedValuePath="IdElemento" />
+                        <telerik:RadRibbonButton x:Name="RbtnReporteAreas"
+                                                 Click="RbtnReporteAreas_Click"
+                                                 CollapseToSmall="WhenGroupIsSmall"
+                                                 Size="Medium"
+                                                 SmallImage="/Inventario;component/Resources/rAreas.png"
+                                                 Text="Reporte por área" />
+
+                    </StackPanel>
+                </telerik:RadRibbonGroup>
+                <telerik:RadRibbonGroup DialogLauncherVisibility="Visible"
+                                        Header="Otras opciones"
+                                        telerik:ScreenTip.Title="Otros">
+                    <telerik:RadRibbonButton x:Name="RbtnCatalogoTipos"
+                                             Click="RbtnCatalogoTipos_Click"
+                                             LargeImage="Resources/catalog.png"
+                                             Size="Large"
+                                             Text="Catalogo equipos " />
+                    <telerik:RadRibbonButton x:Name="RbtnBuscar"
+                                             Click="RbtnBuscar_Click"
+                                             LargeImage="Resources/binoc.png"
+                                             Size="Large"
+                                             Text="Buscar" />
+                </telerik:RadRibbonGroup>
+            </telerik:RadRibbonTab>
+            <telerik:RadRibbonTab Name="TabComputo" Header="Computo">
+                <telerik:RadRibbonGroup Header="Equipos de computo">
+                    <telerik:RadRibbonButton x:Name="RbtnListaEquipos"
+                                             LargeImage="/Inventario;component/Resources/usertiles.png"
+                                             Size="Large"
+                                             Text="Lista de Equipos" />
+                    <telerik:RadRibbonButton x:Name="RbtnAgregaEquipo"
+                                             Click="RbtnAgregaEquipo_Click"
+                                             LargeImage="Resources/pcAdd.png"
+                                             Size="Large"
+                                             Text="Agregar equipo" />
+                    <telerik:RadRibbonButton x:Name="RbtnBajaEquipo"
+                                             Click="RbtnBajaEquipo_Click"
+                                             LargeImage="Resources/pcBaja.png"
+                                             Size="Large"
+                                             Text="Dar equipo de baja" />
+                    <telerik:RadRibbonButton x:Name="RbtnEditaEquipo"
+                                             Click="RbtnEditaEquipo_Click"
+                                             LargeImage="Resources/pcEdit.png"
+                                             Size="Large"
+                                             Text="Editar equipo" />
+                    <telerik:RadRibbonButton x:Name="RbtnAsignaEquipo"
+                                             LargeImage="Resources/pcAsigna.png"
+                                             Size="Large"
+                                             Text="Asignar equipo" />
+                    <telerik:RadRibbonButton x:Name="RbtnReasignaEquipo"
+                                             Click="RbtnReasignaEquipo_Click"
+                                             LargeImage="Resources/pcReasigna.png"
+                                             Size="Large"
+                                             Text="Reasignar equipo" />
+                    <telerik:RadRibbonButton x:Name="RbtnHistorial"
+                                             Click="RbtnHistorial_Click"
+                                             LargeImage="Resources/clock.png"
+                                             Size="Large"
+                                             Text="Ver historial del equipo" />
+                </telerik:RadRibbonGroup>
+
+            </telerik:RadRibbonTab>
+            <telerik:RadRibbonTab Name="TabMobiliario" Header="Mobiliario">
+                <telerik:RadRibbonGroup DialogLauncherVisibility="Visible"
+                                        Header="Mobiliario"
+                                        telerik:KeyTipService.AccessText="FO"
+                                        telerik:ScreenTip.Description="Show the Clipboard Task options."
+                                        telerik:ScreenTip.Title="Áreas">
+                    <telerik:RadRibbonButton Name="ListaMobiliario"
+                                             Click="ListaMobiliario_Click"
+                                             LargeImage="/Inventario;component/Resources/area.png"
+                                             Size="Large"
+                                             Text="Lista de Mobiliario"
+                                             telerik:KeyTipService.AccessText="V" />
+
+                    <telerik:RadRibbonButton x:Name="RbtnAddMobiliario"
+                                             Click="RbtnAddMobiliario_Click"
+                                             CollapseToSmall="WhenGroupIsSmall"
+                                             LargeImage="Resources/addMob.png"
+                                             Size="Large"
+                                             Text="Agregar Mobiliario"
+                                             telerik:KeyTipService.AccessText="G" />
+                    <telerik:RadRibbonButton x:Name="RbtnDelMobiliario"
+                                             Click="RbtnDelMobiliario_Click"
+                                             CollapseToSmall="WhenGroupIsSmall"
+                                             LargeImage="Resources/delMob.png"
+                                             Size="Large"
+                                             Text="Eliminar Mobiliario" />
+                    <telerik:RadRibbonButton x:Name="RbtnEditMobiliario"
+                                             Click="RbtnEditMobiliario_Click"
+                                             CollapseToSmall="WhenGroupIsSmall"
+                                             LargeImage="Resources/editMob.png"
+                                             Size="Large"
+                                             Text="Editar Mobiliario" />
+                    <telerik:RadRibbonButton x:Name="RbtnAsigMobiliario"
+                                             CollapseToSmall="WhenGroupIsSmall"
+                                             LargeImage="Resources/asigMob.png"
+                                             Size="Large"
+                                             Text="Asignar Mobiliario" />
+                    <telerik:RadRibbonButton x:Name="RbtnReasigMobiliario"
+                                             Click="RbtnReasigMobiliario_Click"
+                                             CollapseToSmall="WhenGroupIsSmall"
+                                             LargeImage="Resources/ReasigMob.png"
+                                             Size="Large"
+                                             Text="Reasignar Mobiliario" />
+
+                </telerik:RadRibbonGroup>
+                <telerik:RadRibbonGroup />
+            </telerik:RadRibbonTab>
+        </telerik:RadRibbonView>
+
+        <UserControls:ListaAreas x:Name="UcAreas"
+                                 Grid.Row="1"
+                                 HorizontalAlignment="Stretch"
+                                 VerticalAlignment="Stretch"
+                                 Visibility="Hidden" />
+
+        <!--
+            <UserControls:PresentaUsuarios x:Name="UcUsuarios"
+            Grid.Row="1"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch"
+            Visibility="Collapsed" />
+        -->
+
+        <UserControls:GridUsuarios x:Name="GrUsuarios"
+                                   Grid.Row="1"
+                                   HorizontalAlignment="Stretch"
+                                   VerticalAlignment="Stretch" />
+
+    </Grid>
+</telerik:RadWindow>
