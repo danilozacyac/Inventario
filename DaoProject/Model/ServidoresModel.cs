@@ -7,6 +7,7 @@ using System.Windows.Forms;
 using DaoProject.Dao;
 using DaoProject.DbAccess;
 using DaoProject.Utilities;
+using ScjnUtilities;
 
 namespace DaoProject.Model
 {
@@ -115,7 +116,7 @@ namespace DaoProject.Model
                         servidorP.IdTitulo = Convert.ToInt32(dataReader["idTitulo"]);
                         servidorP.IdArea = Convert.ToInt32(dataReader["idArea"]);
                         servidorP.IdUbicacion = Convert.ToInt32(dataReader["IdUbicacion"]);
-                        servidorP.Nombre = MisFunt.UppercaseWords(dataReader["nombre"].ToString().ToLower());
+                        servidorP.Nombre = StringUtilities.ToTitleCase(dataReader["nombre"].ToString().ToLower());
                         servidorP.Puerta = dataReader["puerta"].ToString();
                         servidorP.Extension = dataReader["Extension"] as int?;
                         servidorP.IdAdscripcion = Convert.ToInt32(dataReader["idadscripcion"]);

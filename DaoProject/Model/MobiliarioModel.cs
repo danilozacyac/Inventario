@@ -7,6 +7,7 @@ using System.Windows.Forms;
 using DaoProject.Dao;
 using DaoProject.DbAccess;
 using DaoProject.Utilities;
+using ScjnUtilities;
 
 namespace DaoProject.Model
 {
@@ -61,8 +62,8 @@ namespace DaoProject.Model
                         mobiliarioL.Inventario = Convert.ToInt32(dataReader["NoInventario"]);
                         mobiliarioL.Expediente = Convert.ToInt32(dataReader["Expediente"]);
                         mobiliarioL.Observaciones = dataReader["Observaciones"].ToString();
-                        mobiliarioL.FechaAlta = MisFunt.ConvertReaderToDateTime(dataReader, "FechaAlta");
-                        mobiliarioL.FechaModificacion = MisFunt.ConvertReaderToDateTime(dataReader, "FechaModificacion");
+                        mobiliarioL.FechaAlta = DateTimeUtilities.GetDateFromReader(dataReader, "FechaAlta");
+                        mobiliarioL.FechaModificacion = DateTimeUtilities.GetDateFromReader(dataReader, "FechaModificacion");
 
                         listaMobiliario.Add(mobiliarioL);
                     }
@@ -449,7 +450,7 @@ namespace DaoProject.Model
                         historial.ExpAnterior = Convert.ToInt32(dataReader["ExpAnterior"]);
                         historial.ExpActual = Convert.ToInt32(dataReader["ExpActual"]);
                         historial.Observaciones = dataReader["Observaciones"].ToString();
-                        historial.FechaReasignacion = MisFunt.ConvertReaderToDateTime(dataReader, "FechaReasignacion"); 
+                        historial.FechaReasignacion = DateTimeUtilities.GetDateFromReader(dataReader, "FechaReasignacion"); 
 
                         historiales.Add(historial);
                     }

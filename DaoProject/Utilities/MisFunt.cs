@@ -9,42 +9,6 @@ namespace DaoProject.Utilities
 {
     public class MisFunt
     {
-        /// <summary>
-        /// Verifica que el reader en la columna seleccionada no tenga null como valor
-        /// </summary>
-        /// <param name="reader"></param>
-        /// <param name="property"></param>
-        /// <returns></returns>
-        public static string VerifyDbNullForStrings(SqlDataReader reader, string property)
-        {
-            if (reader[property] == DBNull.Value)
-                return string.Empty;
-            else
-                return reader[property].ToString();
-        }
-
-
-        public static DateTime? ConvertReaderToDateTime(SqlDataReader reader, string property)
-        {
-
-            if (reader[property] == DBNull.Value)
-                return null;
-            else
-                return DateTime.Parse(reader[property].ToString());//, System.Globalization.DateTimeStyles.AssumeLocal);
-
-        }
-
-        /// <summary>
-        /// Verifica si el caracter introducido es un digito
-        /// </summary>
-        /// <param name="text"></param>
-        /// <returns></returns>
-        public static bool IsADigit(string text)
-        {
-            // Regex NumEx = new Regex(@"^\d+(?:.\d{0,2})?$"); 
-            Regex regex = new Regex("[^0-9.-]+"); //regex that matches disallowed text 
-            return regex.IsMatch(text);
-        }
 
         /// <summary>
         /// Devuelve el "título" que ostenta cada persona
@@ -108,36 +72,6 @@ namespace DaoProject.Utilities
             return palabras;
         }
 
-        /// <summary>
-        /// Pone en mayúsculas la primer letra de cada palabra en una cadena de caracteres
-        /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
-        public static string UppercaseWords(string value)
-        {
-            char[] array = value.ToCharArray();
-            // Handle the first letter in the string.
-            if (array.Length >= 1)
-            {
-                if (char.IsLower(array[0]))
-                {
-                    array[0] = char.ToUpper(array[0]);
-                }
-            }
-            // Scan through the letters, checking for spaces.
-            // ... Uppercase the lowercase letters following spaces.
-            for (int i = 1; i < array.Length; i++)
-            {
-                if (array[i - 1] == ' ')
-                {
-                    if (char.IsLower(array[i]))
-                    {
-                        array[i] = char.ToUpper(array[i]);
-                    }
-                }
-            }
-            return new string(array);
-        }
 
        
 

@@ -109,7 +109,7 @@
                       HorizontalAlignment="Stretch"
                       VerticalAlignment="Stretch"
                       Header="Usuario Actual"
-                      Visibility="Collapsed">
+                      Visibility="Visible">
                 <Grid x:Name="GridActual">
                     <TextBlock x:Name="lblExpediente"
                                Height="28"

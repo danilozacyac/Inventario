@@ -7,18 +7,18 @@ using DaoProject.Model;
 namespace Inventario.UserControls
 {
     /// <summary>
-    /// Lógica de interacción para GridMBajas.xaml
+    /// Lógica de interacción para GridHistorial.xaml
     /// </summary>
-    public partial class GridMBajas : UserControl
+    public partial class GridHistorial : UserControl
     {
-        public GridMBajas()
+        public GridHistorial()
         {
             InitializeComponent();
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            GMBajas.DataContext = new MobiliarioModel().GetBajas().Tables[0].DefaultView;
+            GHistorial.DataContext = new EquiposModel().GetBajas().Tables[0].DefaultView;
         }
     }
 }

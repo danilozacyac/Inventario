@@ -6,6 +6,7 @@ using DaoProject.Dao;
 using DaoProject.Model;
 using DaoProject.Singleton;
 using DaoProject.Utilities;
+using ScjnUtilities;
 
 namespace Inventario.Formularios.ServidoresFolder
 {
@@ -96,7 +97,7 @@ namespace Inventario.Formularios.ServidoresFolder
 
         private void TxtExtension_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-            e.Handled = MisFunt.IsADigit(e.Text);
+            e.Handled = StringUtilities.IsTextAllowed(e.Text);
         }
 
         private void ChkDesactivar_Checked(object sender, RoutedEventArgs e)

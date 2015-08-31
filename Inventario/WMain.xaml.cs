@@ -10,9 +10,11 @@ using Inventario.Formularios.Areas;
 using Inventario.Formularios.EquiposFolder;
 using Inventario.Formularios.MobiliarioFolder;
 using Inventario.Formularios.ServidoresFolder;
+using Inventario.UserControls;
 using Reporting;
 using Reporting.Exporta;
 using Telerik.Windows.Controls;
+using Telerik.Windows.Controls.Docking;
 
 namespace Inventario
 {
@@ -39,6 +41,8 @@ namespace Inventario
 
             if (AccesoUsuarioModel.Grupo == 2)
                 TabComputo.IsEnabled = false;
+
+          
         }
 
         public void ShowInTaskbar(RadWindow control, string title)
@@ -65,12 +69,50 @@ namespace Inventario
             add.Show();
         }
 
+        GridUsuarios grUsuarios;
         private void RbtnListaUsuarios_Click(object sender, RoutedEventArgs e)
         {
-            if (GrUsuarios.IsVisible == true)
-                GrUsuarios.Visibility = Visibility.Collapsed;
+            grUsuarios = new GridUsuarios();
+
+            this.AddPane(1, "Lista de Usuarios", grUsuarios);
+
+        }
+
+        private RadPane GetExistingPane(int tag)
+        {
+            RadPane pane = null;
+
+            foreach (RadPane panes in Docking.Panes)
+            {
+                if (Convert.ToInt32(panes.Tag) == tag)
+                {
+                    pane = panes;
+                    break;
+                }
+            }
+            return pane;
+        }
+
+        private void AddPane(int tag, string tabTitle, object organoControl)
+        {
+
+            RadPane existingPane = this.GetExistingPane(tag);
+
+            if (existingPane == null)
+            {
+                RadPane pane = new RadPane();
+                pane.Tag = tag;
+                pane.Header = tabTitle;
+                pane.Content = organoControl;
+
+                PanelCentral.Items.Add(pane);
+                Docking.ActivePane = pane;
+            }
             else
-                GrUsuarios.Visibility = Visibility.Visible;
+            {
+                existingPane.IsHidden = false;
+                Docking.ActivePane = existingPane;
+            }
         }
 
         private void RbtnAddMobiliario_Click(object sender, RoutedEventArgs e)
@@ -87,22 +129,29 @@ namespace Inventario
 
         private void RbtnReportePersonal_Click(object sender, RoutedEventArgs e)
         {
-            ServidoresPublicos servidor = GrUsuarios.ServidorSeleccionado;
+            if (grUsuarios.ServidorSeleccionado != null)
+            {
+                ServidoresPublicos servidor = grUsuarios.ServidorSeleccionado;
 
-            if (servidor == null)
-                MessageBox.Show("Seleccione el usuario del cual quiere generar el resguardo");
+                if (servidor == null)
+                    MessageBox.Show("Seleccione el usuario del cual quiere generar el resguardo");
+                else
+                {
+                    if (AccesoUsuarioModel.Grupo == 1)
+                    {
+                        reporte = new REquipoComputo(servidor);
+                        reporte.ReportePersonal();
+                    }
+                    else if (AccesoUsuarioModel.Grupo == 2)
+                    {
+                        reporte = new RMobiliario(servidor);
+                        reporte.ReportePersonal();
+                    }
+                }
+            }
             else
             {
-                if (AccesoUsuarioModel.Grupo == 1)
-                {
-                    reporte = new REquipoComputo(servidor);
-                    reporte.ReportePersonal();
-                }
-                else if (AccesoUsuarioModel.Grupo == 2)
-                {
-                    reporte = new RMobiliario(servidor);
-                    reporte.ReportePersonal();
-                }
+                MessageBox.Show("Seleccione el usuario del cual quiere generar el resguardo");
             }
         }
 
@@ -159,14 +208,22 @@ namespace Inventario
             //update.Show();
         }
 
+        ListaAreas ucAreas;
         private void RbtnListaAreas_Click(object sender, RoutedEventArgs e)
         {
-            this.UcAreas.Visibility = Visibility.Visible;
+            ucAreas = new ListaAreas();
+
+            RadPane pane = new RadPane();
+            pane.Header = "Tesis turnadas";
+            pane.Content = ucAreas;
+
+            PanelCentral.AddItem(pane, DockPosition.Center);
+
         }
 
         private void RbtnEliminarArea_Click(object sender, RoutedEventArgs e)
         {
-            if (UcAreas.AreaSeleccionada == null)
+            if (ucAreas.AreaSeleccionada == null)
             {
                 MessageBox.Show("Seleccione el área que desea eliminar");
                 return;
@@ -176,7 +233,7 @@ namespace Inventario
 
             if (result == MessageBoxResult.Yes)
             {
-                AddUpdateArea delete = new AddUpdateArea(UcAreas.AreaSeleccionada, 2);
+                AddUpdateArea delete = new AddUpdateArea(ucAreas.AreaSeleccionada, 2);
                 delete.Owner = this;
                 delete.Show();
             }
@@ -184,13 +241,13 @@ namespace Inventario
 
         private void RbtnUpdateArea_Click(object sender, RoutedEventArgs e)
         {
-            if (UcAreas.AreaSeleccionada == null)
+            if (ucAreas.AreaSeleccionada == null)
             {
                 MessageBox.Show("Seleccione el área que desea editar");
                 return;
             }
 
-            AddUpdateArea update = new AddUpdateArea(UcAreas.AreaSeleccionada, 1);
+            AddUpdateArea update = new AddUpdateArea(ucAreas.AreaSeleccionada, 1);
             update.Owner = this;
             update.Show();
         }
@@ -226,9 +283,9 @@ namespace Inventario
 
         private void RbtnEditarUsuario_Click(object sender, RoutedEventArgs e)
         {
-            if (GrUsuarios.ServidorSeleccionado != null)
+            if (grUsuarios.ServidorSeleccionado != null)
             {
-                AddUpdateUsuarios update = new AddUpdateUsuarios(GrUsuarios.ServidorSeleccionado);
+                AddUpdateUsuarios update = new AddUpdateUsuarios(grUsuarios.ServidorSeleccionado);
                 update.Owner = this;
                 update.Show();
             }
@@ -245,18 +302,18 @@ namespace Inventario
             }
         }
 
+        GridHistorial gHistoria;
         private void RbtnHistorial_Click(object sender, RoutedEventArgs e)
         {
-            //if (GrUsuarios.EquipoSeleccionado == null)
-            //    return;
+            gHistoria = new GridHistorial();
 
-            //if (GrUsuarios.EquipoSeleccionado.Historial == null)
-            //{
-            //    GrUsuarios.EquipoSeleccionado.Historial = new EquiposModel().GetHistorial(GrUsuarios.EquipoSeleccionado);
-            //}
+            RadPane pane = new RadPane();
+            pane.Header = "Historial";
+            pane.Content = gHistoria;
 
-            //HistorialEquipo historial = new HistorialEquipo(GrUsuarios.EquipoSeleccionado.Historial);
-            //historial.ShowDialog();
+            PanelCentral.AddItem(pane, DockPosition.Center);
+
+            
         }
 
         private void ExportaDocs_Click(object sender, RoutedEventArgs e)
@@ -324,28 +381,40 @@ namespace Inventario
             catalog.ShowDialog();
         }
 
+        GridBajas gBajas;
         private void RBtnBajas_Click(object sender, RoutedEventArgs e)
         {
-            if (GrBajas.IsVisible == true)
-                GrBajas.Visibility = Visibility.Collapsed;
-            else
-                GrBajas.Visibility = Visibility.Visible;
+            gBajas = new GridBajas();
+
+            RadPane pane = new RadPane();
+            pane.Header = "Bajas";
+            pane.Content = gBajas;
+
+            PanelCentral.AddItem(pane, DockPosition.Center);
+            
         }
 
+        GridHMobiliario grhMob;
         private void RBtnHMobiliario_Click(object sender, RoutedEventArgs e)
         {
-            if (GrHMob.IsVisible == true)
-                GrHMob.Visibility = Visibility.Collapsed;
-            else
-                GrHMob.Visibility = Visibility.Visible;
+            grhMob = new GridHMobiliario();
+
+            RadPane pane = new RadPane();
+            pane.Header = "Historial";
+            pane.Content = grhMob;
+
+            PanelCentral.AddItem(pane, DockPosition.Center);
         }
 
+        GridMBajas gmBajas;
         private void RBtnBMobiliario_Click(object sender, RoutedEventArgs e)
         {
-            if (GrBajasM.IsVisible == true)
-                GrBajasM.Visibility = Visibility.Collapsed;
-            else
-                GrBajasM.Visibility = Visibility.Visible;
+            gmBajas = new GridMBajas();
+            RadPane pane = new RadPane();
+            pane.Header = "Bajas Mobiliario";
+            pane.Content = gmBajas;
+
+            PanelCentral.AddItem(pane, DockPosition.Center);
         }
     }
 }

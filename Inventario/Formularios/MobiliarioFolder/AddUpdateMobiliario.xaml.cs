@@ -5,6 +5,7 @@ using DaoProject.Dao;
 using DaoProject.Model;
 using DaoProject.Singleton;
 using DaoProject.Utilities;
+using ScjnUtilities;
 
 namespace Inventario.Formularios.MobiliarioFolder
 {
@@ -76,17 +77,24 @@ namespace Inventario.Formularios.MobiliarioFolder
                 }
                 else
                 {
+                    if (RcbTipoEquipo.SelectedValue == null || Convert.ToInt32(RcbTipoEquipo.SelectedValue) < 1)
+                    {
+                        MessageBox.Show("Seleccione el tipo de Mobiliario que esta por agregar", "Error:", MessageBoxButton.OK, MessageBoxImage.Error);
+                        return;
+                    }
+                    else
+                    {
+                        mobiliario.IdTipoMobiliario = Convert.ToInt32(RcbTipoEquipo.SelectedValue);
+                        mobiliario.Inventario = Convert.ToInt32(TxtInventario.Text);
+                        mobiliario.Expediente = Convert.ToInt32(TxtExpediente.Text);// (ChkAsignar.IsChecked == true) ? Convert.ToInt32(TxtExpediente.Text) : 10;
+                        mobiliario.Observaciones = TxtObservaciones.Text;
 
-                    mobiliario.IdTipoMobiliario = Convert.ToInt32(RcbTipoEquipo.SelectedValue);
-                    mobiliario.Inventario = Convert.ToInt32(TxtInventario.Text);
-                    mobiliario.Expediente = Convert.ToInt32(TxtExpediente.Text);// (ChkAsignar.IsChecked == true) ? Convert.ToInt32(TxtExpediente.Text) : 10;
-                    mobiliario.Observaciones = TxtObservaciones.Text;
+                        MobiliarioModel model = new MobiliarioModel(mobiliario);
+                        model.SetNewMobiliario();
+                        ServidoresSingleton.AddMobiliarioUsuario(mobiliario.Expediente, mobiliario);
 
-                    MobiliarioModel model = new MobiliarioModel(mobiliario);
-                    model.SetNewMobiliario();
-                    ServidoresSingleton.AddMobiliarioUsuario(mobiliario.Expediente, mobiliario);
-
-                    this.Close();
+                        this.Close();
+                    }
                 }
             }
             else
@@ -115,7 +123,7 @@ namespace Inventario.Formularios.MobiliarioFolder
 
         private void TxtExpediente_PreviewTextInput(object sender, System.Windows.Input.TextCompositionEventArgs e)
         {
-            e.Handled = MisFunt.IsADigit(e.Text);
+            e.Handled = StringUtilities.IsTextAllowed(e.Text);
         }
     }
 }
