@@ -15,15 +15,27 @@ namespace Inventario
     public partial class CatalogoTipos
     {
         private CommonProperties tipoSeleccionado;
+        
+        /// <summary>
+        /// Indica si el inventario con el que estamos trabajando es el de equipo de computo o el de mobiliario
+        /// </summary>
+        private int tipoInventario;
 
-        public CatalogoTipos()
+        public CatalogoTipos(int tipoInventario)
         {
             InitializeComponent();
+            this.tipoInventario = tipoInventario;
         }
 
         private void RadWindow_Loaded_1(object sender, RoutedEventArgs e)
         {
-            RlstTipos.DataContext = TiposEquiposSingleton.MySingletonInstance.Tipos;
+            if (tipoInventario == 1)
+                RlstTipos.DataContext = TiposEquiposSingleton.TiposComputo;
+            else
+            {
+                RlstTipos.DataContext = TiposEquiposSingleton.TiposMobiliario;
+                this.Header = "Listado de mobiliario registrado";
+            }
         }
 
         private void RbtnAgregar_Click_1(object sender, RoutedEventArgs e)
@@ -59,9 +71,12 @@ namespace Inventario
                     else
                     {
                         TiposEquiposModel model = new TiposEquiposModel(common);
-                        common = model.SetNewTipoEquipo();
+                        common = model.SetNewTipoEquipo(tipoInventario);
 
-                        TiposEquiposSingleton.MySingletonInstance.AddTipos(common);
+                        if (tipoInventario == 1)
+                            TiposEquiposSingleton.TiposComputo.Add(common);
+                        else
+                            TiposEquiposSingleton.TiposMobiliario.Add(common);
 
                         RlstTipos.Items.Refresh();
                     }
@@ -69,15 +84,19 @@ namespace Inventario
                 else
                 {
                     TiposEquiposModel model = new TiposEquiposModel(common);
-                    common = model.SetNewTipoEquipo();
+                    common = model.SetNewTipoEquipo(tipoInventario);
 
-                    TiposEquiposSingleton.MySingletonInstance.AddTipos(common);
+                    if (tipoInventario == 1)
+                        TiposEquiposSingleton.TiposComputo.Add(common);
+                    else
+                        TiposEquiposSingleton.TiposMobiliario.Add(common);
 
                     RlstTipos.Items.Refresh();
                 }
             }
 
-            RlstTipos.DataContext = TiposEquiposSingleton.MySingletonInstance.Tipos;
+            //RadWindow_Loaded_1
+            //RlstTipos.DataContext = TiposEquiposSingleton.MySingletonInstance.Tipos;
 
         }
 
@@ -113,9 +132,9 @@ namespace Inventario
                 common.Descripcion = wind.PromptResult;
 
                 TiposEquiposModel model = new TiposEquiposModel(common);
-                common = model.UpdateTipoEquipo();
+                common = model.UpdateTipoEquipo(tipoInventario);
 
-                TiposEquiposSingleton.MySingletonInstance.UpdateTipos(tipoSeleccionado, common);
+                //TiposEquiposSingleton.MySingletonInstance.UpdateTipos(tipoSeleccionado, common);
 
                 RlstTipos.Items.Refresh();
             }
@@ -141,10 +160,15 @@ namespace Inventario
             if (wind.DialogResult == true)
             {
                 TiposEquiposModel model = new TiposEquiposModel(tipoSeleccionado);
-                model.DeleteTipoEquipo();
+                model.DeleteTipoEquipo(tipoInventario);
 
                 RlstTipos.SelectedIndex = -1;
-                TiposEquiposSingleton.MySingletonInstance.RemoveTipos(tipoSeleccionado);
+
+                if (tipoInventario == 1)
+                    TiposEquiposSingleton.TiposComputo.Remove(tipoSeleccionado);
+                else
+                    TiposEquiposSingleton.TiposMobiliario.Remove(tipoSeleccionado);
+
                 RlstTipos.Items.Refresh();
             }
 

@@ -6,7 +6,8 @@
                    Width="587"
                    Height="Auto"
                    Header="Buscar"
-                   Loaded="RadWindow_Loaded_1">
+                   Loaded="RadWindow_Loaded_1"
+                   WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.Resources>
             <Converters:TituloToStringConverter x:Key="TituloConverter" />
@@ -14,6 +15,7 @@
             <Converters:UbicacionToStringConverter x:Key="UbicacionConverter" />
         </Grid.Resources>
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
@@ -37,7 +39,21 @@
                                      Size="Large"
                                      Text="Reasignar equipo" />
         </StackPanel>
-        <StackPanel Grid.Row="1" Orientation="Vertical">
+
+        <Grid Grid.Row="1">
+            <telerik:RadListBox x:Name="RLstCoinciden"
+                                Height="80"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Top"
+                                DisplayMemberPath="TipoEquipo"
+                                ItemsSource="{Binding}"
+                                SelectionChanged="RLstCoinciden_SelectionChanged"
+                                Visibility="Collapsed" />
+
+
+        </Grid>
+
+        <StackPanel Grid.Row="2" Orientation="Vertical">
             <GroupBox Name="EquipoAlta"
                       Grid.Row="0"
                       HorizontalAlignment="Stretch"

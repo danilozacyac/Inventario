@@ -42,6 +42,12 @@ namespace Inventario
             if (AccesoUsuarioModel.Grupo == 2)
                 TabComputo.IsEnabled = false;
 
+            if (AccesoUsuarioModel.Grupo == 1 || AccesoUsuarioModel.Grupo == 3)
+                RbtnBuscar.IsEnabled = true;
+
+            if (AccesoUsuarioModel.Grupo == 2 || AccesoUsuarioModel.Grupo == 3)
+                RbtnBuscarMob.IsEnabled = true;
+
           
         }
 
@@ -252,27 +258,18 @@ namespace Inventario
             update.Show();
         }
 
-        private void RbtnCatalogoTipos_Click(object sender, RoutedEventArgs e)
-        {
-            CatalogoTipos catalogo = new CatalogoTipos();
-            catalogo.Owner = this;
-            catalogo.Show();
-        }
-
         private void RbtnBuscar_Click(object sender, RoutedEventArgs e)
         {
-            if (AccesoUsuarioModel.Grupo == 1)
-            {
                 BuscarEquipo busca = new BuscarEquipo();
                 busca.Owner = this;
                 busca.Show();
-            }
-            else
-            {
-                BuscarMobiliario busca = new BuscarMobiliario();
-                busca.Owner = this;
-                busca.Show();
-            }
+        }
+
+        private void RbtnBuscarMob_Click(object sender, RoutedEventArgs e)
+        {
+            BuscarMobiliario busca = new BuscarMobiliario();
+            busca.Owner = this;
+            busca.Show();
         }
 
         private void RbtnConfig_Click(object sender, RoutedEventArgs e)
@@ -377,7 +374,7 @@ namespace Inventario
 
         private void ListaMobiliario_Click(object sender, RoutedEventArgs e)
         {
-            CatalogoTipos catalog = new CatalogoTipos();
+            CatalogoTipos catalog = new CatalogoTipos(2);
             catalog.ShowDialog();
         }
 
@@ -416,5 +413,14 @@ namespace Inventario
 
             PanelCentral.AddItem(pane, DockPosition.Center);
         }
+
+        private void RbtnListaEquipos_Click(object sender, RoutedEventArgs e)
+        {
+            CatalogoTipos catalogo = new CatalogoTipos(1);
+            catalogo.Owner = this;
+            catalogo.ShowDialog();
+        }
+
+       
     }
 }

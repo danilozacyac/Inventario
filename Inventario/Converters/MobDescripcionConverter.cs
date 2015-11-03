@@ -16,7 +16,7 @@ namespace Inventario.Converters
                 int.TryParse(value.ToString(), out number);
 
                 if (number > 0)
-                    return (from n in TiposEquiposSingleton.MySingletonInstance.Tipos
+                    return (from n in TiposEquiposSingleton.TiposMobiliario
                             where n.IdElemento == number && n.Corto == "2"
                             select n.Descripcion).ToList()[0];
                 else

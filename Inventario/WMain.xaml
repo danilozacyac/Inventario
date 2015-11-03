@@ -199,18 +199,15 @@
                     <telerik:RadRibbonGroup DialogLauncherVisibility="Visible"
                                             Header="Otras opciones"
                                             telerik:ScreenTip.Title="Otros">
-                        <telerik:RadRibbonButton x:Name="RbtnCatalogoTipos"
-                                                 Click="RbtnCatalogoTipos_Click"
-                                                 LargeImage="Resources/catalog.png"
-                                                 Size="Large"
-                                                 Text="Catalogo equipos " />
                         <telerik:RadRibbonButton x:Name="RbtnBuscar"
                                                  Click="RbtnBuscar_Click"
+                                                 IsEnabled="False"
                                                  LargeImage="Resources/binoc.png"
                                                  Size="Large"
                                                  Text="Buscar" />
                         <telerik:RadRibbonButton x:Name="RbtnBuscarMob"
-                                                 Click="RbtnBuscar_Click"
+                                                 Click="RbtnBuscarMob_Click"
+                                                 IsEnabled="False"
                                                  LargeImage="Resources/binoc.png"
                                                  Size="Large">
                             <StackPanel Orientation="Vertical">
@@ -223,6 +220,7 @@
                 <telerik:RadRibbonTab Name="TabComputo" Header="Computo">
                     <telerik:RadRibbonGroup Header="Equipos de computo">
                         <telerik:RadRibbonButton x:Name="RbtnListaEquipos"
+                                                 Click="RbtnListaEquipos_Click"
                                                  LargeImage="/Inventario;component/Resources/usertiles.png"
                                                  Size="Large"
                                                  Text="Lista de Equipos" />

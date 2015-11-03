@@ -38,7 +38,7 @@ namespace Reporting.Exporta
                 {
                     fila++;
                     hoja.Cells[fila, 1] = mobil.Inventario;
-                    hoja.Cells[fila, 2] = (from n in TiposEquiposSingleton.MySingletonInstance.Tipos
+                    hoja.Cells[fila, 2] = (from n in TiposEquiposSingleton.TiposMobiliario
                                            where n.IdElemento == mobil.IdTipoMobiliario && n.Corto == "2"
                                            select n.Descripcion).ToList()[0];
                         

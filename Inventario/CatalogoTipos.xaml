@@ -5,10 +5,10 @@
                    x:Name="WinCatalogoTipos"
                    Width="526"
                    Height="624.3"
-                   Background="#F0F0F0"
                    Header="Lista de equipos registrados"
                    Loaded="RadWindow_Loaded_1"
-                   ResizeMode="NoResize">
+                   ResizeMode="NoResize"
+                   WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="25" />
@@ -29,8 +29,6 @@
                                 DisplayMemberPath="Descripcion"
                                 ItemsSource="{Binding}"
                                 SelectedValuePath="IdElemento" />
-
-
         </Grid>
 
         <Grid Grid.Row="2" Height="50">

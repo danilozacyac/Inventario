@@ -48,7 +48,7 @@ namespace DaoProject.Utilities
 
         public static String GetTipoMobilDescrip(int idTipoEquipo)
         {
-            return (from n in TiposEquiposSingleton.MySingletonInstance.Tipos
+            return (from n in TiposEquiposSingleton.TiposMobiliario
                     where n.IdElemento == idTipoEquipo
                     select n.Descripcion).ToList()[0];
         }

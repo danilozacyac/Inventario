@@ -33,7 +33,7 @@ namespace Inventario.Formularios.MobiliarioFolder
 
         private void RadWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            RcbTipoEquipo.DataContext = TiposEquiposSingleton.MySingletonInstance.Tipos;
+            RcbTipoEquipo.DataContext = TiposEquiposSingleton.TiposMobiliario;
             RcbAreas.DataContext = AreasSingleton.Areas;
             RcbTitulos.DataContext = TitulosSingleton.Titulos;
             RcbUbicacion.DataContext = UbicacionesSingleton.Ubicaciones;

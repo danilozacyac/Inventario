@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using DaoProject.Dao;
@@ -12,6 +13,14 @@ namespace Inventario.Formularios.EquiposFolder
     /// </summary>
     public partial class BuscarEquipo
     {
+        /// <summary>
+        /// Almacena el listado de equipos que tienen el SC solicitado
+        /// </summary>
+        ObservableCollection<Equipos> resultadosObtenidos;
+
+        /// <summary>
+        /// Equipo sobre el cual se realizará alguna acción
+        /// </summary>
         private Equipos equipo;
         ServidoresPublicos servidor;
 
@@ -22,7 +31,7 @@ namespace Inventario.Formularios.EquiposFolder
 
         private void RadWindow_Loaded_1(object sender, RoutedEventArgs e)
         {
-            RcbTipoEquipo.DataContext = TiposEquiposSingleton.MySingletonInstance.Tipos;
+            RcbTipoEquipo.DataContext = TiposEquiposSingleton.TiposComputo;
         }
 
         private void RbtnBuscar_Click(object sender, RoutedEventArgs e)
@@ -33,33 +42,35 @@ namespace Inventario.Formularios.EquiposFolder
                 return;
             }
 
-            if (RcbTipoEquipo.SelectedIndex == -1)
-            {
-                MessageBox.Show("Seleccione la categoría a la que pertenece el equipo buscado");
-                return;
-            }
+            resultadosObtenidos = new EquiposModel().GetEquiposPorParametro("SC_Equipo", TxtScEquipo.Text);
 
-            equipo = new EquiposModel().GetEquiposPorParametro("SC_Equipo", TxtScEquipo.Text, Convert.ToInt32(RcbTipoEquipo.SelectedValue));
-
-            if (equipo != null)
-            {
-                EquipoAlta.DataContext = equipo;
-                servidor = new ServidoresModel().GetUsuarioPorExpediente(equipo.Expediente);
-                Usuario.DataContext = servidor;
-                //RcbUbicacion.SelectedValue = servidor.IdUbicacion;
-                //RcbTitulos.SelectedValue = servidor.IdTitulo;
-                //RcbAreas.SelectedValue = servidor.IdArea;
-                ActionButtons.Visibility = Visibility.Visible;
-                Usuario.Visibility = Visibility.Visible;
-            }
-            else
+            if (resultadosObtenidos.Count() == 0)
             {
                 EquipoAlta.DataContext = new Equipos();
                 Usuario.DataContext = new ServidoresPublicos();
                 ActionButtons.Visibility = Visibility.Collapsed;
                 Usuario.Visibility = Visibility.Collapsed;
                 MessageBox.Show("El número de inventario ingresado No existe. Favor de verificar");
+            }else if (resultadosObtenidos.Count() == 1)
+            {
+                equipo = resultadosObtenidos[0];
+                this.SetEquipoTrabajar();
             }
+            else
+            {
+                RLstCoinciden.Visibility = Visibility.Visible;
+                RLstCoinciden.DataContext = resultadosObtenidos;
+            }
+        }
+
+        private void SetEquipoTrabajar()
+        {
+            EquipoAlta.DataContext = equipo;
+            servidor = new ServidoresModel().GetUsuarioPorExpediente(equipo.Expediente);
+            Usuario.DataContext = servidor;
+            RcbTipoEquipo.SelectedValue = equipo.IdTipo;
+            ActionButtons.Visibility = Visibility.Visible;
+            Usuario.Visibility = Visibility.Visible;
         }
 
         private void RbtnBajaEquipo_Click(object sender, RoutedEventArgs e)
@@ -80,19 +91,19 @@ namespace Inventario.Formularios.EquiposFolder
         private void RbtnEditaEquipo_Click(object sender, RoutedEventArgs e)
         {
             UpdateEquipo update = new UpdateEquipo(equipo);
+            update.Owner = this;
             update.Show();
             this.Close();
 
         }
 
-        private void RbtnAceptar_Click(object sender, RoutedEventArgs e)
+        private void RLstCoinciden_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
+            equipo = RLstCoinciden.SelectedItem as Equipos;
+            this.SetEquipoTrabajar();
+            
 
-        }
-
-        private void RbtnCancelar_Click(object sender, RoutedEventArgs e)
-        {
-
+            RLstCoinciden.Visibility = Visibility.Collapsed;
         }
     }
 }

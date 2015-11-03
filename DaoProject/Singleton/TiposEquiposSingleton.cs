@@ -10,63 +10,63 @@ namespace DaoProject.Singleton
 {
     public class TiposEquiposSingleton : INotifyPropertyChanged
     {
-        private static  TiposEquiposSingleton mySingletonInstance = new TiposEquiposSingleton();
+        //private static  TiposEquiposSingleton mySingletonInstance = new TiposEquiposSingleton();
 
-        private TiposEquiposSingleton(){}
+        //private TiposEquiposSingleton(){}
 
-        public static TiposEquiposSingleton MySingletonInstance
-        {
-            get
-            {
-                return mySingletonInstance;
-            }
-        }
+        //public static TiposEquiposSingleton MySingletonInstance
+        //{
+        //    get
+        //    {
+        //        return mySingletonInstance;
+        //    }
+        //}
 
-        private ObservableCollection<CommonProperties> tipos;
-        public ObservableCollection<CommonProperties> Tipos
-        {
-            get
-            {
-                if (tipos == null)
-                    tipos = new TiposEquiposModel().GetTiposEquipos();
+        //private ObservableCollection<CommonProperties> tipos;
+        //public ObservableCollection<CommonProperties> Tipos
+        //{
+        //    get
+        //    {
+        //        if (tipos == null)
+        //            tipos = new TiposEquiposModel().GetTiposEquipos();
 
-                List<CommonProperties> obs = (from n in tipos
-                                                                     where n.Corto == AccesoUsuarioModel.Grupo.ToString()
-                                                                     orderby n.Descripcion
-                                                                     select n).ToList();
+        //        List<CommonProperties> obs = (from n in tipos
+        //                                                             where n.Corto == AccesoUsuarioModel.Grupo.ToString()
+        //                                                             orderby n.Descripcion
+        //                                                             select n).ToList();
 
 
-                ObservableCollection<CommonProperties> newObs = new ObservableCollection<CommonProperties>();
+        //        ObservableCollection<CommonProperties> newObs = new ObservableCollection<CommonProperties>();
 
-                foreach (CommonProperties item in obs)
-                    newObs.Add(item);
+        //        foreach (CommonProperties item in obs)
+        //            newObs.Add(item);
 
-                return newObs;
-            }
-        }
+        //        return newObs;
+        //    }
+        //}
 
-        public void AddTipos(CommonProperties properties)
-        {
-            MySingletonInstance.Tipos.Add(properties);
-            TiposEquiposSingleton.MySingletonInstance.Tipos.Add(properties);
-            OnPropertyChanged("AddTipos");
-        }
+        //public void AddTipos(CommonProperties properties)
+        //{
+        //    MySingletonInstance.Tipos.Add(properties);
+        //    TiposEquiposSingleton.MySingletonInstance.Tipos.Add(properties);
+        //    OnPropertyChanged("AddTipos");
+        //}
 
-        public void RemoveTipos(CommonProperties properties)
-        {
-            TiposEquiposSingleton.MySingletonInstance.Tipos.Remove(properties);
-            OnPropertyChanged("RemoveTipos");
-        }
+        //public void RemoveTipos(CommonProperties properties)
+        //{
+        //    TiposEquiposSingleton.MySingletonInstance.Tipos.Remove(properties);
+        //    OnPropertyChanged("RemoveTipos");
+        //}
 
-        public void UpdateTipos(CommonProperties currentProperty, CommonProperties updatedProperty)
-        {
-            //int index = MySingletonInstance.Tipos.FindLastIndex(s => s.IdElemento == currentProperty.IdElemento);
+        //public void UpdateTipos(CommonProperties currentProperty, CommonProperties updatedProperty)
+        //{
+        //    //int index = MySingletonInstance.Tipos.FindLastIndex(s => s.IdElemento == currentProperty.IdElemento);
 
-            int index = MySingletonInstance.Tipos.IndexOf( MySingletonInstance.Tipos.Where(s => s.IdElemento == currentProperty.IdElemento).LastOrDefault());
+        //    int index = MySingletonInstance.Tipos.IndexOf( MySingletonInstance.Tipos.Where(s => s.IdElemento == currentProperty.IdElemento).LastOrDefault());
 
-            MySingletonInstance.Tipos[index] = updatedProperty;
-            OnPropertyChanged("UpdateTipos");
-        }
+        //    MySingletonInstance.Tipos[index] = updatedProperty;
+        //    OnPropertyChanged("UpdateTipos");
+        //}
 
         #region INotifyPropertyChanged Members
 
@@ -79,6 +79,34 @@ namespace DaoProject.Singleton
         }
 
         #endregion // INotifyPropertyChanged Members
+
+
+
+        private static ObservableCollection<CommonProperties> tiposComputo;
+        public static ObservableCollection<CommonProperties> TiposComputo
+        {
+            get
+            {
+                if (tiposComputo == null)
+                    tiposComputo = new TiposEquiposModel().GetTiposEquipos(1);
+
+                return tiposComputo;
+            }
+        }
+
+        private static ObservableCollection<CommonProperties> tiposMobiliario;
+        public static ObservableCollection<CommonProperties> TiposMobiliario
+        {
+            get
+            {
+                if (tiposMobiliario == null)
+                    tiposMobiliario = new TiposEquiposModel().GetTiposEquipos(2);
+
+                return tiposMobiliario;
+            }
+        }
+
+
     }
 
 }

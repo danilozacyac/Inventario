@@ -27,8 +27,9 @@ namespace DaoProject.Model
         /// <summary>
         /// Devuelve una lista con el tipo de equipos registrados de acuerdo al inventario de que se trate
         /// </summary>
+        /// <param name="tipoInventario">Indica si se trata del catálogo de computo o de mobiliario</param>
         /// <returns></returns>
-        public ObservableCollection<CommonProperties> GetTiposEquipos()
+        public ObservableCollection<CommonProperties> GetTiposEquipos(int tipoInventario)
         {
             SqlConnection sqlConne = Conexion.GetConexion();
             SqlDataReader dataReader;
@@ -39,10 +40,9 @@ namespace DaoProject.Model
             {
                 sqlConne.Open();
 
-                string selstr = "SELECT * FROM TiposEquipos";// WHERE idInventario = @idInventario ORDER BY Descripcion";
+                string selstr = "SELECT * FROM TiposEquipos WHERE idInventario = @idInventario ORDER BY Descripcion";
                 SqlCommand cmd = new SqlCommand(selstr, sqlConne);
-                //SqlParameter tipoInventario = cmd.Parameters.Add("@idInventario", SqlDbType.Int, 0);
-                //tipoInventario.Value = AccesoUsuarioModel.Grupo;
+                cmd.Parameters.AddWithValue("@idInventario", tipoInventario);
 
                 dataReader = cmd.ExecuteReader();
 
@@ -77,7 +77,8 @@ namespace DaoProject.Model
         /// <summary>
         /// Agrega un elemento al catálogo de tipo de equipos
         /// </summary>
-        public CommonProperties SetNewTipoEquipo()
+        /// <param name="tipoInventario">Indica si se trata del catálogo de computo o de mobiliario</param>
+        public CommonProperties SetNewTipoEquipo(int tipoInventario)
         {
             SqlConnection connectionEpsSql = Conexion.GetConexion();
             SqlDataAdapter dataAdapter;
@@ -99,7 +100,7 @@ namespace DaoProject.Model
                 dr = dataSet.Tables["TiposEquipos"].NewRow();
                 dr["idTipo"] = tipo.IdElemento;
                 dr["Descripcion"] = tipo.Descripcion;
-                dr["IdInventario"] = AccesoUsuarioModel.Grupo;
+                dr["IdInventario"] = tipoInventario;
 
                 dataSet.Tables["TiposEquipos"].Rows.Add(dr);
 
@@ -135,8 +136,9 @@ namespace DaoProject.Model
         /// <summary>
         /// Actualiza la descripcion de los tipos de equipo
         /// </summary>
+        /// <param name="tipoInventario">Indica si se trata del catálogo de computo o de mobiliario</param>
         /// <returns></returns>
-        public CommonProperties UpdateTipoEquipo()
+        public CommonProperties UpdateTipoEquipo(int tipoInventario)
         {
             SqlConnection connectionEpsSql = Conexion.GetConexion();
             SqlDataAdapter dataAdapter;
@@ -144,7 +146,7 @@ namespace DaoProject.Model
             DataSet dataSet = new DataSet();
             DataRow dr;
 
-            string sqlCadena = "SELECT * FROM TiposEquipos WHERE idTipo = " + tipo.IdElemento + " AND idInventario = " + AccesoUsuarioModel.Grupo;
+            string sqlCadena = "SELECT * FROM TiposEquipos WHERE idTipo = " + tipo.IdElemento + " AND idInventario = " + tipoInventario;
 
             try
             {
@@ -187,9 +189,10 @@ namespace DaoProject.Model
         }
 
         /// <summary>
-        /// Elimina un elemento del catalogo de tipos de equipos
+        /// Elimina un elemento del catálogo de tipo de equipos o mobiliario
         /// </summary>
-        public void DeleteTipoEquipo()
+        /// <param name="tipoInventario"></param>
+        public void DeleteTipoEquipo(int tipoInventario)
         {
             SqlConnection sqlConne = Conexion.GetConexion();
 
@@ -197,10 +200,10 @@ namespace DaoProject.Model
             {
                 sqlConne.Open();
 
-                string selstr = "Delete FROM TiposEquipos WHERE idTipo = @idTipo AND idInventario = " + AccesoUsuarioModel.Grupo;
+                string selstr = "Delete FROM TiposEquipos WHERE idTipo = @idTipo AND idInventario = @IdInventario";
                 SqlCommand cmd = new SqlCommand(selstr, sqlConne);
-                SqlParameter idTipo = cmd.Parameters.Add("@idTipo", SqlDbType.Int, 0);
-                idTipo.Value = tipo.IdElemento;
+                cmd.Parameters.AddWithValue("@idTipo", tipo.IdElemento);
+                cmd.Parameters.AddWithValue("@IdInventario", tipoInventario);
 
                 cmd.ExecuteNonQuery();
             }

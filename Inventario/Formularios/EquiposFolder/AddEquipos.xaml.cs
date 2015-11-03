@@ -27,7 +27,7 @@ namespace Inventario.Formularios.EquiposFolder
 
         private void RadWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            RcbTipoEquipo.ItemsSource = TiposEquiposSingleton.MySingletonInstance.Tipos;
+            RcbTipoEquipo.ItemsSource = TiposEquiposSingleton.TiposComputo;
             RcbTitulos.ItemsSource = TitulosSingleton.Titulos;
             RcbAreas.ItemsSource = AreasSingleton.Areas;
             RcbUbicacion.ItemsSource = UbicacionesSingleton.Ubicaciones;

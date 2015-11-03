@@ -38,7 +38,7 @@ namespace Inventario.Formularios.EquiposFolder
 
         private void RadWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            RcbTipoEquipo.ItemsSource = TiposEquiposSingleton.MySingletonInstance.Tipos;
+            RcbTipoEquipo.ItemsSource = TiposEquiposSingleton.TiposComputo;
         }
 
         private void RbtnEliminar_Click(object sender, RoutedEventArgs e)

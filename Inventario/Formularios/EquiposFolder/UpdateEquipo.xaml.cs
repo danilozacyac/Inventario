@@ -23,7 +23,7 @@ namespace Inventario.Formularios.EquiposFolder
 
         private void RadWindow_Loaded_1(object sender, RoutedEventArgs e)
         {
-            RcbTipoEquipo.ItemsSource = TiposEquiposSingleton.MySingletonInstance.Tipos;
+            RcbTipoEquipo.ItemsSource = TiposEquiposSingleton.TiposComputo;
             RcbTipoEquipo.SelectedValue = equipo.IdTipo;
             this.DataContext = equipo;
         }

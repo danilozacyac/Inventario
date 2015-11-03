@@ -93,7 +93,7 @@ namespace DaoProject.Model
         }
 
         /// <summary>
-        /// Devuelve en forma de lista el equipo que se esta buscando por número de inventario y el tipo de equipo
+        /// Devuelve el equipo que se esta buscando por número de inventario y el tipo de equipo
         /// En general solo devuelve un resultado
         /// </summary>
         /// <param name="parametroBusqueda"></param>
@@ -160,7 +160,6 @@ namespace DaoProject.Model
             }
             return myEquipo;
         }
-
 
         public DataSet GetBajas()
         {

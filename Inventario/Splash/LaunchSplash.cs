@@ -52,7 +52,6 @@ namespace Inventario.Splash
         {
             object obj = AreasSingleton.Areas;
             obj = UbicacionesSingleton.Ubicaciones;
-            obj = TiposEquiposSingleton.MySingletonInstance.Tipos;
             obj = ServidoresSingleton.Servidores;
             obj = null;
         }
