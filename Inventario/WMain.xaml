@@ -168,18 +168,18 @@
 
                         </StackPanel>
                     </telerik:RadRibbonGroup>
-                    <telerik:RadRibbonGroup Header="Reportes">
+                    <telerik:RadRibbonGroup Header="Imprimir Resguardos">
                         <telerik:RadRibbonButton Name="RribReporteGral"
                                                  Click="RribReporteGral_Click"
                                                  LargeImage="Resources/rGral.png"
                                                  Size="Large"
-                                                 Text="Reporte General"
+                                                 Text="Resguardo General"
                                                  telerik:KeyTipService.AccessText="V" />
                         <telerik:RadRibbonButton Name="RbtnReportePersonal"
                                                  Click="RbtnReportePersonal_Click"
                                                  LargeImage="Resources/rPersonal.png"
                                                  Size="Large"
-                                                 Text="Reporte Personal" />
+                                                 Text="Resguardo Personal" />
                         <StackPanel>
 
                             <telerik:RadRibbonComboBox x:Name="RcbAreasReporte"
@@ -192,7 +192,7 @@
                                                      CollapseToSmall="WhenGroupIsSmall"
                                                      Size="Medium"
                                                      SmallImage="/Inventario;component/Resources/rAreas.png"
-                                                     Text="Reporte por área" />
+                                                     Text="Resguardo por área" />
 
                         </StackPanel>
                     </telerik:RadRibbonGroup>
@@ -252,14 +252,31 @@
                                                  Click="RbtnHistorial_Click"
                                                  LargeImage="Resources/clock.png"
                                                  Size="Large"
-                                                 Text="Ver historial del equipo" />
+                                                 Text="Historial del equipo" />
                         <telerik:RadRibbonButton x:Name="RBtnBajas"
                                                  Click="RBtnBajas_Click"
                                                  LargeImage="Resources/down.png"
                                                  Size="Large"
-                                                 Text="Ver historial de bajas" />
-                    </telerik:RadRibbonGroup>
+                                                 Text="Historial de bajas" />
 
+                    </telerik:RadRibbonGroup>
+                    <telerik:RadRibbonGroup Header="Reportes Informática">
+                        <telerik:RadRibbonButton x:Name="RBtnListadoR"
+                                                 Click="RBtnListadoR_Click"
+                                                 LargeImage="Resources/report_128.png"
+                                                 Size="Large"
+                                                 Text="Listado" />
+                        <telerik:RadRibbonButton x:Name="RBtnLevantaR"
+                                                 Click="RBtnLevantaR_Click"
+                                                 LargeImage="Resources/report_128.png"
+                                                 Size="Large"
+                                                 Text="Levantar Reporte" />
+                        <telerik:RadRibbonButton x:Name="RBtnEditaR"
+                                                 Click="RBtnEditaR_Click"
+                                                 LargeImage="Resources/report_128.png"
+                                                 Size="Large"
+                                                 Text="Editar Reporte" />
+                    </telerik:RadRibbonGroup>
                 </telerik:RadRibbonTab>
                 <telerik:RadRibbonTab Name="TabMobiliario" Header="Mobiliario">
                     <telerik:RadRibbonGroup DialogLauncherVisibility="Visible"
@@ -329,7 +346,7 @@
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Stretch"
                 Visibility="Hidden" />
-                
+
                 <UserControls:GridBajas x:Name="GrBajas"
                 Grid.Row="1"
                 HorizontalAlignment="Stretch"

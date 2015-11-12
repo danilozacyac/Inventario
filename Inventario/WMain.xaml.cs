@@ -15,6 +15,7 @@ using Reporting;
 using Reporting.Exporta;
 using Telerik.Windows.Controls;
 using Telerik.Windows.Controls.Docking;
+using Inventario.Formularios.LevReportes;
 
 namespace Inventario
 {
@@ -419,6 +420,39 @@ namespace Inventario
             CatalogoTipos catalogo = new CatalogoTipos(1);
             catalogo.Owner = this;
             catalogo.ShowDialog();
+        }
+
+        private void RBtnLevantaR_Click(object sender, RoutedEventArgs e)
+        {
+            LevantarReporte reporte = new LevantarReporte();
+            reporte.Owner = this;
+            reporte.ShowDialog();
+        }
+
+        private void RBtnEditaR_Click(object sender, RoutedEventArgs e)
+        {
+            if (gReportes == null || gReportes.selectedReporte == null)
+            {
+                MessageBox.Show("Selecciona el reporte que quieres modificar");
+                return;
+            }
+
+            UpdateReporte reporte = new UpdateReporte(gReportes.selectedReporte);
+            reporte.Owner = this;
+            reporte.ShowDialog();
+        }
+
+
+        GridReportes gReportes;
+        private void RBtnListadoR_Click(object sender, RoutedEventArgs e)
+        {
+            gReportes = new GridReportes();
+
+            RadPane pane = new RadPane();
+            pane.Header = "Reportes Informática";
+            pane.Content = gReportes;
+
+            PanelCentral.AddItem(pane, DockPosition.Center);
         }
 
        

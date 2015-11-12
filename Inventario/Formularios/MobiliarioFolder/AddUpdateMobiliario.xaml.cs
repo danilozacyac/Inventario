@@ -4,7 +4,6 @@ using System.Windows;
 using DaoProject.Dao;
 using DaoProject.Model;
 using DaoProject.Singleton;
-using DaoProject.Utilities;
 using ScjnUtilities;
 
 namespace Inventario.Formularios.MobiliarioFolder
@@ -22,6 +21,7 @@ namespace Inventario.Formularios.MobiliarioFolder
         {
             InitializeComponent();
             mobiliario = new Mobiliario();
+            this.Header = "Agregar Mobiliario";
         }
 
         public AddUpdateMobiliario(Mobiliario mobiliario)
@@ -29,6 +29,7 @@ namespace Inventario.Formularios.MobiliarioFolder
             InitializeComponent();
             this.mobiliario = mobiliario;
             this.isUpdating = true;
+            this.Header = "Editar Mobiliario";
         }
 
         private void RadWindow_Loaded(object sender, RoutedEventArgs e)

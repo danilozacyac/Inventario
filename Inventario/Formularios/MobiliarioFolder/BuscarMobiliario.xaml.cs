@@ -70,5 +70,11 @@ namespace Inventario.Formularios.MobiliarioFolder
             delete.Show();
             this.Close();
         }
+
+        private void RbtnEditaEquipo_Click(object sender, RoutedEventArgs e)
+        {
+            AddUpdateMobiliario add = new AddUpdateMobiliario(mobiliario);
+            add.ShowDialog();
+        }
     }
 }

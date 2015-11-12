@@ -66,6 +66,7 @@ namespace Inventario.Formularios.ServidoresFolder
                     model.DesactivarUsuario();
                 else
                     model.ActualizaInfoServidores();
+                this.Close();
             }
             else
             {

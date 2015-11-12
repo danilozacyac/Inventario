@@ -5,6 +5,7 @@
                    xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
                    Width="587"
                    Height="Auto"
+                   WindowStartupLocation="CenterScreen"
                    Header="BuscarMobiliario"
                    Loaded="RadWindow_Loaded_1">
     <Grid>
@@ -29,7 +30,7 @@
             <telerik:RadRibbonButton x:Name="RbtnEditaEquipo"
                                      LargeImage="/Inventario;component/Resources/editMob.png"
                                      Size="Large"
-                                     Text="Editar mobiliario" />
+                                     Text="Editar mobiliario" Click="RbtnEditaEquipo_Click" />
             <telerik:RadRibbonButton x:Name="RbtnReasignaEquipo"
                                      Click="RbtnReasignaEquipo_Click"
                                      LargeImage="/Inventario;component/Resources/ReasigMob.png"

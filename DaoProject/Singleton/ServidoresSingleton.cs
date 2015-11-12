@@ -94,5 +94,21 @@ namespace DaoProject.Singleton
                 servidor.Mobiliario.RemoveAt(mobIndex);
 
         }
+
+
+
+        private static ObservableCollection<ServidoresPublicos> servidoresReportan;
+
+        public static ObservableCollection<ServidoresPublicos> ServidoresReportan
+        {
+            get
+            {
+                if (servidoresReportan == null)
+                    servidoresReportan = new ServidoresModel().GetUsuariosReporte();
+
+                return servidoresReportan;
+            }
+        }
+
     }
 }

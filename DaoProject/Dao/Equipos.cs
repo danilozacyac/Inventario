@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 
 namespace DaoProject.Dao
 {
-    public class Equipos
+    public class Equipos : INotifyPropertyChanged
     {
         private int idEquipo;
         private String scEquipo;
@@ -138,6 +139,7 @@ namespace DaoProject.Dao
             set
             {
                 this.observaciones = value;
+                this.OnPropertyChanged("Observaciones");
             }
         }
 
@@ -188,6 +190,18 @@ namespace DaoProject.Dao
                 this.historial = value;
             }
         }
+
+        #region INotifyPropertyChanged Members
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+            if (this.PropertyChanged != null)
+                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        #endregion // INotifyPropertyChanged Members
     }
 }
 

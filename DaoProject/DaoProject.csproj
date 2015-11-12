@@ -52,12 +52,14 @@
     <Compile Include="Dao\Equipos.cs" />
     <Compile Include="Dao\HistorialMobiliario.cs" />
     <Compile Include="Dao\HistorialPc.cs" />
+    <Compile Include="Dao\LevantaReporte.cs" />
     <Compile Include="Dao\Mobiliario.cs" />
     <Compile Include="DbAccess\Conexion.cs" />
     <Compile Include="Model\AccesoModel.cs" />
     <Compile Include="Model\AccesoUsuarioModel.cs" />
     <Compile Include="Model\AreasModel.cs" />
     <Compile Include="Model\EquiposModel.cs" />
+    <Compile Include="Model\LevantaReporteModel.cs" />
     <Compile Include="Model\MobiliarioModel.cs" />
     <Compile Include="Model\ServidoresModel.cs" />
     <Compile Include="Model\TiposEquiposModel.cs" />

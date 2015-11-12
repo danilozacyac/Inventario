@@ -5,6 +5,7 @@
                    xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
                    Width="587"
                    Height="Auto"
+                   WindowStartupLocation="CenterScreen"
                    Header="AddUpdateMobiliario"
                    Loaded="RadWindow_Loaded">
     <Grid>

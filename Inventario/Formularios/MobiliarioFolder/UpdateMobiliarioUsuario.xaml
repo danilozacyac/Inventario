@@ -8,7 +8,8 @@
                    Height="702"
                    Foreground="Black"
                    Header="Actualizar Usuario del Equipo"
-                   Loaded="WinUpdateUserEquipo_Loaded">
+                   Loaded="WinUpdateUserEquipo_Loaded"
+                   WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.Resources>
             <Converters:TituloToStringConverter x:Key="TituloConverter" />

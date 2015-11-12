@@ -8,6 +8,7 @@ using DaoProject.Dao;
 using DaoProject.DbAccess;
 using DaoProject.Utilities;
 using ScjnUtilities;
+using System.Configuration;
 
 namespace DaoProject.Model
 {
@@ -148,73 +149,62 @@ namespace DaoProject.Model
         }
 
         /// <summary>
-        /// Agrega el registro de un servidor público de nuevo ingreso
+        /// Obtiene el nombre del personal autorizado para levantar reportes ante el área de informática
         /// </summary>
-        /// <param name="servidor"></param>
-        //public void SetNewUser()
-        //{
-        //    SqlConnection connectionEpsSql = Conexion.GetConexion();
-        //    SqlDataAdapter dataAdapter;
+        /// <returns></returns>
+        public ObservableCollection<ServidoresPublicos> GetUsuariosReporte()
+        {
+            SqlConnection sqlConne = Conexion.GetConexion();
+            SqlDataReader dataReader;
 
-        //    DataSet dataSet = new DataSet();
-        //    DataRow dr;
+            string quienReporta = ConfigurationManager.AppSettings["QuienReporta"].ToString();
+            string [] quien = quienReporta.Split(',');
 
-        //    try
-        //    {
-        //        string sqlCadena = "SELECT * FROM Usuarios WHERE expediente = 0";
+            for (int x = 0; x < quien.Count(); x++)
+                quien[x] = "Expediente = " + quien[x];
 
-        //        dataAdapter = new SqlDataAdapter();
-        //        dataAdapter.SelectCommand = new SqlCommand(sqlCadena, connectionEpsSql);
+            quienReporta = String.Join(" OR ", quien);
 
-        //        dataAdapter.Fill(dataSet, "Usuarios");
+            ObservableCollection<ServidoresPublicos> servidores = new ObservableCollection<ServidoresPublicos>();
 
-        //        dr = dataSet.Tables["Usuarios"].NewRow();
-        //        dr["Expediente"] = servidor.Expediente;
-        //        dr["idTitulo"] = servidor.IdTitulo;
-        //        dr["Nombre"] = servidor.Nombre;
-        //        dr["IdUbicacion"] = servidor.IdUbicacion;
-        //        dr["Puerta"] = servidor.Puerta;
-        //        dr["Extension"] = (servidor.Extension == null) ? 0 : servidor.Extension;
-        //        dr["idArea"] = servidor.IdArea;
-        //        dr["idAdscripcion"] = 1;
+            try
+            {
+                sqlConne.Open();
 
-        //        dataSet.Tables["Usuarios"].Rows.Add(dr);
+                string selstr = "SELECT Expediente,Nombre FROM Usuarios WHERE "+ quienReporta;
+                SqlCommand cmd = new SqlCommand(selstr, sqlConne);
 
-        //        dataAdapter.InsertCommand = connectionEpsSql.CreateCommand();
-        //        dataAdapter.InsertCommand.CommandText = "INSERT INTO Usuarios(Expediente,idTitulo,Nombre,IdUbicacion,Puerta,Extension,idArea,idAdscripcion,UserStatus)" +
-        //                                                " VALUES(@Expediente,@idTitulo,@Nombre,@IdUbicacion,@Puerta,@Extension,@idArea,@idAdscripcion,1)";
+                dataReader = cmd.ExecuteReader();
 
-        //        dataAdapter.InsertCommand.Parameters.Add("@Expediente", SqlDbType.Int, 0, "Expediente");
-        //        dataAdapter.InsertCommand.Parameters.Add("@idTitulo", SqlDbType.Int, 0, "idTitulo");
-        //        dataAdapter.InsertCommand.Parameters.Add("@Nombre", SqlDbType.VarChar, 0, "Nombre");
-        //        dataAdapter.InsertCommand.Parameters.Add("@IdUbicacion", SqlDbType.Int, 0, "IdUbicacion");
-        //        dataAdapter.InsertCommand.Parameters.Add("@Puerta", SqlDbType.VarChar, 0, "Puerta");
-        //        dataAdapter.InsertCommand.Parameters.Add("@Extension", SqlDbType.Int, 0, "Extension");
-        //        dataAdapter.InsertCommand.Parameters.Add("@idArea", SqlDbType.Int, 0, "idArea");
-        //        dataAdapter.InsertCommand.Parameters.Add("@idAdscripcion", SqlDbType.Int, 0, "idAdscripcion");
+                if (dataReader.HasRows)
+                {
+                    while (dataReader.Read())
+                    {
+                        ServidoresPublicos servidorP = new ServidoresPublicos();
+                        servidorP.Expediente = Convert.ToInt32(dataReader["expediente"]);
+                        servidorP.Nombre = StringUtilities.ToTitleCase(dataReader["nombre"].ToString().ToLower());
 
-        //        dataAdapter.Update(dataSet, "Usuarios");
+                        servidores.Add(servidorP);
+                    }
+                }
+                dataReader.Close();
+                selstr = null;
+            }
+            catch (SqlException sql)
+            {
+                MessageBox.Show("Error ({0}) : {1}" + sql.Source + sql.Message, "Error Interno");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error ({0}) : {1}" + ex.Source + ex.Message, "Error Interno");
+            }
+            finally
+            {
+                sqlConne.Close();
+            }
+            return servidores;
+        }
 
-        //        dataSet.Dispose();
-        //        dataAdapter.Dispose();
-
-        //        servidor.Equipos = new ObservableCollection<Equipos>();
-        //        servidor.Mobiliario = new ObservableCollection<Mobiliario>();
-        //        ServidoresSingleton.AddUsuario(servidor);
-        //    }
-        //    catch (SqlException sql)
-        //    {
-        //        MessageBox.Show("Error ({0}) : {1}" + sql.Source + sql.Message, "Error Interno");
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        MessageBox.Show("Error ({0}) : {1}" + ex.Source + ex.Message, "Error Interno");
-        //    }
-        //    finally
-        //    {
-        //        connectionEpsSql.Close();
-        //    }
-        //}// fin InsertarRegistro
 
         public int SetNewServidor()
         {

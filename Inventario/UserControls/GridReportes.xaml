@@ -1,0 +1,58 @@
+﻿<UserControl x:Class="Inventario.UserControls.GridReportes"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+             Loaded="UserControl_Loaded"
+             d:DesignHeight="300"
+             d:DesignWidth="300"
+             mc:Ignorable="d">
+    <Grid>
+
+        <telerik:RadGridView x:Name="GReporte"
+                             HorizontalAlignment="Stretch"
+                             VerticalAlignment="Stretch"
+                             AutoGenerateColumns="False"
+                             ItemsSource="{Binding}"
+                             IsReadOnly="True"
+                             IsFilteringAllowed="False"
+                             SelectionChanged="GReporte_SelectionChanged"
+                             ShowGroupPanel="False">
+            <telerik:RadGridView.Columns>
+
+                <telerik:GridViewDataColumn Width="80"
+                                            DataMemberBinding="{Binding NumReporte}"
+                                            Header="N. Reporte" />
+                <telerik:GridViewDataColumn Width="120"
+                                            DataMemberBinding="{Binding TipoEquipo}"
+                                            Header="Equipo" />
+                <telerik:GridViewDataColumn Width="100"
+                                            DataMemberBinding="{Binding ScEquipo}"
+                                            Header="N. Inventario" />
+                <telerik:GridViewDataColumn Width="160"
+                                            DataMemberBinding="{Binding Nombre}"
+                                            Header="Usuario" />
+                <telerik:GridViewDataColumn Width="140"
+                                            DataMemberBinding="{Binding FechaReporte}"
+                                            Header="F. Reporte" />
+                <telerik:GridViewDataColumn Width="*"
+                                            DataMemberBinding="{Binding Problema}"
+                                            Header="Problema" />
+                <telerik:GridViewDataColumn Width="160"
+                                            DataMemberBinding="{Binding ReportoStr}"
+                                            Header="Reporto" />
+                <telerik:GridViewDataColumn Width="90"
+                                            DataMemberBinding="{Binding FechaCierre, StringFormat=\{0:dd/MM/yyyy\}}"
+                                            Header="Cierre" />
+                <telerik:GridViewDataColumn Width="120"
+                                            DataMemberBinding="{Binding Atendio}"
+                                            Header="Atendio" />
+                <telerik:GridViewDataColumn Width="*"
+                                            DataMemberBinding="{Binding Observaciones}"
+                                            Header="Observaciones" />
+            </telerik:RadGridView.Columns>
+        </telerik:RadGridView>
+
+    </Grid>
+</UserControl>

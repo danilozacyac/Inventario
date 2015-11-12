@@ -5,8 +5,11 @@
                    xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
                    Width="630"
                    Height="333"
+                   MaxWidth="900"
+                   MaxHeight="550"
                    Header="MobiliarioAsignado"
-                   Loaded="RadWindow_Loaded">
+                   Loaded="RadWindow_Loaded"
+                   WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.Resources>
             <Converters:MobDescripcionConverter x:Key="MobiliarioConverter" />
