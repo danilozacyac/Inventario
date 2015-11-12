@@ -1,5 +1,6 @@
 ﻿using DaoProject.Dao;
 using DaoProject.Model;
+using DaoProject.Singleton;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,7 +31,7 @@ namespace Inventario.UserControls
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            GReporte.DataContext = new LevantaReporteModel().GetReportes();
+            GReporte.DataContext = LevantaReporteSingleton.Reportes;
         }
 
         private void GReporte_SelectionChanged(object sender, Telerik.Windows.Controls.SelectionChangeEventArgs e)

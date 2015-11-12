@@ -14,16 +14,16 @@
                              HorizontalAlignment="Stretch"
                              VerticalAlignment="Stretch"
                              AutoGenerateColumns="False"
-                             ItemsSource="{Binding}"
-                             IsReadOnly="True"
                              IsFilteringAllowed="False"
-                             SelectionChanged="GReporte_SelectionChanged"
-                             ShowGroupPanel="False">
+                             IsReadOnly="True"
+                             ItemsSource="{Binding}"
+                             SelectionChanged="GReporte_SelectionChanged">
             <telerik:RadGridView.Columns>
 
                 <telerik:GridViewDataColumn Width="80"
                                             DataMemberBinding="{Binding NumReporte}"
-                                            Header="N. Reporte" />
+                                            Header="N. Reporte"
+                                            IsGroupable="False" />
                 <telerik:GridViewDataColumn Width="120"
                                             DataMemberBinding="{Binding TipoEquipo}"
                                             Header="Equipo" />
@@ -34,23 +34,29 @@
                                             DataMemberBinding="{Binding Nombre}"
                                             Header="Usuario" />
                 <telerik:GridViewDataColumn Width="140"
+                                            IsGroupable="False"
                                             DataMemberBinding="{Binding FechaReporte}"
                                             Header="F. Reporte" />
                 <telerik:GridViewDataColumn Width="*"
                                             DataMemberBinding="{Binding Problema}"
-                                            Header="Problema" />
+                                            Header="Problema"
+                                            IsGroupable="False" />
                 <telerik:GridViewDataColumn Width="160"
                                             DataMemberBinding="{Binding ReportoStr}"
                                             Header="Reporto" />
                 <telerik:GridViewDataColumn Width="90"
-                                            DataMemberBinding="{Binding FechaCierre, StringFormat=\{0:dd/MM/yyyy\}}"
-                                            Header="Cierre" />
+                                            DataMemberBinding="{Binding FechaCierre,
+                                                                        StringFormat=\{0:dd/MM/yyyy\}}"
+                                            Header="Cierre"
+                                            IsGroupable="False" />
                 <telerik:GridViewDataColumn Width="120"
                                             DataMemberBinding="{Binding Atendio}"
-                                            Header="Atendio" />
+                                            Header="Atendio"
+                                            IsGroupable="False" />
                 <telerik:GridViewDataColumn Width="*"
                                             DataMemberBinding="{Binding Observaciones}"
-                                            Header="Observaciones" />
+                                            Header="Observaciones"
+                                            IsGroupable="False" />
             </telerik:RadGridView.Columns>
         </telerik:RadGridView>
 

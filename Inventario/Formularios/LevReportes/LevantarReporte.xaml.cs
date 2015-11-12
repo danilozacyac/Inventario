@@ -118,6 +118,10 @@ namespace Inventario.Formularios.LevReportes
             reporte.Expediente = servidor.Expediente;
             reporte.Reporto = (CbxReporto.SelectedItem as ServidoresPublicos).Expediente;
             reporte.Problema = TxtProblema.Text;
+            reporte.ScEquipo = TxtScEquipo.Text;
+            reporte.TipoEquipo = CbxTipoEquipo.Text;
+            reporte.Nombre = TxtUsuario.Text;
+            reporte.ReportoStr = CbxReporto.Text;
 
             new LevantaReporteModel().SetNewReporte(reporte);
 

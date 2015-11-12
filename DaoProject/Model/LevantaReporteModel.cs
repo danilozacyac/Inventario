@@ -5,6 +5,7 @@ using DaoProject.Dao;
 using DaoProject.DbAccess;
 using ScjnUtilities;
 using System.Collections.ObjectModel;
+using DaoProject.Singleton;
 
 namespace DaoProject.Model
 {
@@ -31,6 +32,8 @@ namespace DaoProject.Model
                 cmd.Parameters.AddWithValue("@Problema", reporte.Problema);
                 cmd.Parameters.AddWithValue("@NumReporte", reporte.NumReporte);
                 cmd.ExecuteNonQuery();
+
+                LevantaReporteSingleton.Reportes.Add(reporte);
             }
             catch (SqlException ex)
             {
@@ -86,7 +89,10 @@ namespace DaoProject.Model
             }
         }
 
-
+        /// <summary>
+        /// Obtiene el listado completo de reportes que se han levantado ante informática respecto al equipo de computo
+        /// </summary>
+        /// <returns></returns>
         public ObservableCollection<LevantaReporte> GetReportes()
         {
             SqlConnection connection = Conexion.GetConexion();
@@ -104,7 +110,7 @@ namespace DaoProject.Model
                     " INNER JOIN Usuarios U ON U.Expediente = R.Expediente " + 
                     " INNER JOIN Equipos E ON E.IdEquipo = R.IdEquipo " +
                     " INNER JOIN TiposEquipos T ON E.IdTipo = T.IdTipo " + 
-                    " WHERE T.IdInventario = 1";
+                    " WHERE T.IdInventario = 1 ORDER BY FechaCierre asc,FechaReporte desc";
 
                 SqlCommand cmd = new SqlCommand(selstr, connection);
                 reader = cmd.ExecuteReader();
