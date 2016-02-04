@@ -176,6 +176,7 @@ namespace DaoProject.Dao
             set
             {
                 this.fechaModificacion = value;
+                this.OnPropertyChanged("FechaModificacion");
             }
         }
 

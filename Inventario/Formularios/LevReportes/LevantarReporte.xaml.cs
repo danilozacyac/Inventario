@@ -111,6 +111,12 @@ namespace Inventario.Formularios.LevReportes
                 return;
             }
 
+            if (String.IsNullOrEmpty(TxtNumReporte.Text) || String.IsNullOrWhiteSpace(TxtNumReporte.Text))
+            {
+                MessageBox.Show("Para continuar debes capturar el número de reporte proporcionado por la mesa de servicio");
+                return;
+            }
+
             LevantaReporte reporte = new LevantaReporte();
             reporte.FechaReporte = DpFechaInicio.SelectedValue;
             reporte.NumReporte = Convert.ToInt32(TxtNumReporte.Text);

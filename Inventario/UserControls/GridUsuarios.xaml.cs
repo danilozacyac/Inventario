@@ -21,7 +21,7 @@ namespace Inventario.UserControls
         //public Equipos EquipoSeleccionado = null;
         //public Mobiliario MobilSeleccionado = null;
 
-        private ObservableCollection<ServidoresPublicos> listaServidores;
+        //private ObservableCollection<ServidoresPublicos> listaServidores;
 
         public GridUsuarios()
         {
@@ -30,12 +30,12 @@ namespace Inventario.UserControls
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            if (listaServidores == null)
-            {
-                listaServidores = ServidoresSingleton.Servidores;
+            //if (listaServidores == null)
+            //{
+            //    listaServidores = ServidoresSingleton.Servidores;
 
-                this.DataContext = listaServidores;
-            }
+                this.DataContext = ServidoresSingleton.Servidores;
+            //}
         }
 
         private void RbtnCerrar_Click(object sender, RoutedEventArgs e)
@@ -52,7 +52,7 @@ namespace Inventario.UserControls
         {
             String tempString = ((TextBox)sender).Text.ToUpper();
 
-            List<ServidoresPublicos> temp = (from n in listaServidores
+            List<ServidoresPublicos> temp = (from n in ServidoresSingleton.Servidores
                                              where n.Nombre.ToUpper().Contains(tempString)
                                              select n).ToList();
 

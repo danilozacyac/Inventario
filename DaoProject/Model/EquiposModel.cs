@@ -7,7 +7,6 @@ using System.Linq;
 using System.Windows.Forms;
 using DaoProject.Dao;
 using DaoProject.DbAccess;
-using DaoProject.Utilities;
 using ScjnUtilities;
 
 namespace DaoProject.Model
@@ -216,7 +215,7 @@ namespace DaoProject.Model
                             cmd.Parameters.AddWithValue("@Marca", equipo.Marca);
                             cmd.Parameters.AddWithValue("@Modelo", equipo.Modelo);
                             cmd.Parameters.AddWithValue("@NoSerie", equipo.NoSerie);
-                            cmd.Parameters.AddWithValue("@Observaciones", "");
+                            cmd.Parameters.AddWithValue("@Observaciones", equipo.Observaciones);
                             cmd.Parameters.AddWithValue("@Estado", "A");
                             cmd.Parameters.AddWithValue("@Alta", DateTime.Now.ToString("yyyy/MM/dd"));
                             cmd.Parameters.AddWithValue("@Modificacion", DateTime.Now.ToString("yyyy/MM/dd"));

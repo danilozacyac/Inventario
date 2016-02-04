@@ -71,7 +71,7 @@
                                             Header="Fecha de Alta" />
                 <telerik:GridViewDataColumn Width="*"
                                             DataFormatString=" {0:dd/MM/yyyy} "
-                                            DataMemberBinding="{Binding FechaModificacion}"
+                                            DataMemberBinding="{Binding FechaModificacion,Mode=TwoWay}"
                                             Header="Última modificación" />
 
             </telerik:RadGridView.Columns>
