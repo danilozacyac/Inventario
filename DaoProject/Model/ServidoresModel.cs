@@ -228,7 +228,7 @@ namespace DaoProject.Model
                             cmd.Parameters.AddWithValue("@Puerta", servidor.Puerta);
                             cmd.Parameters.AddWithValue("@Extension", servidor.Extension);
                             cmd.Parameters.AddWithValue("@IdArea", servidor.IdArea);
-                            cmd.Parameters.AddWithValue("@IdAdscripcion", servidor.IdAdscripcion);
+                            cmd.Parameters.AddWithValue("@IdAdscripcion", 1);
                             cmd.Parameters.AddWithValue("@UserStatus", 1);
                             cmd.Connection = con;
                             con.Open();
