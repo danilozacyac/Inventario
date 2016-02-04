@@ -3,6 +3,9 @@ using System.Linq;
 using System.Windows;
 using DaoProject.Dao;
 using Telerik.Windows.Controls;
+using DaoProject.Model;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace Inventario.Formularios.MobiliarioFolder
 {
@@ -57,6 +60,14 @@ namespace Inventario.Formularios.MobiliarioFolder
 
             AddUpdateMobiliario add = new AddUpdateMobiliario(mobiliario);
             add.ShowDialog();
+        }
+
+        private void RBtnHistMobiliario_Click(object sender, RoutedEventArgs e)
+        {
+            ObservableCollection<HistorialMobiliario> historial = new MobiliarioModel().GetHistorial(mobiliario);
+            HistorialMobiliarioWin showHistorial = new HistorialMobiliarioWin(historial);
+            showHistorial.Owner = this;
+            showHistorial.ShowDialog();
         }
     }
 }

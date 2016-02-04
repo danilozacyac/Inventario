@@ -36,6 +36,11 @@
                                      LargeImage="/Inventario;component/Resources/ReasigMob.png"
                                      Size="Large"
                                      Text="Reasignar mobiliario" />
+            <telerik:RadRibbonButton x:Name="RBtnHistMobiliario"
+                                     Click="RBtnHistMobiliario_Click"
+                                     LargeImage="/Inventario;component/Resources/clock.png"
+                                     Size="Large"
+                                     Text="Historial" />
         </StackPanel>
         <telerik:RadGridView x:Name="GridMobiliario"
                              Grid.Row="1"

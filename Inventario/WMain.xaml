@@ -10,7 +10,7 @@
                    Loaded="RadWindow_Loaded_1"
                    RestrictedAreaMargin="0,0,0,20"
                    WindowState="Maximized">
-    <telerik:RadBusyIndicator>
+    <telerik:RadBusyIndicator x:Name="BusyIndicator" Background="Transparent">
         <Grid>
             <Grid.Resources>
 
@@ -248,11 +248,6 @@
                                                  LargeImage="Resources/pcReasigna.png"
                                                  Size="Large"
                                                  Text="Reasignar equipo" />
-                        <telerik:RadRibbonButton x:Name="RbtnHistorial"
-                                                 Click="RbtnHistorial_Click"
-                                                 LargeImage="Resources/clock.png"
-                                                 Size="Large"
-                                                 Text="Historial del equipo" />
                         <telerik:RadRibbonButton x:Name="RBtnBajas"
                                                  Click="RBtnBajas_Click"
                                                  LargeImage="Resources/down.png"
@@ -321,12 +316,6 @@
                                                  LargeImage="Resources/ReasigMob.png"
                                                  Size="Large"
                                                  Text="Reasignar Mobiliario" />
-                        <telerik:RadRibbonButton x:Name="RBtnHMobiliario"
-                                                 Click="RBtnHMobiliario_Click"
-                                                 CollapseToSmall="WhenGroupIsSmall"
-                                                 LargeImage="Resources/clock.png"
-                                                 Size="Large"
-                                                 Text="Historial Mobiliario" />
                         <telerik:RadRibbonButton x:Name="RBtnBMobiliario"
                                                  Click="RBtnBMobiliario_Click"
                                                  CollapseToSmall="WhenGroupIsSmall"

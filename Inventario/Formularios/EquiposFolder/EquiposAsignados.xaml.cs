@@ -2,6 +2,8 @@
 using System.Linq;
 using System.Windows;
 using DaoProject.Dao;
+using DaoProject.Model;
+using System.Collections.Generic;
 
 namespace Inventario.Formularios.EquiposFolder
 {
@@ -51,6 +53,15 @@ namespace Inventario.Formularios.EquiposFolder
         {
             equipo = GridComputo.SelectedItem as Equipos;
             ActionButtons.Visibility = Visibility.Visible;
+        }
+
+        private void RBtnHistorial_Click(object sender, RoutedEventArgs e)
+        {
+            List<HistorialPc> historial = new EquiposModel().GetHistorial(equipo);
+
+            HistorialEquipo showHistorial = new HistorialEquipo(historial);
+            showHistorial.Owner = this;
+            showHistorial.ShowDialog();
         }
     }
 }

@@ -540,10 +540,8 @@ namespace DaoProject.Model
 
                 string selstr = "SELECT * FROM Historial  WHERE SC_Equipo = @sc AND isTipo = @tipo ORDER BY Modificacion ";
                 SqlCommand cmd = new SqlCommand(selstr, sqlConne);
-                SqlParameter inventario = cmd.Parameters.Add("@sc", SqlDbType.VarChar, 0);
-                inventario.Value = equipo.ScEquipo;
-                SqlParameter tipo = cmd.Parameters.Add("@tipo", SqlDbType.Int, 0);
-                tipo.Value = equipo.IdTipo;
+                cmd.Parameters.AddWithValue("@sc",equipo.ScEquipo);
+                cmd.Parameters.AddWithValue("@tipo", equipo.IdTipo);
 
                 dataReader = cmd.ExecuteReader();
 

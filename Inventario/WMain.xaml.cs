@@ -16,6 +16,7 @@ using Reporting.Exporta;
 using Telerik.Windows.Controls;
 using Telerik.Windows.Controls.Docking;
 using Inventario.Formularios.LevReportes;
+using System.ComponentModel;
 
 namespace Inventario
 {
@@ -25,12 +26,16 @@ namespace Inventario
     public partial class WMain 
     {
         private IReportePdf reporte;
+        int backgroundEvent = 0;
+
 
         public WMain()
         {
             StyleManager.ApplicationTheme = new Windows8Theme();
             InitializeComponent();
             this.ShowInTaskbar(this, "Inventario CCST");
+            worker.DoWork += this.WorkerDoWork;
+            worker.RunWorkerCompleted += WorkerRunWorkerCompleted;
         }
 
         private void RadWindow_Loaded_1(object sender, RoutedEventArgs e)
@@ -62,13 +67,24 @@ namespace Inventario
             window.Icon = BitmapFrame.Create(uri);
         }
 
-        private void AgregaUsuario_Click(object sender, RoutedEventArgs e)
+        private void RbtnConfig_Click(object sender, RoutedEventArgs e)
         {
-            AddUpdateUsuarios add = new AddUpdateUsuarios();
-            add.Owner = this;
-            add.Show();
+            ConfigOptions config = new ConfigOptions();
+            config.ShowDialog();
         }
 
+        private void Ribbon_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            if (AccesoUsuarioModel.IsSuper)
+            {
+                if (Ribbon.SelectedIndex == 1)
+                    AccesoUsuarioModel.Grupo = 1;
+                else if (Ribbon.SelectedIndex == 2)
+                    AccesoUsuarioModel.Grupo = 2;
+            }
+        }
+
+        #region Areas
         private void RbtnAddArea_Click(object sender, RoutedEventArgs e)
         {
             AddUpdateArea add = new AddUpdateArea();
@@ -76,30 +92,213 @@ namespace Inventario
             add.Show();
         }
 
-        GridUsuarios grUsuarios;
-        private void RbtnListaUsuarios_Click(object sender, RoutedEventArgs e)
+        private void RbtnEliminarArea_Click(object sender, RoutedEventArgs e)
         {
-            grUsuarios = new GridUsuarios();
-
-            this.AddPane(1, "Lista de Usuarios", grUsuarios);
-
-        }
-
-        private RadPane GetExistingPane(int tag)
-        {
-            RadPane pane = null;
-
-            foreach (RadPane panes in Docking.Panes)
+            if (ucAreas.AreaSeleccionada == null)
             {
-                if (Convert.ToInt32(panes.Tag) == tag)
-                {
-                    pane = panes;
-                    break;
-                }
+                MessageBox.Show("Seleccione el área que desea eliminar");
+                return;
             }
-            return pane;
+
+            MessageBoxResult result = MessageBox.Show("¿Esta seguro de eliminar esta área?", "Atención:", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                AddUpdateArea delete = new AddUpdateArea(ucAreas.AreaSeleccionada, 2);
+                delete.Owner = this;
+                delete.Show();
+            }
         }
 
+        private void RbtnUpdateArea_Click(object sender, RoutedEventArgs e)
+        {
+            if (ucAreas.AreaSeleccionada == null)
+            {
+                MessageBox.Show("Seleccione el área que desea editar");
+                return;
+            }
+
+            AddUpdateArea update = new AddUpdateArea(ucAreas.AreaSeleccionada, 1);
+            update.Owner = this;
+            update.Show();
+        }
+
+
+        #endregion
+
+        #region Usuarios
+
+
+        private void AgregaUsuario_Click(object sender, RoutedEventArgs e)
+        {
+            AddUpdateUsuarios add = new AddUpdateUsuarios();
+            add.Owner = this;
+            add.Show();
+        }
+
+        private void RbtnEditarUsuario_Click(object sender, RoutedEventArgs e)
+        {
+            if (grUsuarios.ServidorSeleccionado != null)
+            {
+                AddUpdateUsuarios update = new AddUpdateUsuarios(grUsuarios.ServidorSeleccionado);
+                update.Owner = this;
+                update.Show();
+            }
+        }
+
+
+        #endregion
+
+        #region Computo
+
+        private void RbtnBuscar_Click(object sender, RoutedEventArgs e)
+        {
+            BuscarEquipo busca = new BuscarEquipo();
+            busca.Owner = this;
+            busca.Show();
+        }
+
+        private void RbtnAgregaEquipo_Click(object sender, RoutedEventArgs e)
+        {
+            AddEquipos add = new AddEquipos();
+            add.Owner = this;
+            add.Show();
+        }
+
+        private void RbtnBajaEquipo_Click(object sender, RoutedEventArgs e)
+        {
+            DeleteEquipo del = new DeleteEquipo();
+            del.Owner = this;
+            del.Show();
+        }
+
+        private void RbtnEditaEquipo_Click(object sender, RoutedEventArgs e)
+        {
+            //UpdateEquipo update = new UpdateEquipo(this.GrUsuarios.EquipoSeleccionado);
+            //update.Owner = this;
+            //update.Show();
+        }
+
+        private void RbtnReasignaEquipo_Click(object sender, RoutedEventArgs e)
+        {
+            //UpdateUsuarioEquipo update = new UpdateUsuarioEquipo(GrUsuarios.ServidorSeleccionado, GrUsuarios.EquipoSeleccionado);
+            //update.Show();
+        }
+
+        /// <summary>
+        /// Muestra el catálogo de los tipos de equipo de computo
+        /// </summary>
+        private void RbtnListaEquipos_Click(object sender, RoutedEventArgs e)
+        {
+            CatalogoTipos catalogo = new CatalogoTipos(1);
+            catalogo.Owner = this;
+            catalogo.ShowDialog();
+        }
+
+        #endregion
+
+        #region Reportes Computo
+
+        /// <summary>
+        /// Permite agregar la información de el reporte que se esta levantando en informática
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void RBtnLevantaR_Click(object sender, RoutedEventArgs e)
+        {
+            LevantarReporte reporte = new LevantarReporte();
+            reporte.Owner = this;
+            reporte.ShowDialog();
+        }
+
+        /// <summary>
+        /// Permite actualizar la información de los reportes que se levantan ante informática
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void RBtnEditaR_Click(object sender, RoutedEventArgs e)
+        {
+            if (gReportes == null || gReportes.selectedReporte == null)
+            {
+                MessageBox.Show("Selecciona el reporte que quieres modificar");
+                return;
+            }
+
+            UpdateReporte reporte = new UpdateReporte(gReportes.selectedReporte);
+            reporte.Owner = this;
+            reporte.ShowDialog();
+        }
+
+
+        #endregion
+
+        #region Mobiliario
+
+        private void RbtnAddMobiliario_Click(object sender, RoutedEventArgs e)
+        {
+            AddUpdateMobiliario add = new AddUpdateMobiliario();
+            add.Owner = this;
+            add.Show();
+        }
+
+        private void RbtnDelMobiliario_Click(object sender, RoutedEventArgs e)
+        {
+            //DeleteMobiliario delete = new DeleteMobiliario(GrUsuarios.MobilSeleccionado);
+            //delete.Show();
+        }
+
+        private void RbtnReasigMobiliario_Click(object sender, RoutedEventArgs e)
+        {
+            //if (GrUsuarios.MobilSeleccionado == null)
+            //    return;
+
+            //UpdateMobiliarioUsuario update = new UpdateMobiliarioUsuario(GrUsuarios.ServidorSeleccionado, GrUsuarios.MobilSeleccionado);
+            //update.Owner = this;
+            //update.Show();
+        }
+
+        private void RbtnEditMobiliario_Click(object sender, RoutedEventArgs e)
+        {
+            //if (GrUsuarios.MobilSeleccionado == null)
+            //{
+            //    MessageBox.Show("Selecciona el artículo que deseas actualizar");
+            //    return;
+            //}
+
+            //AddUpdateMobiliario add = new AddUpdateMobiliario(GrUsuarios.MobilSeleccionado);
+            //add.ShowDialog();
+        }
+
+        private void ListaMobiliario_Click(object sender, RoutedEventArgs e)
+        {
+            CatalogoTipos catalog = new CatalogoTipos(2);
+            catalog.ShowDialog();
+        }
+
+        private void RbtnBuscarMob_Click(object sender, RoutedEventArgs e)
+        {
+            BuscarMobiliario busca = new BuscarMobiliario();
+            busca.Owner = this;
+            busca.Show();
+        }
+
+        #endregion
+
+        /// <summary>
+        /// Esta región contiene los metodos que muestran listados. Dichos listados se encuentran dentro 
+        /// de Controles de Usuario y son mostrados en elementos Pane del Control Docking
+        /// </summary>
+        #region Panes
+
+        GridUsuarios grUsuarios; ListaAreas ucAreas; GridMBajas gmBajas; GridHMobiliario grhMob; GridBajas gBajas;
+        GridHistorial gHistoria; GridReportes gReportes;
+
+        /// <summary>
+        /// Permite agregar elementos al panel central de la vista principal
+        /// </summary>
+        /// <param name="tag">Identificador que se le dará al elemento creado</param>
+        /// <param name="tabTitle">Título que se mostrará en la pestaña del elemento</param>
+        /// <param name="organoControl">Elemento a mostrar</param>
         private void AddPane(int tag, string tabTitle, object organoControl)
         {
 
@@ -122,12 +321,75 @@ namespace Inventario
             }
         }
 
-        private void RbtnAddMobiliario_Click(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// Obtiene, si existe, el panel que se pretende crear
+        /// </summary>
+        /// <param name="tag">Identificador del panel</param>
+        /// <returns></returns>
+        private RadPane GetExistingPane(int tag)
         {
-            AddUpdateMobiliario add = new AddUpdateMobiliario();
-            add.Owner = this;
-            add.Show();
+            RadPane pane = null;
+
+            foreach (RadPane panes in Docking.Panes)
+            {
+                if (Convert.ToInt32(panes.Tag) == tag)
+                {
+                    pane = panes;
+                    break;
+                }
+            }
+            return pane;
         }
+
+
+        private void RbtnListaUsuarios_Click(object sender, RoutedEventArgs e)
+        {
+            grUsuarios = new GridUsuarios();
+            this.AddPane(1, "Lista de Usuarios", grUsuarios);
+        }
+
+        
+        private void RbtnListaAreas_Click(object sender, RoutedEventArgs e)
+        {
+            ucAreas = new ListaAreas();
+            this.AddPane(2, "Listado de Áreas", ucAreas);
+        }
+
+
+        /// <summary>
+        /// Muestra el equipo de computo dado de baja hasta la fecha
+        /// </summary>
+        private void RBtnBajas_Click(object sender, RoutedEventArgs e)
+        {
+            gBajas = new GridBajas();
+            this.AddPane(3, "Bajas de Equipo de Computo", gBajas);
+        }
+
+        /// <summary>
+        /// Muestra el mobiliario dado de baja hasta la fecha
+        /// </summary>
+        private void RBtnBMobiliario_Click(object sender, RoutedEventArgs e)
+        {
+            gmBajas = new GridMBajas();
+            this.AddPane(4, "Bajas de Mobiliario", gmBajas);
+        }
+
+
+        /// <summary>
+        /// Muestra la información de los reportes levantados ante el área de informática
+        /// </summary>
+        private void RBtnListadoR_Click(object sender, RoutedEventArgs e)
+        {
+            backgroundEvent = 5;
+            gReportes = new GridReportes();
+            this.LaunchBusyIndicator();
+        }
+
+
+
+        #endregion
+
+        #region Imprime Reportes y exporta info
 
         private void RribReporteGral_Click(object sender, RoutedEventArgs e)
         {
@@ -188,132 +450,6 @@ namespace Inventario
             }
         }
 
-        private void RbtnAgregaEquipo_Click(object sender, RoutedEventArgs e)
-        {
-            AddEquipos add = new AddEquipos();
-            add.Owner = this;
-            add.Show();
-        }
-
-        private void RbtnBajaEquipo_Click(object sender, RoutedEventArgs e)
-        {
-            DeleteEquipo del = new DeleteEquipo();
-            del.Owner = this;
-            del.Show();
-        }
-
-        private void RbtnEditaEquipo_Click(object sender, RoutedEventArgs e)
-        {
-            //UpdateEquipo update = new UpdateEquipo(this.GrUsuarios.EquipoSeleccionado);
-            //update.Owner = this;
-            //update.Show();
-        }
-
-        private void RbtnReasignaEquipo_Click(object sender, RoutedEventArgs e)
-        {
-            //UpdateUsuarioEquipo update = new UpdateUsuarioEquipo(GrUsuarios.ServidorSeleccionado, GrUsuarios.EquipoSeleccionado);
-            //update.Show();
-        }
-
-        ListaAreas ucAreas;
-        private void RbtnListaAreas_Click(object sender, RoutedEventArgs e)
-        {
-            ucAreas = new ListaAreas();
-
-            RadPane pane = new RadPane();
-            pane.Header = "Tesis turnadas";
-            pane.Content = ucAreas;
-
-            PanelCentral.AddItem(pane, DockPosition.Center);
-
-        }
-
-        private void RbtnEliminarArea_Click(object sender, RoutedEventArgs e)
-        {
-            if (ucAreas.AreaSeleccionada == null)
-            {
-                MessageBox.Show("Seleccione el área que desea eliminar");
-                return;
-            }
-
-            MessageBoxResult result = MessageBox.Show("¿Esta seguro de eliminar esta área?", "Atención:", MessageBoxButton.YesNo, MessageBoxImage.Question);
-
-            if (result == MessageBoxResult.Yes)
-            {
-                AddUpdateArea delete = new AddUpdateArea(ucAreas.AreaSeleccionada, 2);
-                delete.Owner = this;
-                delete.Show();
-            }
-        }
-
-        private void RbtnUpdateArea_Click(object sender, RoutedEventArgs e)
-        {
-            if (ucAreas.AreaSeleccionada == null)
-            {
-                MessageBox.Show("Seleccione el área que desea editar");
-                return;
-            }
-
-            AddUpdateArea update = new AddUpdateArea(ucAreas.AreaSeleccionada, 1);
-            update.Owner = this;
-            update.Show();
-        }
-
-        private void RbtnBuscar_Click(object sender, RoutedEventArgs e)
-        {
-                BuscarEquipo busca = new BuscarEquipo();
-                busca.Owner = this;
-                busca.Show();
-        }
-
-        private void RbtnBuscarMob_Click(object sender, RoutedEventArgs e)
-        {
-            BuscarMobiliario busca = new BuscarMobiliario();
-            busca.Owner = this;
-            busca.Show();
-        }
-
-        private void RbtnConfig_Click(object sender, RoutedEventArgs e)
-        {
-            ConfigOptions config = new ConfigOptions();
-            config.ShowDialog();
-        }
-
-        private void RbtnEditarUsuario_Click(object sender, RoutedEventArgs e)
-        {
-            if (grUsuarios.ServidorSeleccionado != null)
-            {
-                AddUpdateUsuarios update = new AddUpdateUsuarios(grUsuarios.ServidorSeleccionado);
-                update.Owner = this;
-                update.Show();
-            }
-        }
-
-        private void Ribbon_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
-        {
-            if (AccesoUsuarioModel.IsSuper)
-            {
-                if (Ribbon.SelectedIndex == 1)
-                    AccesoUsuarioModel.Grupo = 1;
-                else if (Ribbon.SelectedIndex == 2)
-                    AccesoUsuarioModel.Grupo = 2;
-            }
-        }
-
-        GridHistorial gHistoria;
-        private void RbtnHistorial_Click(object sender, RoutedEventArgs e)
-        {
-            gHistoria = new GridHistorial();
-
-            RadPane pane = new RadPane();
-            pane.Header = "Historial";
-            pane.Content = gHistoria;
-
-            PanelCentral.AddItem(pane, DockPosition.Center);
-
-            
-        }
-
         private void ExportaDocs_Click(object sender, RoutedEventArgs e)
         {
             RadRibbonButton clickImage = (RadRibbonButton)sender;
@@ -345,116 +481,40 @@ namespace Inventario
             MessageBox.Show("Exportación finalizada");
         }
 
-        private void RbtnDelMobiliario_Click(object sender, RoutedEventArgs e)
+        #endregion
+
+
+        #region Background Worker
+
+        private BackgroundWorker worker = new BackgroundWorker();
+        private void WorkerDoWork(object sender, DoWorkEventArgs e)
         {
-            //DeleteMobiliario delete = new DeleteMobiliario(GrUsuarios.MobilSeleccionado);
-            //delete.Show();
+            object x;
+
+            if(backgroundEvent ==5)
+                x = LevantaReporteSingleton.Reportes;
         }
 
-        private void RbtnReasigMobiliario_Click(object sender, RoutedEventArgs e)
+        void WorkerRunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            //if (GrUsuarios.MobilSeleccionado == null)
-            //    return;
+           if(backgroundEvent == 5)
+               this.AddPane(5, "Reportes informática", gReportes);
 
-            //UpdateMobiliarioUsuario update = new UpdateMobiliarioUsuario(GrUsuarios.ServidorSeleccionado, GrUsuarios.MobilSeleccionado);
-            //update.Owner = this;
-            //update.Show();
+            //Dispatcher.BeginInvoke(new Action<ObservableCollection<Organismos>>(this.UpdateGridDataSource), e.Result);
+            this.BusyIndicator.IsBusy = false;
         }
 
-        private void RbtnEditMobiliario_Click(object sender, RoutedEventArgs e)
+        private void LaunchBusyIndicator()
         {
-            //if (GrUsuarios.MobilSeleccionado == null)
-            //{
-            //    MessageBox.Show("Selecciona el artículo que deseas actualizar");
-            //    return;
-            //}
-
-            //AddUpdateMobiliario add = new AddUpdateMobiliario(GrUsuarios.MobilSeleccionado);
-            //add.ShowDialog();
-        }
-
-        private void ListaMobiliario_Click(object sender, RoutedEventArgs e)
-        {
-            CatalogoTipos catalog = new CatalogoTipos(2);
-            catalog.ShowDialog();
-        }
-
-        GridBajas gBajas;
-        private void RBtnBajas_Click(object sender, RoutedEventArgs e)
-        {
-            gBajas = new GridBajas();
-
-            RadPane pane = new RadPane();
-            pane.Header = "Bajas";
-            pane.Content = gBajas;
-
-            PanelCentral.AddItem(pane, DockPosition.Center);
-            
-        }
-
-        GridHMobiliario grhMob;
-        private void RBtnHMobiliario_Click(object sender, RoutedEventArgs e)
-        {
-            grhMob = new GridHMobiliario();
-
-            RadPane pane = new RadPane();
-            pane.Header = "Historial";
-            pane.Content = grhMob;
-
-            PanelCentral.AddItem(pane, DockPosition.Center);
-        }
-
-        GridMBajas gmBajas;
-        private void RBtnBMobiliario_Click(object sender, RoutedEventArgs e)
-        {
-            gmBajas = new GridMBajas();
-            RadPane pane = new RadPane();
-            pane.Header = "Bajas Mobiliario";
-            pane.Content = gmBajas;
-
-            PanelCentral.AddItem(pane, DockPosition.Center);
-        }
-
-        private void RbtnListaEquipos_Click(object sender, RoutedEventArgs e)
-        {
-            CatalogoTipos catalogo = new CatalogoTipos(1);
-            catalogo.Owner = this;
-            catalogo.ShowDialog();
-        }
-
-        private void RBtnLevantaR_Click(object sender, RoutedEventArgs e)
-        {
-            LevantarReporte reporte = new LevantarReporte();
-            reporte.Owner = this;
-            reporte.ShowDialog();
-        }
-
-        private void RBtnEditaR_Click(object sender, RoutedEventArgs e)
-        {
-            if (gReportes == null || gReportes.selectedReporte == null)
+            if (!worker.IsBusy)
             {
-                MessageBox.Show("Selecciona el reporte que quieres modificar");
-                return;
+                this.BusyIndicator.IsBusy = true;
+                worker.RunWorkerAsync();
+
             }
-
-            UpdateReporte reporte = new UpdateReporte(gReportes.selectedReporte);
-            reporte.Owner = this;
-            reporte.ShowDialog();
         }
 
-
-        GridReportes gReportes;
-        private void RBtnListadoR_Click(object sender, RoutedEventArgs e)
-        {
-            gReportes = new GridReportes();
-
-            RadPane pane = new RadPane();
-            pane.Header = "Reportes Informática";
-            pane.Content = gReportes;
-
-            PanelCentral.AddItem(pane, DockPosition.Center);
-        }
-
+        #endregion
        
     }
 }

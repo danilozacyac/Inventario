@@ -37,6 +37,11 @@
                                      LargeImage="/Inventario;component/Resources/pcReasigna.png"
                                      Size="Large"
                                      Text="Reasignar equipo" />
+            <telerik:RadRibbonButton x:Name="RBtnHistorial"
+                                     Click="RBtnHistorial_Click"
+                                     LargeImage="/Inventario;component/Resources/clock.png"
+                                     Size="Large"
+                                     Text="Historial" />
         </StackPanel>
         <telerik:RadGridView x:Name="GridComputo"
                              Grid.Row="1"

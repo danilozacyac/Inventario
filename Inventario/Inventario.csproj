@@ -25,7 +25,7 @@
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
     <UpdateUrl>\\ctdir-26464-cbg\Users\lavega\Pictures\Aplicaciones\Inventario\</UpdateUrl>
-    <ApplicationRevision>2</ApplicationRevision>
+    <ApplicationRevision>3</ApplicationRevision>
     <ApplicationVersion>2.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -185,6 +185,9 @@
     <Compile Include="Formularios\MobiliarioFolder\DeleteMobiliario.xaml.cs">
       <DependentUpon>DeleteMobiliario.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Formularios\MobiliarioFolder\HistorialMobiliarioWin.xaml.cs">
+      <DependentUpon>HistorialMobiliarioWin.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Formularios\MobiliarioFolder\MobiliarioAsignado.xaml.cs">
       <DependentUpon>MobiliarioAsignado.xaml</DependentUpon>
     </Compile>
@@ -303,6 +306,10 @@
     <Page Include="Formularios\MobiliarioFolder\DeleteMobiliario.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Formularios\MobiliarioFolder\HistorialMobiliarioWin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Formularios\MobiliarioFolder\MobiliarioAsignado.xaml">
       <Generator>MSBuild:Compile</Generator>

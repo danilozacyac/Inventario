@@ -38,5 +38,17 @@ namespace Inventario.UserControls
         {
             selectedReporte = GReporte.SelectedItem as LevantaReporte;
         }
+
+        private void SearchTextBox_Search(object sender, RoutedEventArgs e)
+        {
+            String tempString = ((TextBox)sender).Text.ToUpper();
+
+            if (!String.IsNullOrEmpty(tempString))
+                GReporte.DataContext = (from n in LevantaReporteSingleton.Reportes
+                                        where n.NumReporte.ToString().Contains(tempString) || n.Nombre.ToUpper().Contains(tempString) || n.ScEquipo.Contains(tempString)
+                                        select n).ToList();
+            else
+                GReporte.DataContext = LevantaReporteSingleton.Reportes;
+        }
     }
 }

@@ -29,13 +29,14 @@ namespace Inventario.Formularios.Areas
             this.action = action;
             this.isUpdating = (action == 1) ? true : false;
             this.isDeleting = (action == 1) ? false : true;
+            RBtnAceptar.Content = (action == 1) ? "Actualizar" : "Eliminar";
         }
 
         private void RadWindow_Loaded_1(object sender, RoutedEventArgs e)
         {
             this.DataContext = area;
 
-            RBtnAceptar.Content = (action == 1) ? "Actualizar" : "Eliminar";
+            
         }
 
         private void RBtnAceptar_Click_1(object sender, RoutedEventArgs e)

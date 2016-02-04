@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Windows.Forms;
 using DaoProject.Dao;
 using DaoProject.DbAccess;
+using ScjnUtilities;
 
 namespace DaoProject.Model
 {
@@ -26,17 +26,17 @@ namespace DaoProject.Model
         /// <returns></returns>
         public List<CommonProperties> GetAreas()
         {
-            SqlConnection sqlConne = Conexion.GetConexion();
+            SqlConnection connection = Conexion.GetConexion();
             SqlDataReader dataReader;
 
             List<CommonProperties> areas = new List<CommonProperties>();
 
             try
             {
-                sqlConne.Open();
+                connection.Open();
 
                 string selstr = "SELECT * FROM Areas";
-                SqlCommand cmd = new SqlCommand(selstr, sqlConne);
+                SqlCommand cmd = new SqlCommand(selstr, connection);
 
                 dataReader = cmd.ExecuteReader();
 
@@ -55,17 +55,19 @@ namespace DaoProject.Model
                     }
                 }
             }
-            catch (SqlException sql)
+            catch (SqlException ex)
             {
-                MessageBox.Show("Error ({0}) : {1}" + sql.Source + sql.Message, "Error Interno");
+                string methodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+                ErrorUtilities.SetNewErrorMessage(ex, methodName + " Exception,AreasModel", "Inventario");
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error ({0}) : {1}" + ex.Source + ex.Message, "Error Interno");
+                string methodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+                ErrorUtilities.SetNewErrorMessage(ex, methodName + " Exception,AreasModel", "Inventario");
             }
             finally
             {
-                sqlConne.Close();
+                connection.Close();
             }
             return areas;
         }
@@ -76,17 +78,17 @@ namespace DaoProject.Model
         /// <returns></returns>
         public List<CommonProperties> GetAdscripciones()
         {
-            SqlConnection sqlConne = Conexion.GetConexion();
+            SqlConnection connection = Conexion.GetConexion();
             SqlDataReader dataReader;
 
             List<CommonProperties> adscripciones = new List<CommonProperties>();
 
             try
             {
-                sqlConne.Open();
+                connection.Open();
 
                 string selstr = "SELECT * FROM Adscripciones";
-                SqlCommand cmd = new SqlCommand(selstr, sqlConne);
+                SqlCommand cmd = new SqlCommand(selstr, connection);
 
                 dataReader = cmd.ExecuteReader();
 
@@ -103,17 +105,19 @@ namespace DaoProject.Model
                     }
                 }
             }
-            catch (SqlException sql)
+            catch (SqlException ex)
             {
-                MessageBox.Show("Error ({0}) : {1}" + sql.Source + sql.Message, "Error Interno");
+                string methodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+                ErrorUtilities.SetNewErrorMessage(ex, methodName + " Exception,AreasModel", "Inventario");
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error ({0}) : {1}" + ex.Source + ex.Message, "Error Interno");
+                string methodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+                ErrorUtilities.SetNewErrorMessage(ex, methodName + " Exception,AreasModel", "Inventario");
             }
             finally
             {
-                sqlConne.Close();
+                connection.Close();
             }
             return adscripciones;
         }
@@ -123,70 +127,53 @@ namespace DaoProject.Model
         /// </summary>
         public void SetNewArea()
         {
-
-            SqlConnection connectionEpsSql = Conexion.GetConexion();
-            SqlDataAdapter dataAdapter;
-
-            DataSet dataSet = new DataSet();
-            DataRow dr;
-
-            string sqlCadena = "SELECT * FROM Areas WHERE idArea = 0";
+            SqlConnection connection = Conexion.GetConexion();
 
             try
             {
-                dataAdapter = new SqlDataAdapter();
-                dataAdapter.SelectCommand = new SqlCommand(sqlCadena, connectionEpsSql);
-
-                dataAdapter.Fill(dataSet, "Areas");
-
-                dr = dataSet.Tables["Areas"].NewRow();
-                dr["Area"] = area.Descripcion;
-                dr["Corto"] = area.Corto;
-                dr["Abreviatura"] = area.Abreviatura;
-
-                dataSet.Tables["Areas"].Rows.Add(dr);
-
-                dataAdapter.InsertCommand = connectionEpsSql.CreateCommand();
-                dataAdapter.InsertCommand.CommandText = "INSERT INTO Areas(Area,Corto,Abreviatura)" +
+                string queryString = "INSERT INTO Areas(Area,Corto,Abreviatura)" +
                                                         " VALUES(@Area,@Corto,@Abreviatura)";
+                connection.Open();
+                SqlCommand cmd = new SqlCommand(queryString, connection);
 
-                dataAdapter.InsertCommand.Parameters.Add("@Area", SqlDbType.VarChar, 0, "Area");
-                dataAdapter.InsertCommand.Parameters.Add("@Corto", SqlDbType.VarChar, 0, "Corto");
-                dataAdapter.InsertCommand.Parameters.Add("@Abreviatura", SqlDbType.VarChar, 0, "Abreviatura");
-
-                dataAdapter.Update(dataSet, "Areas");
-
-                dataSet.Dispose();
-                dataAdapter.Dispose();
+                cmd.Parameters.AddWithValue("@Area", area.Descripcion);
+                cmd.Parameters.AddWithValue("@Corto", area.Corto);
+                cmd.Parameters.AddWithValue("@Abreviatura", area.Abreviatura);
+                cmd.ExecuteNonQuery();
+                
             }
-            catch (SqlException sql)
+            catch (SqlException ex)
             {
-                MessageBox.Show("Error ({0}) : {1}" + sql.Source + sql.Message, "Error Interno");
+                string methodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+                ErrorUtilities.SetNewErrorMessage(ex, methodName + " Exception,AreasModel", "Inventario");
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error ({0}) : {1}" + ex.Source + ex.Message, "Error Interno");
+                string methodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+                ErrorUtilities.SetNewErrorMessage(ex, methodName + " Exception,AreasModel", "Inventario");
             }
             finally
             {
-                connectionEpsSql.Close();
+                connection.Close();
             }
         }
+
+
 
         /// <summary>
         /// Actualiza la información de alguna de las áreas existente en el catálogo
         /// </summary>
         public void UpdateArea()
         {
-            SqlConnection sqlConne = Conexion.GetConexion();
+            SqlConnection connection = Conexion.GetConexion();
             SqlDataAdapter dataAdapter;
             SqlCommand cmd;
-            cmd = sqlConne.CreateCommand();
-            cmd.Connection = sqlConne;
+            cmd = connection.CreateCommand();
+            cmd.Connection = connection;
 
             try
             {
-                sqlConne.Open();
+                connection.Open();
 
                 DataSet dataSet = new DataSet();
                 DataRow dr;
@@ -194,7 +181,7 @@ namespace DaoProject.Model
                 string sqlCadena = "SELECT * FROM Areas WHERE idArea =" + area.IdElemento;
 
                 dataAdapter = new SqlDataAdapter();
-                dataAdapter.SelectCommand = new SqlCommand(sqlCadena, sqlConne);
+                dataAdapter.SelectCommand = new SqlCommand(sqlCadena, connection);
 
                 dataAdapter.Fill(dataSet, "Areas");
 
@@ -206,7 +193,7 @@ namespace DaoProject.Model
 
                 dr.EndEdit();
 
-                dataAdapter.UpdateCommand = sqlConne.CreateCommand();
+                dataAdapter.UpdateCommand = connection.CreateCommand();
 
                 string sSql = "UPDATE Areas SET Area = @Area, Corto = @Corto, Abreviatura = @Abreviatura WHERE IdArea = @IdArea";
 
@@ -221,17 +208,19 @@ namespace DaoProject.Model
                 dataSet.Dispose();
                 dataAdapter.Dispose();
             }
-            catch (SqlException sql)
+            catch (SqlException ex)
             {
-                MessageBox.Show("Error ({0}) : {1}" + sql.Source + sql.Message, "Error Interno");
+                string methodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+                ErrorUtilities.SetNewErrorMessage(ex, methodName + " Exception,AreasModel", "Inventario");
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error ({0}) : {1}" + ex.Source + ex.Message, "Error Interno");
+                string methodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+                ErrorUtilities.SetNewErrorMessage(ex, methodName + " Exception,AreasModel", "Inventario");
             }
             finally
             {
-                sqlConne.Close();
+                connection.Close();
             }
         }
 
@@ -240,31 +229,33 @@ namespace DaoProject.Model
         /// </summary>
         public void DeleteArea()
         {
-            SqlConnection sqlConne = Conexion.GetConexion();
+            SqlConnection connection = Conexion.GetConexion();
             SqlCommand cmd;
 
-            cmd = sqlConne.CreateCommand();
-            cmd.Connection = sqlConne;
+            cmd = connection.CreateCommand();
+            cmd.Connection = connection;
 
             String sqlCadena = "DELETE FROM Areas WHERE idArea = " + area.IdElemento;
 
             try
             {
-                sqlConne.Open();
+                connection.Open();
                 cmd.CommandText = sqlCadena;
                 cmd.ExecuteNonQuery();
             }
-            catch (SqlException sql)
+            catch (SqlException ex)
             {
-                MessageBox.Show("Error ({0}) : {1}" + sql.Source + sql.Message, "Error Interno");
+                string methodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+                ErrorUtilities.SetNewErrorMessage(ex, methodName + " Exception,AreasModel", "Inventario");
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error ({0}) : {1}" + ex.Source + ex.Message, "Error Interno");
+                string methodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+                ErrorUtilities.SetNewErrorMessage(ex, methodName + " Exception,AreasModel", "Inventario");
             }
             finally
             {
-                sqlConne.Close();
+                connection.Close();
             }
         }
     }
