@@ -57,19 +57,21 @@
                                 Mode=TwoWay}"
                  TextWrapping="Wrap" />
         <telerik:RadButton Name="RBtnCancelar"
-                           Width="75"
-                           Margin="440,197,0,0"
+                           Width="90"
+                           Margin="425,197,0,0"
                            HorizontalAlignment="Left"
                            VerticalAlignment="Top"
                            Click="RBtnCancelar_Click"
-                           Content="Cancelar" />
+                           Content="Cancelar"
+                           Style="{StaticResource BlueButton}" />
         <telerik:RadButton Name="RBtnAceptar"
-                           Width="75"
-                           Margin="350,197,0,0"
+                           Width="90"
+                           Margin="330,197,0,0"
                            HorizontalAlignment="Left"
                            VerticalAlignment="Top"
                            Click="RBtnAceptar_Click_1"
-                           Content="Aceptar" />
+                           Content="Aceptar"
+                           Style="{StaticResource BlueButton}" />
 
     </Grid>
 </telerik:RadWindow>

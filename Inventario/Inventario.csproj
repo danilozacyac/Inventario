@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Inventario</RootNamespace>
     <AssemblyName>Inventario</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
@@ -30,6 +30,7 @@
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -40,7 +41,8 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -50,6 +52,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject>Inventario.Program</StartupObject>
@@ -71,7 +74,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="ScjnUtilities">
-      <HintPath>..\..\ScjnUtilities\ScjnUtilities\bin\Debug\ScjnUtilities.dll</HintPath>
+      <HintPath>..\..\..\Visual Studio 2013\Projects\ScjnUtilities\ScjnUtilities\bin\Debug\ScjnUtilities.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -79,6 +82,7 @@
     <Reference Include="System.Drawing" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
@@ -115,8 +119,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="UIControls">
-      <HintPath>..\..\..\..\..\Desktop\Nueva carpeta\UIControls.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\..\..\DLL's\UIControls.dll</HintPath>
     </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
@@ -140,6 +143,7 @@
     <Compile Include="Converters\AreaToStringConverter.cs" />
     <Compile Include="Converters\ExpedienteConverter.cs" />
     <Compile Include="Converters\MobDescripcionConverter.cs" />
+    <Compile Include="Converters\MyColumnNumber.cs" />
     <Compile Include="Converters\TituloToStringConverter.cs" />
     <Compile Include="Converters\UbicacionToStringConverter.cs" />
     <Compile Include="Dao\Common.cs" />
@@ -197,8 +201,10 @@
     <Compile Include="Formularios\ServidoresFolder\AddUpdateUsuarios.xaml.cs">
       <DependentUpon>AddUpdateUsuarios.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Formularios\ServidoresFolder\EquiposServidores.xaml.cs">
-      <DependentUpon>EquiposServidores.xaml</DependentUpon>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Splash\DispatcherHelper.cs" />
     <Compile Include="Splash\LaunchSplash.cs" />
@@ -323,10 +329,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Formularios\ServidoresFolder\EquiposServidores.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -347,11 +349,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Themes\ShinyBlue.xaml">
-      <Generator>MSBuild:Compile</Generator>
+    <Page Include="Themes\MyCustomTheme.xaml">
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Themes\ShinyRed.xaml">
+    <Page Include="Themes\ShinyBlue.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -404,11 +406,6 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -555,12 +552,6 @@
     <Resource Include="Resources\xml.png" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\itextsharp.dll" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Resources\UIControls.dll" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="favicon.ico" />
   </ItemGroup>
   <ItemGroup>
@@ -571,16 +562,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\shut_down.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\DaoProject\DaoProject.csproj">
-      <Project>{b1dcf934-af99-4e12-a640-006ca7d7cb15}</Project>
-      <Name>DaoProject</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Reporting\Reporting.csproj">
-      <Project>{ccc8a44e-79fe-445b-b9f6-28395c9ab053}</Project>
-      <Name>Reporting</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Telerik.Windows.Controls.dll" />
@@ -630,6 +611,22 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\report_128.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\UIControls.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\itextsharp.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DaoProject\DaoProject.csproj">
+      <Project>{b1dcf934-af99-4e12-a640-006ca7d7cb15}</Project>
+      <Name>DaoProject</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Reporting\Reporting.csproj">
+      <Project>{ccc8a44e-79fe-445b-b9f6-28395c9ab053}</Project>
+      <Name>Reporting</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="AfterResolveReferences">

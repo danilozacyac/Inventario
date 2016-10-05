@@ -7,6 +7,7 @@
                    Height="300"
                    Header="Historial del Equipo"
                    Loaded="RadWindow_Loaded_1"
+                   ResizeMode="NoResize"
                    WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.Resources>
@@ -34,7 +35,7 @@
                                                                         Converter={StaticResource ExpedienteConverter}}"
                                             Header="Nuevo Usuario" />
                 <telerik:GridViewDataColumn Width="120"
-                                            DataFormatString=" {0:MM/dd/yyyy} "
+                                            DataFormatString="{0:MM/dd/yyyy}"
                                             DataMemberBinding="{Binding FechaModificacion}"
                                             Header="Fecha Modificacion" />
             </telerik:RadGridView.Columns>

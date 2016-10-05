@@ -3,97 +3,85 @@
                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                    xmlns:Converters="clr-namespace:Inventario.Converters"
                    xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
-                   Width="587"
-                   Height="Auto"
-                   Header="BuscarMobiliario"
-                   Loaded="RadWindow_Loaded_1">
+                   Width="557"
+                   Height="364"
+                   Header="Baja de mobiliario"
+                   Loaded="RadWindow_Loaded_1"
+                   ResizeMode="NoResize"
+                   WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.Resources>
             <Converters:MobDescripcionConverter x:Key="MobiliarioConverter" />
         </Grid.Resources>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        <StackPanel Grid.Row="0" Orientation="Vertical">
 
-            <GroupBox x:Name="MobiilarioAlta"
-                      HorizontalAlignment="Stretch"
-                      VerticalAlignment="Stretch"
-                      DataContext="{Binding}"
-                      Header="Mobiliario">
-                <StackPanel Orientation="Vertical">
-                    <Grid>
-                        <TextBlock Height="28"
-                                   Margin="11,13,0,0"
-                                   HorizontalAlignment="Left"
-                                   VerticalAlignment="Top"
-                                   Foreground="Black"
-                                   RenderTransformOrigin="0.429,-1.821"
-                                   Text="Inventario:" />
-                        <TextBox x:Name="TxtDescripcion"
-                                 Width="438"
-                                 Height="23"
-                                 Margin="83,60,0,0"
-                                 HorizontalAlignment="Left"
-                                 VerticalAlignment="Top"
-                                 IsEnabled="False"
-                                 Text="{Binding IdTipoMobiliario,
-                                                Converter={StaticResource MobiliarioConverter}}"
-                                 TextWrapping="Wrap" />
-                        <TextBlock Height="28"
-                                   Margin="10,102,0,0"
-                                   HorizontalAlignment="Left"
-                                   VerticalAlignment="Top"
-                                   Foreground="Black"
-                                   Text="Observaciones" />
-                        <TextBox x:Name="TxtObservaciones"
-                                 Width="509"
-                                 Height="109"
-                                 Margin="12,136,0,0"
-                                 HorizontalAlignment="Left"
-                                 VerticalAlignment="Top"
-                                 AcceptsReturn="True"
-                                 Text="{Binding Observaciones}"
-                                 TextWrapping="Wrap"
-                                 VerticalScrollBarVisibility="Auto" />
-                        <TextBox x:Name="TxtInventario"
-                                 Width="148"
-                                 Height="23"
-                                 Margin="83,10,0,0"
-                                 HorizontalAlignment="Left"
-                                 VerticalAlignment="Top"
-                                 Text="{Binding Inventario,
-                                                Mode=TwoWay}" />
-                        <TextBlock Height="23"
-                                   Margin="12,63,0,0"
-                                   HorizontalAlignment="Left"
-                                   VerticalAlignment="Top"
-                                   Foreground="Black"
-                                   IsEnabled="False"
-                                   Text="Descripción:" />
+        <TextBlock Height="28"
+                   Margin="11,23,0,0"
+                   HorizontalAlignment="Left"
+                   VerticalAlignment="Top"
+                   Foreground="Black"
+                   RenderTransformOrigin="0.429,-1.821"
+                   Text="Inventario:" />
+        <TextBox x:Name="TxtDescripcion"
+                 Width="438"
+                 Height="23"
+                 Margin="83,70,0,0"
+                 HorizontalAlignment="Left"
+                 VerticalAlignment="Top"
+                 IsEnabled="False"
+                 Text="{Binding IdTipoMobiliario,
+                                Converter={StaticResource MobiliarioConverter}}"
+                 TextWrapping="Wrap" />
+        <TextBlock Height="28"
+                   Margin="10,112,0,0"
+                   HorizontalAlignment="Left"
+                   VerticalAlignment="Top"
+                   Foreground="Black"
+                   Text="Observaciones" />
+        <TextBox x:Name="TxtObservaciones"
+                 Width="509"
+                 Height="109"
+                 Margin="12,146,0,0"
+                 HorizontalAlignment="Left"
+                 VerticalAlignment="Top"
+                 AcceptsReturn="True"
+                 Text="{Binding Observaciones}"
+                 TextWrapping="Wrap"
+                 VerticalScrollBarVisibility="Auto" />
+        <TextBox x:Name="TxtInventario"
+                 Width="148"
+                 Height="23"
+                 Margin="83,20,0,0"
+                 HorizontalAlignment="Left"
+                 VerticalAlignment="Top"
+                 IsEnabled="False"
+                 Text="{Binding Inventario,
+                                Mode=TwoWay}" />
+        <TextBlock Height="23"
+                   Margin="12,73,0,0"
+                   HorizontalAlignment="Left"
+                   VerticalAlignment="Top"
+                   Foreground="Black"
+                   IsEnabled="False"
+                   Text="Descripción:" />
 
-                    </Grid>
-                    <Grid Height="65">
-                        <telerik:RadButton Name="RbtnCancelar"
-                                           Height="35"
-                                           Margin="416,15,33,10"
-                                           Click="RbtnCancelar_Click"
-                                           Content="Cancelar" />
-                        <telerik:RadButton Name="RbtnEliminar"
-                                           Width="109"
-                                           Height="40"
-                                           Margin="291,15,0,0"
-                                           HorizontalAlignment="Left"
-                                           VerticalAlignment="Top"
-                                           Click="RbtnEliminar_Click"
-                                           Content="Eliminar" />
-                    </Grid>
-                </StackPanel>
-            </GroupBox>
-
-        </StackPanel>
-
+        <telerik:RadButton Name="RbtnCancelar"
+                           Width="90"
+                           Height="30"
+                           Margin="0,271,16,0"
+                           HorizontalAlignment="Right"
+                           VerticalAlignment="Top"
+                           Click="RbtnCancelar_Click"
+                           Content="Cancelar"
+                           Style="{StaticResource BlueButton}" />
+        <telerik:RadButton Name="RbtnEliminar"
+                           Width="90"
+                           Height="30"
+                           Margin="0,271,111,0"
+                           HorizontalAlignment="Right"
+                           VerticalAlignment="Top"
+                           Click="RbtnEliminar_Click"
+                           Content="Eliminar"
+                           Style="{StaticResource BlueButton}" />
 
     </Grid>
 </telerik:RadWindow>

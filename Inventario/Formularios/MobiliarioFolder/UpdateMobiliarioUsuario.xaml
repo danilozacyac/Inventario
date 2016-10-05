@@ -4,11 +4,12 @@
                    xmlns:Converters="clr-namespace:Inventario.Converters"
                    xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
                    Name="WinUpdateUserEquipo"
-                   Width="578"
-                   Height="702"
+                   Width="600"
+                   Height="710"
                    Foreground="Black"
                    Header="Actualizar Usuario del Equipo"
                    Loaded="WinUpdateUserEquipo_Loaded"
+                   ResizeMode="NoResize"
                    WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.Resources>
@@ -19,8 +20,8 @@
         <GroupBox Name="gpActual"
                   Width="532"
                   Height="240"
-                  Margin="12,12,0,0"
-                  HorizontalAlignment="Left"
+                  Margin="20"
+                  HorizontalAlignment="Stretch"
                   VerticalAlignment="Top"
                   Header="Usuario Actual">
             <Grid Name="GridActual">
@@ -147,8 +148,8 @@
         <GroupBox Name="groupBox1"
                   Width="532"
                   Height="346"
-                  Margin="12,267,0,0"
-                  HorizontalAlignment="Left"
+                  Margin="20,270,20,10"
+                  HorizontalAlignment="Stretch"
                   VerticalAlignment="Top"
                   Header="Usuario Nuevo">
             <Grid Name="GridNuevo">
@@ -271,15 +272,15 @@
                                         Mode=OneWay,
                                         Converter={StaticResource UbicacionConverter}}" />
                 <telerik:RadButton Name="RbtnBuscar"
-                                   Width="75"
+                                   Width="35"
                                    Height="23"
-                                   Margin="404,179,0,0"
+                                   Margin="187,10,0,0"
                                    HorizontalAlignment="Left"
                                    VerticalAlignment="Top"
-                                   Click="RbtnBuscar_Click">
+                                   Click="RbtnBuscar_Click"
+                                   IsDefault="True">
                     <StackPanel Orientation="Horizontal">
                         <Image Source="/Inventario;component/Resources/search.png" />
-                        <TextBlock Text="  Buscar" />
                     </StackPanel>
                 </telerik:RadButton>
 
@@ -292,7 +293,7 @@
                            Text="Observaciones" />
                 <TextBox Name="txtAObservaciones"
                          Width="467"
-                         Height="60"
+                         Height="70"
                          Margin="12,240,0,0"
                          HorizontalAlignment="Left"
                          VerticalAlignment="Top"
@@ -303,20 +304,22 @@
             </Grid>
         </GroupBox>
         <telerik:RadButton Name="RbtnCancelar"
-                           Width="75"
+                           Width="90"
                            Height="23"
-                           Margin="469,628,0,0"
+                           Margin="466,627,0,0"
                            HorizontalAlignment="Left"
                            VerticalAlignment="Top"
                            Click="RbtnCancelar_Click"
-                           Content="Cancelar" />
+                           Content="Cancelar"
+                           Style="{StaticResource BlueButton}" />
         <telerik:RadButton Name="RbtnAceptar"
-                           Width="75"
+                           Width="90"
                            Height="23"
-                           Margin="380,628,0,0"
+                           Margin="371,627,0,0"
                            HorizontalAlignment="Left"
                            VerticalAlignment="Top"
                            Click="RbtnAceptar_Click"
-                           Content="Aceptar" />
+                           Content="Aceptar"
+                           Style="{StaticResource BlueButton}" />
     </Grid>
 </telerik:RadWindow>

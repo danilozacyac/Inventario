@@ -5,7 +5,8 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Themes/ShinyBlue.xaml" />
+                <ResourceDictionary Source="/Themes/MyCustomTheme.xaml" />
+                <!--<ResourceDictionary Source="/Themes/ShinyBlue.xaml" />-->
                 <!--  <ResourceDictionary Source="/Themes/Botones.xaml"/>  -->
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>

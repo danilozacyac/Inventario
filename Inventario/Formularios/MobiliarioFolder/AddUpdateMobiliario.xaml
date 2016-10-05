@@ -7,14 +7,15 @@
                    Height="Auto"
                    Header="AddUpdateMobiliario"
                    Loaded="RadWindow_Loaded"
+                   ResizeMode="NoResize"
                    WindowStartupLocation="CenterScreen">
     <Grid>
 
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
-            <RowDefinition Height="60" />
+            <RowDefinition Height="50" />
         </Grid.RowDefinitions>
-        <StackPanel Orientation="Vertical">
+        <StackPanel Margin="20" Orientation="Vertical">
             <GroupBox Name="MobiilarioAlta"
                       Grid.Row="0"
                       HorizontalAlignment="Stretch"
@@ -84,6 +85,7 @@
 
             <GroupBox Name="Usuario"
                       Grid.Row="1"
+                      Margin="0,10,0,0"
                       HorizontalAlignment="Stretch"
                       VerticalAlignment="Stretch"
                       Header="Usuario"
@@ -216,17 +218,19 @@
                            Grid.Row="1"
                            Width="82"
                            Height="30"
-                           Margin="377,18,0,0"
+                           Margin="378,10,0,0"
                            HorizontalAlignment="Left"
                            VerticalAlignment="Top"
                            Click="RbtnAceptar_Click"
-                           Content="Aceptar" />
+                           Content="Aceptar"
+                           Style="{StaticResource BlueButton}" />
         <telerik:RadButton Name="RbtnCancelar"
                            Grid.Row="1"
                            Width="82"
                            Height="30"
-                           Margin="473,18,12,12"
+                           Margin="465,10,20,10"
                            Click="RbtnCancelar_Click"
-                           Content="Cancelar" />
+                           Content="Cancelar"
+                           Style="{StaticResource BlueButton}" />
     </Grid>
 </telerik:RadWindow>

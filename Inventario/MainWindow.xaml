@@ -36,7 +36,8 @@
                            VerticalAlignment="Top"
                            Click="RbtnCancelar_Click"
                            Content="Cancelar"
-                           IsCancel="True" />
+                           IsCancel="True"
+                           Style="{StaticResource BlueButton}" />
         <telerik:RadButton Name="RbtnAceptar"
                            Width="81"
                            Height="27"
@@ -45,7 +46,8 @@
                            VerticalAlignment="Top"
                            Click="RbtnAceptar_Click"
                            Content="Aceptar"
-                           IsDefault="True" />
+                           IsDefault="True"
+                           Style="{StaticResource BlueButton}" />
         <PasswordBox Name="TxtPassword"
                      Width="185"
                      Height="23"

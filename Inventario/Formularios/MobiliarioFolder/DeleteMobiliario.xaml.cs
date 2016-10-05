@@ -4,7 +4,6 @@ using System.Windows;
 using DaoProject.Dao;
 using DaoProject.Model;
 using DaoProject.Singleton;
-using Telerik.Windows.Controls;
 
 namespace Inventario.Formularios.MobiliarioFolder
 {
@@ -15,7 +14,6 @@ namespace Inventario.Formularios.MobiliarioFolder
     {
         private readonly Mobiliario mobiliario;
         private bool? observacionesResult = false;
-        private String observacionesDelete = String.Empty;
 
         public DeleteMobiliario(Mobiliario mobiliario)
         {
@@ -30,26 +28,13 @@ namespace Inventario.Formularios.MobiliarioFolder
 
         private void RbtnEliminar_Click(object sender, RoutedEventArgs e)
         {
-
-            DialogParameters parameters = new DialogParameters();
-            parameters.Content = "Observaciones de la baja:";
-            parameters.Header = "Atención:";
-            parameters.Closed = this.OnClosed;
-            parameters.Owner = this;
-
-           new MobiliarioModel(mobiliario).BajaMobiliario(observacionesDelete);
+           new MobiliarioModel(mobiliario).BajaMobiliario(TxtObservaciones.Text);
            ServidoresSingleton.RemoveMobiliarioUsuario(mobiliario.Expediente, mobiliario);
 
            this.Close();
         }
 
-        private void OnClosed(object sender, WindowClosedEventArgs e)
-        {
-            RadWindow win = (RadWindow)sender;
-            observacionesResult = win.DialogResult;
-            observacionesDelete = win.PromptResult;
-        }
-
+        
         private void RbtnCancelar_Click(object sender, RoutedEventArgs e)
         {
             this.Close();

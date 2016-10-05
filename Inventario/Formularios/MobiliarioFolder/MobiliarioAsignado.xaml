@@ -3,10 +3,10 @@
                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                    xmlns:Converters="clr-namespace:Inventario.Converters"
                    xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
-                   Width="630"
-                   Height="333"
-                   MaxWidth="900"
-                   MaxHeight="550"
+                   Width="800"
+                   Height="450"
+                   MaxWidth="1200"
+                   MaxHeight="500"
                    Header="MobiliarioAsignado"
                    Loaded="RadWindow_Loaded"
                    WindowStartupLocation="CenterScreen">
@@ -49,21 +49,31 @@
                              AutoGenerateColumns="False"
                              CanUserDeleteRows="False"
                              CanUserInsertRows="False"
+                             IsFilteringAllowed="False"
                              IsReadOnly="True"
-                             ItemsSource="{Binding }"
+                             ItemsSource="{Binding}"
                              SelectionChanged="GridMobiliario_SelectionChanged"
                              ShowGroupPanel="False"
                              Visibility="Visible">
             <telerik:RadGridView.Columns>
-
-                <telerik:GridViewDataColumn DataMemberBinding="{Binding Inventario}" Header="No. de Inventario" />
-                <telerik:GridViewDataColumn DataMemberBinding="{Binding TipoMobiliario}" Header="Descripcion" />
-                <telerik:GridViewDataColumn DataMemberBinding="{Binding Observaciones}" Header="Observaciones" />
-                <telerik:GridViewDataColumn DataFormatString=" {0:dd/MM/yyyy} "
+                <Converters:MyColumnNumber Width="30"
+                                           CellStyle="{StaticResource ColumnaNumerica}"
+                                           Header="#" />
+                <telerik:GridViewDataColumn Width="100"
+                                            DataMemberBinding="{Binding Inventario}"
+                                            Header="No. de Inventario" />
+                <telerik:GridViewDataColumn Width="*"
+                                            DataMemberBinding="{Binding TipoMobiliario}"
+                                            Header="Descripcion" />
+                <telerik:GridViewDataColumn Width="1.5*"
+                                            DataMemberBinding="{Binding Observaciones}"
+                                            Header="Observaciones" />
+                <telerik:GridViewDataColumn Width="100"
+                                            DataFormatString="{} {0:dd/MM/yyyy}"
                                             DataMemberBinding="{Binding FechaAlta}"
                                             Header="Fecha de Alta" />
-                <telerik:GridViewDataColumn Width="*"
-                                            DataFormatString=" {0:dd/MM/yyyy} "
+                <telerik:GridViewDataColumn Width="120"
+                                            DataFormatString="{} {0:dd/MM/yyyy}"
                                             DataMemberBinding="{Binding FechaModificacion}"
                                             Header="Última modificación" />
             </telerik:RadGridView.Columns>

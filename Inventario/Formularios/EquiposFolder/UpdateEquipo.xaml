@@ -62,7 +62,8 @@
                          HorizontalAlignment="Left"
                          VerticalAlignment="Top"
                          IsEnabled="True"
-                         Text="{Binding ScEquipo,Mode=OneTime}" />
+                         Text="{Binding ScEquipo,
+                                        Mode=OneTime}" />
                 <TextBox Name="TxtMarca"
                          Width="124"
                          Height="23"
@@ -111,15 +112,17 @@
                                    Content="Otros Componentes"
                                    Visibility="Hidden" />
                 <telerik:RadButton x:Name="RbtnAceptar"
-                                   Height="35"
-                                   Margin="303,276,154,18"
+                                   Height="30"
+                                   Margin="320,277,137,19"
                                    Click="RbtnAceptar_Click"
-                                   Content="Aceptar" />
+                                   Content="Aceptar"
+                                   Style="{StaticResource BlueButton}" />
                 <telerik:RadButton x:Name="RbtnCancelar"
-                                   Height="35"
+                                   Height="30"
                                    Margin="423,276,34,18"
                                    Click="RbtnCancelar_Click"
-                                   Content="Cancelar" />
+                                   Content="Cancelar"
+                                   Style="{StaticResource BlueButton}" />
             </Grid>
         </GroupBox>
     </Grid>

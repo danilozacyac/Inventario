@@ -8,7 +8,8 @@
                    Height="702"
                    Foreground="Black"
                    Header="Actualizar Usuario del Equipo"
-                   Loaded="WinUpdateUserEquipo_Loaded">
+                   Loaded="WinUpdateUserEquipo_Loaded"
+                   ResizeMode="NoResize">
     <Grid>
         <Grid.Resources>
             <Converters:TituloToStringConverter x:Key="TituloConverter" />
@@ -270,15 +271,15 @@
                                         Mode=OneWay,
                                         Converter={StaticResource UbicacionConverter}}" />
                 <telerik:RadButton Name="RbtnBuscar"
-                                   Width="75"
+                                   Width="35"
                                    Height="23"
-                                   Margin="404,179,0,0"
+                                   Margin="187,10,0,0"
                                    HorizontalAlignment="Left"
                                    VerticalAlignment="Top"
-                                   Click="RbtnBuscar_Click">
+                                   Click="RbtnBuscar_Click"
+                                   IsDefault="True">
                     <StackPanel Orientation="Horizontal">
                         <Image Source="/Inventario;component/Resources/search.png" />
-                        <TextBlock Text="  Buscar" />
                     </StackPanel>
                 </telerik:RadButton>
 
@@ -302,20 +303,22 @@
             </Grid>
         </GroupBox>
         <telerik:RadButton Name="RbtnCancelar"
-                           Width="75"
-                           Height="23"
-                           Margin="469,628,0,0"
+                           Width="90"
+                           Height="25"
+                           Margin="454,625,0,0"
                            HorizontalAlignment="Left"
                            VerticalAlignment="Top"
                            Click="RbtnCancelar_Click"
-                           Content="Cancelar" />
+                           Content="Cancelar"
+                           Style="{StaticResource BlueButton}" />
         <telerik:RadButton Name="RbtnAceptar"
-                           Width="75"
-                           Height="23"
-                           Margin="380,628,0,0"
+                           Width="90"
+                           Height="25"
+                           Margin="359,625,0,0"
                            HorizontalAlignment="Left"
                            VerticalAlignment="Top"
                            Click="RbtnAceptar_Click"
-                           Content="Aceptar" />
+                           Content="Aceptar"
+                           Style="{StaticResource BlueButton}" />
     </Grid>
 </telerik:RadWindow>

@@ -1,11 +1,10 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using DaoProject.Dao;
-using Telerik.Windows.Controls;
 using DaoProject.Model;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+using Telerik.Windows.Controls;
 
 namespace Inventario.Formularios.MobiliarioFolder
 {

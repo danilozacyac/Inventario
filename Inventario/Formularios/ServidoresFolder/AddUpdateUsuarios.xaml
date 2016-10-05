@@ -126,21 +126,23 @@
 
 
         <telerik:RadButton Name="RbtnCancelar"
-                           Width="75"
-                           Height="33"
-                           Margin="571,241,0,0"
+                           Width="90"
+                           Height="30"
+                           Margin="556,250,0,0"
                            HorizontalAlignment="Left"
                            VerticalAlignment="Top"
                            Click="RbtnCancelar_Click"
-                           Content="Cancelar" />
+                           Content="Cancelar"
+                           Style="{StaticResource BlueButton}" />
         <telerik:RadButton Name="RbtnAceptar"
-                           Width="75"
-                           Height="33"
-                           Margin="480,241,0,0"
+                           Width="90"
+                           Height="30"
+                           Margin="459,250,0,0"
                            HorizontalAlignment="Left"
                            VerticalAlignment="Top"
                            Click="RbtnAceptar_Click"
-                           Content="Aceptar" />
+                           Content="Aceptar"
+                           Style="{StaticResource BlueButton}" />
         <Image Name="ImgServidor"
                Width="154"
                Height="187"

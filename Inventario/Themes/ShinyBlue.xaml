@@ -676,9 +676,9 @@
     </ControlTemplate>
 
     <Style x:Key="NuclearRepeatButton"
+           d:IsControlPart="True"
            BasedOn="{x:Null}"
-           TargetType="{x:Type RepeatButton}"
-           d:IsControlPart="True">
+           TargetType="{x:Type RepeatButton}">
         <Setter Property="Background" Value="{DynamicResource NormalBrush}" />
         <Setter Property="BorderBrush" Value="{DynamicResource NormalBorderBrush}" />
         <Setter Property="Template">
@@ -767,9 +767,9 @@
     </Style>
 
     <Style x:Key="NuclearThumbStyle"
+           d:IsControlPart="True"
            BasedOn="{x:Null}"
-           TargetType="{x:Type Thumb}"
-           d:IsControlPart="True">
+           TargetType="{x:Type Thumb}">
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Thumb}">
@@ -848,8 +848,8 @@
     </Style>
 
     <Style x:Key="NuclearScrollRepeatButtonStyle"
-           TargetType="{x:Type RepeatButton}"
-           d:IsControlPart="True">
+           d:IsControlPart="True"
+           TargetType="{x:Type RepeatButton}">
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="BorderBrush" Value="Transparent" />
         <Setter Property="IsTabStop" Value="false" />
@@ -970,6 +970,18 @@
                                                 CanContentScroll="{TemplateBinding CanContentScroll}"
                                                 Content="{TemplateBinding Content}"
                                                 ContentTemplate="{TemplateBinding ContentTemplate}" />
+                        <ScrollBar x:Name="PART_VerticalScrollBar"
+                                   Grid.Row="0"
+                                   Grid.Column="1"
+                                   AutomationProperties.AutomationId="VerticalScrollBar"
+                                   Maximum="{TemplateBinding ScrollableHeight}"
+                                   Minimum="0"
+                                   Orientation="Vertical"
+                                   ViewportSize="{TemplateBinding ViewportHeight}"
+                                   Visibility="{TemplateBinding ComputedVerticalScrollBarVisibility}"
+                                   Value="{Binding Path=VerticalOffset,
+                                                   Mode=OneWay,
+                                                   RelativeSource={RelativeSource TemplatedParent}}" />
 
                         <ScrollBar x:Name="PART_HorizontalScrollBar"
                                    Grid.Row="1"
@@ -981,18 +993,6 @@
                                    ViewportSize="{TemplateBinding ViewportWidth}"
                                    Visibility="{TemplateBinding ComputedHorizontalScrollBarVisibility}"
                                    Value="{Binding Path=HorizontalOffset,
-                                                   Mode=OneWay,
-                                                   RelativeSource={RelativeSource TemplatedParent}}" />
-                        <ScrollBar x:Name="PART_VerticalScrollBar"
-                                   Grid.Row="0"
-                                   Grid.Column="1"
-                                   AutomationProperties.AutomationId="VerticalScrollBar"
-                                   Maximum="{TemplateBinding ScrollableHeight}"
-                                   Minimum="0"
-                                   Orientation="Vertical"
-                                   ViewportSize="{TemplateBinding ViewportHeight}"
-                                   Visibility="{TemplateBinding ComputedVerticalScrollBarVisibility}"
-                                   Value="{Binding Path=VerticalOffset,
                                                    Mode=OneWay,
                                                    RelativeSource={RelativeSource TemplatedParent}}" />
                     </Grid>
@@ -1015,9 +1015,9 @@
         <Grid>
         <Border x:Name="Border" CornerRadius="2" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}"/>
         <ScrollViewer   Focusable="false" Margin="0,0,0,1" >
-        
+
         <StackPanel Margin="2" IsItemsHost="true"/>
-        
+
         </ScrollViewer>
         </Grid>
         <ControlTemplate.Triggers>
@@ -1036,7 +1036,7 @@
     -->
 
 
-    <Style TargetType="{x:Type ListBoxItem}" d:IsControlPart="True">
+    <Style d:IsControlPart="True" TargetType="{x:Type ListBoxItem}">
         <Setter Property="SnapsToDevicePixels" Value="true" />
         <Setter Property="OverridesDefaultStyle" Value="true" />
         <Setter Property="Template">
@@ -1769,6 +1769,19 @@
                        RadiusY="3"
                        Stroke="{DynamicResource NormalBorderBrush}"
                        StrokeThickness="2" />
+            <Rectangle Grid.Column="0"
+                       Width="Auto"
+                       Height="Auto"
+                       Margin="2,2,0,2"
+                       HorizontalAlignment="Stretch"
+                       VerticalAlignment="Stretch"
+                       RadiusX="2"
+                       RadiusY="2"
+                       Stroke="{x:Null}">
+                <Rectangle.Fill>
+                    <SolidColorBrush Color="{DynamicResource WhiteColor}" />
+                </Rectangle.Fill>
+            </Rectangle>
             <Rectangle x:Name="HoverRectangle"
                        Grid.Column="1"
                        Grid.ColumnSpan="2"
@@ -1783,19 +1796,6 @@
                        RadiusY="3"
                        Stroke="{x:Null}"
                        StrokeThickness="2" />
-            <Rectangle Grid.Column="0"
-                       Width="Auto"
-                       Height="Auto"
-                       Margin="2,2,0,2"
-                       HorizontalAlignment="Stretch"
-                       VerticalAlignment="Stretch"
-                       RadiusX="2"
-                       RadiusY="2"
-                       Stroke="{x:Null}">
-                <Rectangle.Fill>
-                    <SolidColorBrush Color="{DynamicResource WhiteColor}" />
-                </Rectangle.Fill>
-            </Rectangle>
             <Path x:Name="Arrow"
                   Grid.Column="1"
                   Margin="-2,2,0,0"
@@ -1846,14 +1846,6 @@
 
     <ControlTemplate x:Key="ComboBoxTemplate" TargetType="{x:Type ComboBox}">
         <Grid>
-            <ToggleButton x:Name="ToggleButton"
-                          Grid.Column="2"
-                          ClickMode="Press"
-                          Focusable="false"
-                          IsChecked="{Binding Path=IsDropDownOpen,
-                                              Mode=TwoWay,
-                                              RelativeSource={RelativeSource TemplatedParent}}"
-                          Template="{DynamicResource ComboBoxToggleButton}" />
             <ContentPresenter x:Name="ContentSite"
                               Margin="3,3,23,3"
                               HorizontalAlignment="Left"
@@ -1899,6 +1891,14 @@
                     </ScrollViewer>
                 </Grid>
             </Popup>
+            <ToggleButton x:Name="ToggleButton"
+                          Grid.Column="2"
+                          ClickMode="Press"
+                          Focusable="false"
+                          IsChecked="{Binding Path=IsDropDownOpen,
+                                              Mode=TwoWay,
+                                              RelativeSource={RelativeSource TemplatedParent}}"
+                          Template="{DynamicResource ComboBoxToggleButton}" />
         </Grid>
         <ControlTemplate.Triggers>
             <Trigger Property="HasItems" Value="false">
@@ -1922,7 +1922,7 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
-    <Style TargetType="{x:Type ComboBoxItem}" d:IsControlPart="True">
+    <Style d:IsControlPart="True" TargetType="{x:Type ComboBoxItem}">
         <Setter Property="SnapsToDevicePixels" Value="true" />
         <Setter Property="Template">
             <Setter.Value>
@@ -2498,12 +2498,6 @@
                                 <ColumnDefinition Width="14" />
                             </Grid.ColumnDefinitions>
 
-                            <Border x:Name="border"
-                                    Grid.Column="0"
-                                    Grid.ColumnSpan="4"
-                                    Background="{DynamicResource NormalBrush}"
-                                    Opacity="0" />
-
                             <ContentPresenter x:Name="Icon"
                                               Margin="4,0,6,0"
                                               VerticalAlignment="Center"
@@ -2518,22 +2512,6 @@
                                       Data="M0,2 L0,4.8 L2.5,7.4 L7.1,2.8 L7.1,0 L2.5,4.6 z"
                                       Fill="{TemplateBinding Foreground}"
                                       FlowDirection="LeftToRight" />
-                            </Grid>
-
-                            <ContentPresenter x:Name="HeaderHost"
-                                              Grid.Column="1"
-                                              Margin="{TemplateBinding Padding}"
-                                              ContentSource="Header"
-                                              RecognizesAccessKey="True" />
-
-                            <Grid x:Name="ArrowPanel"
-                                  Grid.Column="3"
-                                  Margin="4,0,6,0"
-                                  VerticalAlignment="Center">
-                                <Path x:Name="ArrowPanelPath"
-                                      VerticalAlignment="Center"
-                                      Data="M0,0 L0,8 L4,4 z"
-                                      Fill="{TemplateBinding Foreground}" />
                             </Grid>
 
                             <Popup x:Name="SubMenuPopup"
@@ -2553,6 +2531,28 @@
                                     <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Cycle" />
                                 </Grid>
                             </Popup>
+
+                            <Border x:Name="border"
+                                    Grid.Column="0"
+                                    Grid.ColumnSpan="4"
+                                    Background="{DynamicResource NormalBrush}"
+                                    Opacity="0" />
+
+                            <ContentPresenter x:Name="HeaderHost"
+                                              Grid.Column="1"
+                                              Margin="{TemplateBinding Padding}"
+                                              ContentSource="Header"
+                                              RecognizesAccessKey="True" />
+
+                            <Grid x:Name="ArrowPanel"
+                                  Grid.Column="3"
+                                  Margin="4,0,6,0"
+                                  VerticalAlignment="Center">
+                                <Path x:Name="ArrowPanelPath"
+                                      VerticalAlignment="Center"
+                                      Data="M0,0 L0,8 L4,4 z"
+                                      Fill="{TemplateBinding Foreground}" />
+                            </Grid>
 
                         </Grid>
                     </Border>
@@ -2739,7 +2739,7 @@
         </Setter>
     </Style>
 
-    <Style TargetType="{x:Type TabItem}" d:IsControlPart="True">
+    <Style d:IsControlPart="True" TargetType="{x:Type TabItem}">
         <Setter Property="Foreground" Value="{DynamicResource TextBrush}" />
         <Setter Property="Template">
             <Setter.Value>
@@ -2904,8 +2904,8 @@
     </Style>
 
     <Style x:Key="NuclearSliderThumb"
-           TargetType="{x:Type Thumb}"
-           d:IsControlPart="True">
+           d:IsControlPart="True"
+           TargetType="{x:Type Thumb}">
         <Setter Property="SnapsToDevicePixels" Value="true" />
         <Setter Property="Height" Value="14" />
         <Setter Property="Width" Value="14" />
@@ -3079,8 +3079,8 @@
     </Style>
 
     <Style x:Key="NuclearTreeViewItemToggleButton"
-           TargetType="{x:Type ToggleButton}"
-           d:IsControlPart="True">
+           d:IsControlPart="True"
+           TargetType="{x:Type ToggleButton}">
         <Setter Property="Focusable" Value="False" />
         <Setter Property="Template">
             <Setter.Value>
@@ -3119,7 +3119,7 @@
         </Setter>
     </Style>
 
-    <Style TargetType="{x:Type TreeViewItem}" d:IsControlPart="True">
+    <Style d:IsControlPart="True" TargetType="{x:Type TreeViewItem}">
         <Style.Triggers>
             <Trigger Property="IsSelected" Value="True">
                 <Setter Property="Foreground">
@@ -3638,38 +3638,6 @@
                                 Background="{DynamicResource LightBrush}"
                                 BorderThickness="1,1,1,1"
                                 CornerRadius="4,4,4,4" />
-                        <Border Grid.Row="1"
-                                Grid.RowSpan="3"
-                                Grid.ColumnSpan="4"
-                                BorderBrush="{DynamicResource NormalBorderBrush}"
-                                BorderThickness="1,1,1,1"
-                                CornerRadius="4">
-                            <Border.OpacityMask>
-                                <MultiBinding Converter="{StaticResource BorderGapMaskConverter}" ConverterParameter="7">
-                                    <Binding ElementName="Header" Path="ActualWidth" />
-                                    <Binding Path="ActualWidth" RelativeSource="{RelativeSource Self}" />
-                                    <Binding Path="ActualHeight" RelativeSource="{RelativeSource Self}" />
-                                </MultiBinding>
-                            </Border.OpacityMask>
-                            <Border BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="3">
-                                <Border.BorderBrush>
-                                    <SolidColorBrush Color="{DynamicResource MainColor}" />
-                                </Border.BorderBrush>
-                                <Border BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="2">
-                                    <Border.BorderBrush>
-                                        <SolidColorBrush Color="{DynamicResource MainColor}" />
-                                    </Border.BorderBrush>
-                                </Border>
-                            </Border>
-                        </Border>
-                        <Border Grid.Row="1"
-                                Grid.RowSpan="3"
-                                Grid.Column="0"
-                                Grid.ColumnSpan="4"
-                                Background="{TemplateBinding Background}"
-                                BorderBrush="Transparent"
-                                BorderThickness="{TemplateBinding BorderThickness}"
-                                CornerRadius="4" />
                         <Border x:Name="Main"
                                 Grid.RowSpan="2"
                                 Grid.ColumnSpan="4"
@@ -3707,6 +3675,38 @@
                                               RecognizesAccessKey="True"
                                               SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
                         </Border>
+                        <Border Grid.Row="1"
+                                Grid.RowSpan="3"
+                                Grid.ColumnSpan="4"
+                                BorderBrush="{DynamicResource NormalBorderBrush}"
+                                BorderThickness="1,1,1,1"
+                                CornerRadius="4">
+                            <Border.OpacityMask>
+                                <MultiBinding Converter="{StaticResource BorderGapMaskConverter}" ConverterParameter="7">
+                                    <Binding ElementName="Header" Path="ActualWidth" />
+                                    <Binding Path="ActualWidth" RelativeSource="{RelativeSource Self}" />
+                                    <Binding Path="ActualHeight" RelativeSource="{RelativeSource Self}" />
+                                </MultiBinding>
+                            </Border.OpacityMask>
+                            <Border BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="3">
+                                <Border.BorderBrush>
+                                    <SolidColorBrush Color="{DynamicResource MainColor}" />
+                                </Border.BorderBrush>
+                                <Border BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="2">
+                                    <Border.BorderBrush>
+                                        <SolidColorBrush Color="{DynamicResource MainColor}" />
+                                    </Border.BorderBrush>
+                                </Border>
+                            </Border>
+                        </Border>
+                        <Border Grid.Row="1"
+                                Grid.RowSpan="3"
+                                Grid.Column="0"
+                                Grid.ColumnSpan="4"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="Transparent"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="4" />
 
                         <ContentPresenter Grid.Row="2"
                                           Grid.Column="1"
@@ -3757,22 +3757,6 @@
                                 <DropShadowEffect Direction="350" Color="#FFAAAAAA" />
                             </Border.Effect>
                         </Border>
-                        <Border x:Name="Header"
-                                Grid.Row="1"
-                                Grid.RowSpan="1"
-                                Grid.Column="1"
-                                Height="16.96"
-                                Margin="0"
-                                HorizontalAlignment="Right"
-                                VerticalAlignment="Top"
-                                Background="{x:Null}"
-                                Padding="3,1,3,0" />
-                        <ContentPresenter Grid.Row="2"
-                                          Grid.RowSpan="1"
-                                          Grid.Column="1"
-                                          Grid.ColumnSpan="2"
-                                          Margin="{TemplateBinding Padding}"
-                                          SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
                         <Border Grid.Row="1"
                                 Grid.RowSpan="3"
                                 Grid.ColumnSpan="4"
@@ -3787,6 +3771,16 @@
                                         CornerRadius="2" />
                             </Border>
                         </Border>
+                        <Border x:Name="Header"
+                                Grid.Row="1"
+                                Grid.RowSpan="1"
+                                Grid.Column="1"
+                                Height="16.96"
+                                Margin="0"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Top"
+                                Background="{x:Null}"
+                                Padding="3,1,3,0" />
                         <Grid x:Name="HeaderGrid"
                               Grid.Row="1"
                               Grid.RowSpan="1"
@@ -3864,6 +3858,12 @@
                                 </Border>
                             </Border>
                         </Grid>
+                        <ContentPresenter Grid.Row="2"
+                                          Grid.RowSpan="1"
+                                          Grid.Column="1"
+                                          Grid.ColumnSpan="2"
+                                          Margin="{TemplateBinding Padding}"
+                                          SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>
@@ -3917,17 +3917,6 @@
                                                     KeyboardNavigation.DirectionalNavigation="Local"
                                                     SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
                         </DockPanel>
-                        <ScrollBar x:Name="PART_HorizontalScrollBar"
-                                   Grid.Row="1"
-                                   Cursor="Arrow"
-                                   Maximum="{TemplateBinding ScrollableWidth}"
-                                   Minimum="0.0"
-                                   Orientation="Horizontal"
-                                   ViewportSize="{TemplateBinding ViewportWidth}"
-                                   Visibility="{TemplateBinding ComputedHorizontalScrollBarVisibility}"
-                                   Value="{Binding Path=HorizontalOffset,
-                                                   Mode=OneWay,
-                                                   RelativeSource={RelativeSource TemplatedParent}}" />
                         <ScrollBar x:Name="PART_VerticalScrollBar"
                                    Grid.Column="1"
                                    Cursor="Arrow"
@@ -3937,6 +3926,17 @@
                                    ViewportSize="{TemplateBinding ViewportHeight}"
                                    Visibility="{TemplateBinding ComputedVerticalScrollBarVisibility}"
                                    Value="{Binding Path=VerticalOffset,
+                                                   Mode=OneWay,
+                                                   RelativeSource={RelativeSource TemplatedParent}}" />
+                        <ScrollBar x:Name="PART_HorizontalScrollBar"
+                                   Grid.Row="1"
+                                   Cursor="Arrow"
+                                   Maximum="{TemplateBinding ScrollableWidth}"
+                                   Minimum="0.0"
+                                   Orientation="Horizontal"
+                                   ViewportSize="{TemplateBinding ViewportWidth}"
+                                   Visibility="{TemplateBinding ComputedHorizontalScrollBarVisibility}"
+                                   Value="{Binding Path=HorizontalOffset,
                                                    Mode=OneWay,
                                                    RelativeSource={RelativeSource TemplatedParent}}" />
                         <DockPanel Grid.Row="1"
