@@ -334,7 +334,8 @@ namespace DaoProject.Model
                 connection.Open();
 
                 this.ActualizaObservacionesMobiliarioBaja(mobiliario, observaciones);
-                cmd.CommandText = "DELETE FROM Mobiliario WHERE NoInventario = '" + mobiliario.Inventario + "'";
+                cmd.CommandText = "DELETE FROM Mobiliario WHERE NoInventario = @Inventario";
+                cmd.Parameters.AddWithValue("@Inventario", mobiliario.Inventario);
                 cmd.ExecuteNonQuery();
             }
             catch (SqlException ex)

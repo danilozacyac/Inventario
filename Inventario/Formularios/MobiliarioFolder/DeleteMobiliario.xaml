@@ -54,7 +54,6 @@
                                  HorizontalAlignment="Left"
                                  VerticalAlignment="Top"
                                  AcceptsReturn="True"
-                                 IsEnabled="False"
                                  Text="{Binding Observaciones}"
                                  TextWrapping="Wrap"
                                  VerticalScrollBarVisibility="Auto" />

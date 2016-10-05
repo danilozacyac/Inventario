@@ -104,6 +104,7 @@ namespace Inventario.Formularios.MobiliarioFolder
 
                 MobiliarioModel model = new MobiliarioModel(mobiliario);
                 model.UpdateMobiliario();
+                this.Close();
             }
         }
 
