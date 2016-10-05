@@ -4,7 +4,6 @@ using System.Collections.ObjectModel;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Windows.Forms;
 using DaoProject.Dao;
 using DaoProject.DbAccess;
 using ScjnUtilities;
@@ -41,8 +40,7 @@ namespace DaoProject.Model
             {
                 sqlConne.Open();
 
-                string selstr = "select E.*,T.Descripcion from Equipos E INNER JOIN TiposEquipos T ON T.idTipo = E.idTipo WHERE E." +
-                                parametroBusqueda + " = @valorParametro AND T.idInventario = 1";
+                string selstr = String.Format("select E.*,T.Descripcion from Equipos E INNER JOIN TiposEquipos T ON T.idTipo = E.idTipo WHERE E.{0} = @valorParametro AND T.idInventario = 1", parametroBusqueda);
                 SqlCommand cmd = new SqlCommand(selstr, sqlConne);
 
                 SqlParameter param = cmd.Parameters.Add("@valorParametro", SqlDbType.NVarChar, 0);
@@ -54,20 +52,22 @@ namespace DaoProject.Model
                 {
                     while (dataReader.Read())
                     {
-                        Equipos myEquipo = new Equipos();
-                        myEquipo.Expediente = Convert.ToInt32(dataReader["Expediente"]);
-                        myEquipo.IdEquipo = Convert.ToInt32(dataReader["idEquipo"]);
-                        myEquipo.ScEquipo = dataReader["SC_Equipo"].ToString();
-                        myEquipo.ScPrincipal = DataBaseUtilities.VerifyDbNullForStrings(dataReader, "SC_Principal");
-                        myEquipo.IdTipo = Convert.ToInt32(dataReader["idTipo"]);
-                        myEquipo.TipoEquipo = dataReader["Descripcion"].ToString();
-                        myEquipo.Marca = DataBaseUtilities.VerifyDbNullForStrings(dataReader, "Marca");
-                        myEquipo.Modelo = DataBaseUtilities.VerifyDbNullForStrings(dataReader, "Modelo");
-                        myEquipo.NoSerie = DataBaseUtilities.VerifyDbNullForStrings(dataReader, "NoSerie");
-                        myEquipo.Observaciones = DataBaseUtilities.VerifyDbNullForStrings(dataReader, "Observaciones");
-                        myEquipo.Estado = DataBaseUtilities.VerifyDbNullForStrings(dataReader, "Estado");
-                        myEquipo.FechaAlta = DateTimeUtilities.GetDateFromReader(dataReader, "Alta");
-                        myEquipo.FechaModificacion = DateTimeUtilities.GetDateFromReader(dataReader, "Modificacion");
+                        Equipos myEquipo = new Equipos()
+                        {
+                            Expediente = Convert.ToInt32(dataReader["Expediente"]),
+                            IdEquipo = Convert.ToInt32(dataReader["idEquipo"]),
+                            ScEquipo = dataReader["SC_Equipo"].ToString(),
+                            ScPrincipal = DataBaseUtilities.VerifyDbNullForStrings(dataReader, "SC_Principal"),
+                            IdTipo = Convert.ToInt32(dataReader["idTipo"]),
+                            TipoEquipo = dataReader["Descripcion"].ToString(),
+                            Marca = DataBaseUtilities.VerifyDbNullForStrings(dataReader, "Marca"),
+                            Modelo = DataBaseUtilities.VerifyDbNullForStrings(dataReader, "Modelo"),
+                            NoSerie = DataBaseUtilities.VerifyDbNullForStrings(dataReader, "NoSerie"),
+                            Observaciones = DataBaseUtilities.VerifyDbNullForStrings(dataReader, "Observaciones"),
+                            Estado = DataBaseUtilities.VerifyDbNullForStrings(dataReader, "Estado"),
+                            FechaAlta = DateTimeUtilities.GetDateFromReader(dataReader, "Alta"),
+                            FechaModificacion = DateTimeUtilities.GetDateFromReader(dataReader, "Modificacion")
+                        };
 
                         listaEquipos.Add(myEquipo);
                     }
@@ -76,13 +76,15 @@ namespace DaoProject.Model
                 dataReader.Close();
                 selstr = null;
             }
-            catch (SqlException sql)
+            catch (SqlException ex)
             {
-                MessageBox.Show("Error ({0}) : {1}" + sql.Source + sql.Message, "Error Interno");
+                string methodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+                ErrorUtilities.SetNewErrorMessage(ex, methodName + " Exception,EquiposModel", "DaoProject");
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error ({0}) : {1}" + ex.Source + ex.Message, "Error Interno");
+                string methodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+                ErrorUtilities.SetNewErrorMessage(ex, methodName + " Exception,EquiposModel", "DaoProject");
             }
             finally
             {
@@ -110,8 +112,7 @@ namespace DaoProject.Model
             {
                 sqlConne.Open();
 
-                string selstr = "select E.*,T.Descripcion from Equipos E INNER JOIN TiposEquipos T ON T.idTipo = E.idTipo WHERE E." +
-                                parametroBusqueda + " = @valorParametro AND E.idTipo = @tipo AND T.idInventario = 1";
+                string selstr = String.Format("select E.*,T.Descripcion from Equipos E INNER JOIN TiposEquipos T ON T.idTipo = E.idTipo WHERE E.{0} = @valorParametro AND E.idTipo = @tipo AND T.idInventario = 1", parametroBusqueda);
                 SqlCommand cmd = new SqlCommand(selstr, sqlConne);
 
                 SqlParameter param = cmd.Parameters.Add("@valorParametro", SqlDbType.NVarChar, 0);
@@ -145,13 +146,15 @@ namespace DaoProject.Model
                 dataReader.Close();
                 selstr = null;
             }
-            catch (SqlException sql)
+            catch (SqlException ex)
             {
-                MessageBox.Show("Error ({0}) : {1}" + sql.Source + sql.Message, "Error Interno");
+                string methodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+                ErrorUtilities.SetNewErrorMessage(ex, methodName + " Exception,EquiposModel", "DaoProject");
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error ({0}) : {1}" + ex.Source + ex.Message, "Error Interno");
+                string methodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+                ErrorUtilities.SetNewErrorMessage(ex, methodName + " Exception,EquiposModel", "DaoProject");
             }
             finally
             {
@@ -170,19 +173,19 @@ namespace DaoProject.Model
             try
             {
                 sqlConne.Open();
-                string vQuery = "SELECT * FROM vBajas";
-
                 vDs = new DataSet();
-                vAdap = new SqlDataAdapter(vQuery, sqlConne);
+                vAdap = new SqlDataAdapter("SELECT * FROM vBajas", sqlConne);
                 vAdap.Fill(vDs, "vBajas");
             }
-            catch (SqlException sql)
+            catch (SqlException ex)
             {
-                MessageBox.Show("Error ({0}) : {1}" + sql.Source + sql.Message, "Error Interno");
+                string methodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+                ErrorUtilities.SetNewErrorMessage(ex, methodName + " Exception,EquiposModel", "DaoProject");
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error ({0}) : {1}" + ex.Source + ex.Message, "Error Interno");
+                string methodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+                ErrorUtilities.SetNewErrorMessage(ex, methodName + " Exception,EquiposModel", "DaoProject");
             }
             finally
             {
@@ -229,18 +232,17 @@ namespace DaoProject.Model
 
                 }
             }
-            catch (SqlException sql)
+            catch (SqlException ex)
             {
-                MessageBox.Show("Error ({0}) : {1}" + sql.Source + sql.Message, "Error Interno");
+                string methodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+                ErrorUtilities.SetNewErrorMessage(ex, methodName + " Exception,EquiposModel", "DaoProject");
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error ({0}) : {1}" + ex.Source + ex.Message, "Error Interno");
+                string methodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+                ErrorUtilities.SetNewErrorMessage(ex, methodName + " Exception,EquiposModel", "DaoProject");
             }
-            finally
-            {
-                //connectionEpsSql.Close();
-            }
+            
             return userId;
         }
 
@@ -257,11 +259,13 @@ namespace DaoProject.Model
             DataSet dataSet = new DataSet();
             DataRow dr;
 
-            string sqlCadena = "SELECT * FROM Equipos WHERE SC_Equipo = '" + equipo.ScEquipo + "' AND idTipo = " + equipo.IdTipo;
+            const string sqlCadena = "SELECT * FROM Equipos WHERE SC_Equipo = @Equipo AND idTipo = @Tipo";
 
             try
             {
                 dataAdapter.SelectCommand = new SqlCommand(sqlCadena, connectionEpsSql);
+                dataAdapter.SelectCommand.Parameters.AddWithValue("@Equipo", equipo.ScEquipo);
+                dataAdapter.SelectCommand.Parameters.AddWithValue("@Tipo", equipo.IdTipo);
                 dataAdapter.Fill(dataSet, "Equipos");
 
                 dr = dataSet.Tables["Equipos"].Rows[0];
@@ -298,13 +302,15 @@ namespace DaoProject.Model
                 dataSet.Dispose();
                 dataAdapter.Dispose();
             }
-            catch (SqlException sql)
+            catch (SqlException ex)
             {
-                MessageBox.Show("Error ({0}) : {1}" + sql.Source + sql.Message, "Error Interno");
+                string methodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+                ErrorUtilities.SetNewErrorMessage(ex, methodName + " Exception,EquiposModel", "DaoProject");
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error ({0}) : {1}" + ex.Source + ex.Message, "Error Interno");
+                string methodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+                ErrorUtilities.SetNewErrorMessage(ex, methodName + " Exception,EquiposModel", "DaoProject");
             }
             finally
             {
@@ -325,11 +331,13 @@ namespace DaoProject.Model
             DataSet dataSet = new DataSet();
             DataRow dr;
 
-            string sqlCadena = "SELECT * FROM Equipos WHERE expediente = " + servidorActual.Expediente + " AND SC_Equipo = '" + equipo.ScEquipo + "'";
+            const string sqlCadena = "SELECT * FROM Equipos WHERE expediente = @Expediente AND SC_Equipo = @Equipo";
 
             try
             {
                 dataAdapter.SelectCommand = new SqlCommand(sqlCadena, connectionEpsSql);
+                dataAdapter.SelectCommand.Parameters.AddWithValue("@Expediente", servidorActual.Expediente);
+                dataAdapter.SelectCommand.Parameters.AddWithValue("@Equipo", equipo.ScEquipo);
                 dataAdapter.Fill(dataSet, "Equipos");
 
                 dr = dataSet.Tables["Equipos"].Rows[0];
@@ -358,13 +366,15 @@ namespace DaoProject.Model
                 dataAdapter.Dispose();
                 this.InsertaHistorial(servidorActual, servidorNuevo);
             }
-            catch (SqlException sql)
+            catch (SqlException ex)
             {
-                MessageBox.Show("Error ({0}) : {1}" + sql.Source + sql.Message, "Error Interno");
+                string methodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+                ErrorUtilities.SetNewErrorMessage(ex, methodName + " Exception,EquiposModel", "DaoProject");
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error ({0}) : {1}" + ex.Source + ex.Message, "Error Interno");
+                string methodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+                ErrorUtilities.SetNewErrorMessage(ex, methodName + " Exception,EquiposModel", "DaoProject");
             }
             finally
             {
@@ -380,9 +390,7 @@ namespace DaoProject.Model
         public void BajaEquipo(ObservableCollection<Equipos> equiposEliminar, String observaciones)
         {
             SqlConnection sqlConne = Conexion.GetConexion();
-            SqlCommand cmd;
-
-            cmd = sqlConne.CreateCommand();
+            SqlCommand cmd = sqlConne.CreateCommand();
             cmd.Connection = sqlConne;
 
             try
@@ -392,17 +400,21 @@ namespace DaoProject.Model
                 foreach (Equipos equipoElim in equiposEliminar)
                 {
                     this.ActualizaObservacionesEquiposBaja(equipoElim, observaciones);
-                    cmd.CommandText = "DELETE FROM Equipos WHERE SC_Equipo = '" + equipoElim.ScEquipo + "' AND idTipo = " + equipoElim.IdTipo;
+                    cmd.CommandText = "DELETE FROM Equipos WHERE SC_Equipo = @Equipo AND idTipo = @Tipo";
+                    cmd.Parameters.AddWithValue("@Equipo", equipoElim.ScEquipo);
+                    cmd.Parameters.AddWithValue("@Tipo", equipoElim.IdTipo);
                     cmd.ExecuteNonQuery();
                 }
             }
-            catch (SqlException sql)
+            catch (SqlException ex)
             {
-                MessageBox.Show("Error ({0}) : {1}" + sql.Source + sql.Message, "Error Interno");
+                string methodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+                ErrorUtilities.SetNewErrorMessage(ex, methodName + " Exception,EquiposModel", "DaoProject");
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error ({0}) : {1}" + ex.Source + ex.Message, "Error Interno");
+                string methodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+                ErrorUtilities.SetNewErrorMessage(ex, methodName + " Exception,EquiposModel", "DaoProject");
             }
             finally
             {
@@ -418,11 +430,13 @@ namespace DaoProject.Model
             DataSet dataSet = new DataSet();
             DataRow dr;
 
-            string sqlCadena = "SELECT * FROM Equipos WHERE SC_Equipo = '" + equipoEl.ScEquipo + "' AND idTipo = " + equipoEl.IdTipo;
+            const string sqlCadena = "SELECT * FROM Equipos WHERE SC_Equipo = @Equipo AND idTipo = @Tipo";
 
             try
             {
                 dataAdapter.SelectCommand = new SqlCommand(sqlCadena, connectionEpsSql);
+                dataAdapter.SelectCommand.Parameters.AddWithValue("@Equipo", equipoEl.ScEquipo);
+                dataAdapter.SelectCommand.Parameters.AddWithValue("@Tipo", equipoEl.IdTipo);
                 dataAdapter.Fill(dataSet, "Equipos");
 
                 dr = dataSet.Tables["Equipos"].Rows[0];
@@ -443,13 +457,15 @@ namespace DaoProject.Model
                 dataSet.Dispose();
                 dataAdapter.Dispose();
             }
-            catch (SqlException sql)
+            catch (SqlException ex)
             {
-                MessageBox.Show("Error ({0}) : {1}" + sql.Source + sql.Message, "Error Interno");
+                string methodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+                ErrorUtilities.SetNewErrorMessage(ex, methodName + " Exception,EquiposModel", "DaoProject");
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error ({0}) : {1}" + ex.Source + ex.Message, "Error Interno");
+                string methodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+                ErrorUtilities.SetNewErrorMessage(ex, methodName + " Exception,EquiposModel", "DaoProject");
             }
             finally
             {
@@ -472,12 +488,10 @@ namespace DaoProject.Model
             DataSet dataSet = new DataSet();
             DataRow dr;
 
-            string sqlCadena = "SELECT * FROM Historial WHERE movimiento = 0";
-
             try
             {
                 dataAdapter = new SqlDataAdapter();
-                dataAdapter.SelectCommand = new SqlCommand(sqlCadena, connectionEpsSql);
+                dataAdapter.SelectCommand = new SqlCommand("SELECT * FROM Historial WHERE movimiento = 0", connectionEpsSql);
 
                 dataAdapter.Fill(dataSet, "Historial");
 
@@ -507,13 +521,15 @@ namespace DaoProject.Model
                 dataSet.Dispose();
                 dataAdapter.Dispose();
             }
-            catch (SqlException sql)
+            catch (SqlException ex)
             {
-                MessageBox.Show("Error ({0}) : {1}" + sql.Source + sql.Message, "Error Interno");
+                string methodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+                ErrorUtilities.SetNewErrorMessage(ex, methodName + " Exception,EquiposModel", "DaoProject");
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error ({0}) : {1}" + ex.Source + ex.Message, "Error Interno");
+                string methodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+                ErrorUtilities.SetNewErrorMessage(ex, methodName + " Exception,EquiposModel", "DaoProject");
             }
             finally
             {
@@ -537,8 +553,7 @@ namespace DaoProject.Model
             {
                 sqlConne.Open();
 
-                string selstr = "SELECT * FROM Historial  WHERE SC_Equipo = @sc AND isTipo = @tipo ORDER BY Modificacion ";
-                SqlCommand cmd = new SqlCommand(selstr, sqlConne);
+                SqlCommand cmd = new SqlCommand("SELECT * FROM Historial  WHERE SC_Equipo = @sc AND isTipo = @tipo ORDER BY Modificacion ", sqlConne);
                 cmd.Parameters.AddWithValue("@sc",equipo.ScEquipo);
                 cmd.Parameters.AddWithValue("@tipo", equipo.IdTipo);
 
@@ -548,26 +563,30 @@ namespace DaoProject.Model
                 {
                     while (dataReader.Read())
                     {
-                        HistorialPc historial = new HistorialPc();
-                        historial.IdMovimiento = Convert.ToInt32(dataReader["Movimiento"]);
-                        historial.ScEquipo = dataReader["SC_Equipo"].ToString();
-                        historial.IdTipo = Convert.ToInt32(dataReader["isTipo"]);
-                        historial.ExpAnterior = Convert.ToInt32(dataReader["LastUser"]);
-                        historial.ExpActual = Convert.ToInt32(dataReader["NewUser"]);
-                        historial.Observaciones = dataReader["Observaciones"].ToString();
-                        historial.FechaModificacion = dataReader["Modificacion"].ToString();
+                        HistorialPc historial = new HistorialPc()
+                        {
+                            IdMovimiento = Convert.ToInt32(dataReader["Movimiento"]),
+                            ScEquipo = dataReader["SC_Equipo"].ToString(),
+                            IdTipo = Convert.ToInt32(dataReader["isTipo"]),
+                            ExpAnterior = Convert.ToInt32(dataReader["LastUser"]),
+                            ExpActual = Convert.ToInt32(dataReader["NewUser"]),
+                            Observaciones = dataReader["Observaciones"].ToString(),
+                            FechaModificacion = dataReader["Modificacion"].ToString()
+                        };
 
                         historiales.Add(historial);
                     }
                 }
             }
-            catch (SqlException sql)
+            catch (SqlException ex)
             {
-                MessageBox.Show("Error ({0}) : {1}" + sql.Source + sql.Message, "Error Interno");
+                string methodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+                ErrorUtilities.SetNewErrorMessage(ex, methodName + " Exception,EquiposModel", "DaoProject");
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error ({0}) : {1}" + ex.Source + ex.Message, "Error Interno");
+                string methodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+                ErrorUtilities.SetNewErrorMessage(ex, methodName + " Exception,EquiposModel", "DaoProject");
             }
             finally
             {
@@ -587,19 +606,19 @@ namespace DaoProject.Model
             try
             {
                 sqlConne.Open();
-                string vQuery = "SELECT * FROM vHistorial";
-
                 vDs = new DataSet();
-                vAdap = new SqlDataAdapter(vQuery, sqlConne);
+                vAdap = new SqlDataAdapter("SELECT * FROM vHistorial", sqlConne);
                 vAdap.Fill(vDs, "vHistorial");
             }
-            catch (SqlException sql)
+            catch (SqlException ex)
             {
-                MessageBox.Show("Error ({0}) : {1}" + sql.Source + sql.Message, "Error Interno");
+                string methodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+                ErrorUtilities.SetNewErrorMessage(ex, methodName + " Exception,EquiposModel", "DaoProject");
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error ({0}) : {1}" + ex.Source + ex.Message, "Error Interno");
+                string methodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+                ErrorUtilities.SetNewErrorMessage(ex, methodName + " Exception,EquiposModel", "DaoProject");
             }
             finally
             {

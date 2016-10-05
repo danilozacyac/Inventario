@@ -6,7 +6,6 @@
                    Width="610"
                    Height="Auto"
                    Header="Buscar mobiliario por número de inventario"
-                   Loaded="RadWindow_Loaded_1"
                    ResizeMode="NoResize"
                    WindowStartupLocation="CenterScreen">
     <Grid>

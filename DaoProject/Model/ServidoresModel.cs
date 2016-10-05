@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Windows.Forms;
 using DaoProject.Dao;
 using DaoProject.DbAccess;
-using DaoProject.Utilities;
 using ScjnUtilities;
-using System.Configuration;
 
 namespace DaoProject.Model
 {
@@ -72,13 +71,15 @@ namespace DaoProject.Model
                 dataReader.Close();
                 selstr = null;
             }
-            catch (SqlException sql)
+            catch (SqlException ex)
             {
-                MessageBox.Show("Error ({0}) : {1}" + sql.Source + sql.Message, "Error Interno");
+                string methodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+                ErrorUtilities.SetNewErrorMessage(ex, methodName + " Exception,ServidoresModel", "DaoProject");
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error ({0}) : {1}" + ex.Source + ex.Message, "Error Interno");
+                string methodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+                ErrorUtilities.SetNewErrorMessage(ex, methodName + " Exception,ServidoresModel", "DaoProject");
             }
             finally
             {
@@ -133,13 +134,15 @@ namespace DaoProject.Model
                 dataReader.Close();
                 selstr = null;
             }
-            catch (SqlException sql)
+            catch (SqlException ex)
             {
-                MessageBox.Show("Error ({0}) : {1}" + sql.Source + sql.Message, "Error Interno");
+                string methodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+                ErrorUtilities.SetNewErrorMessage(ex, methodName + " Exception,ServidoresModel", "DaoProject");
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error ({0}) : {1}" + ex.Source + ex.Message, "Error Interno");
+                string methodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+                ErrorUtilities.SetNewErrorMessage(ex, methodName + " Exception,ServidoresModel", "DaoProject");
             }
             finally
             {
@@ -157,7 +160,7 @@ namespace DaoProject.Model
             SqlConnection sqlConne = Conexion.GetConexion();
             SqlDataReader dataReader;
 
-            string quienReporta = ConfigurationManager.AppSettings["QuienReporta"].ToString();
+            string quienReporta = ConfigurationManager.AppSettings["QuienReporta"];
             string [] quien = quienReporta.Split(',');
 
             for (int x = 0; x < quien.Count(); x++)
@@ -180,9 +183,11 @@ namespace DaoProject.Model
                 {
                     while (dataReader.Read())
                     {
-                        ServidoresPublicos servidorP = new ServidoresPublicos();
-                        servidorP.Expediente = Convert.ToInt32(dataReader["expediente"]);
-                        servidorP.Nombre = StringUtilities.ToTitleCase(dataReader["nombre"].ToString().ToLower());
+                        ServidoresPublicos servidorP = new ServidoresPublicos()
+                        {
+                            Expediente = Convert.ToInt32(dataReader["expediente"]),
+                            Nombre = StringUtilities.ToTitleCase(dataReader["nombre"].ToString().ToLower())
+                        };
 
                         servidores.Add(servidorP);
                     }
@@ -190,13 +195,15 @@ namespace DaoProject.Model
                 dataReader.Close();
                 selstr = null;
             }
-            catch (SqlException sql)
+            catch (SqlException ex)
             {
-                MessageBox.Show("Error ({0}) : {1}" + sql.Source + sql.Message, "Error Interno");
+                string methodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+                ErrorUtilities.SetNewErrorMessage(ex, methodName + " Exception,ServidoresModel", "DaoProject");
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error ({0}) : {1}" + ex.Source + ex.Message, "Error Interno");
+                string methodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+                ErrorUtilities.SetNewErrorMessage(ex, methodName + " Exception,ServidoresModel", "DaoProject");
             }
             finally
             {
@@ -239,18 +246,17 @@ namespace DaoProject.Model
                     
                 }
             }
-            catch (SqlException sql)
+            catch (SqlException ex)
             {
-                MessageBox.Show("Error ({0}) : {1}" + sql.Source + sql.Message, "Error Interno");
+                string methodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+                ErrorUtilities.SetNewErrorMessage(ex, methodName + " Exception,ServidoresModel", "DaoProject");
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error ({0}) : {1}" + ex.Source + ex.Message, "Error Interno");
+                string methodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+                ErrorUtilities.SetNewErrorMessage(ex, methodName + " Exception,ServidoresModel", "DaoProject");
             }
-            finally
-            {
-                //connectionEpsSql.Close();
-            }
+           
             return userId;
         }
 
@@ -261,8 +267,7 @@ namespace DaoProject.Model
         {
             SqlConnection sqlConne = Conexion.GetConexion();
             SqlDataAdapter dataAdapter;
-            SqlCommand cmd;
-            cmd = sqlConne.CreateCommand();
+            SqlCommand cmd = sqlConne.CreateCommand();
             cmd.Connection = sqlConne;
 
             try
@@ -312,13 +317,15 @@ namespace DaoProject.Model
                 dataSet.Dispose();
                 dataAdapter.Dispose();
             }
-            catch (SqlException sql)
+            catch (SqlException ex)
             {
-                MessageBox.Show("Error ({0}) : {1}" + sql.Source + sql.Message, "Error Interno");
+                string methodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+                ErrorUtilities.SetNewErrorMessage(ex, methodName + " Exception,ServidoresModel", "DaoProject");
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error ({0}) : {1}" + ex.Source + ex.Message, "Error Interno");
+                string methodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+                ErrorUtilities.SetNewErrorMessage(ex, methodName + " Exception,ServidoresModel", "DaoProject");
             }
             finally
             {
@@ -334,8 +341,7 @@ namespace DaoProject.Model
         {
             SqlConnection sqlConne = Conexion.GetConexion();
             SqlDataAdapter dataAdapter;
-            SqlCommand cmd;
-            cmd = sqlConne.CreateCommand();
+            SqlCommand cmd = sqlConne.CreateCommand();
             cmd.Connection = sqlConne;
 
             try
@@ -361,9 +367,7 @@ namespace DaoProject.Model
 
                 dataAdapter.UpdateCommand = sqlConne.CreateCommand();
 
-                string sSql = "UPDATE Usuarios SET userStatus = @userStatus  WHERE Expediente = @Expediente";
-
-                dataAdapter.UpdateCommand.CommandText = sSql;
+                dataAdapter.UpdateCommand.CommandText = "UPDATE Usuarios SET userStatus = @userStatus  WHERE Expediente = @Expediente";
 
                 dataAdapter.UpdateCommand.Parameters.Add("@userStatus", SqlDbType.Int, 0, "userStatus");
                 dataAdapter.UpdateCommand.Parameters.Add("@Expediente", SqlDbType.Int, 0, "Expediente");
@@ -372,13 +376,15 @@ namespace DaoProject.Model
                 dataSet.Dispose();
                 dataAdapter.Dispose();
             }
-            catch (SqlException sql)
+            catch (SqlException ex)
             {
-                MessageBox.Show("Error ({0}) : {1}" + sql.Source + sql.Message, "Error Interno");
+                string methodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+                ErrorUtilities.SetNewErrorMessage(ex, methodName + " Exception,ServidoresModel", "DaoProject");
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error ({0}) : {1}" + ex.Source + ex.Message, "Error Interno");
+                string methodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+                ErrorUtilities.SetNewErrorMessage(ex, methodName + " Exception,ServidoresModel", "DaoProject");
             }
             finally
             {

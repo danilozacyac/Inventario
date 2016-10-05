@@ -3,7 +3,6 @@ using System.Collections.ObjectModel;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Windows.Forms;
 using DaoProject.Dao;
 using DaoProject.DbAccess;
 using ScjnUtilities;
@@ -36,14 +35,13 @@ namespace DaoProject.Model
             ObservableCollection<Mobiliario> listaMobiliario = new ObservableCollection<Mobiliario>();
 
             int number = 0;
-            int.TryParse(valor.ToString(), out number);
+            int.TryParse(valor, out number);
 
             try
             {
                 connection.Open();
 
-                string selstr = "SELECT M.*,T.Descripcion FROM Mobiliario M INNER JOIN TiposEquipos T ON T.idTipo = M.idTipo WHERE " +
-                                parametro + " = @Parametro AND T.idInventario = 2";
+                string selstr = String.Format("SELECT M.*,T.Descripcion FROM Mobiliario M INNER JOIN TiposEquipos T ON T.idTipo = M.idTipo WHERE {0} = @Parametro AND T.idInventario = 2", parametro);
                 SqlCommand cmd = new SqlCommand(selstr, connection);
                 SqlParameter param = cmd.Parameters.Add("@Parametro", (number > 0) ? SqlDbType.Int : SqlDbType.NVarChar, 0);
                 param.Value = valor;
@@ -54,15 +52,17 @@ namespace DaoProject.Model
                 {
                     while (dataReader.Read())
                     {
-                        Mobiliario mobiliarioL = new Mobiliario();
-                        mobiliarioL.IdMobiliario = Convert.ToInt32(dataReader["idMobiliario"]);
-                        mobiliarioL.IdTipoMobiliario = Convert.ToInt32(dataReader["idTipo"]);
-                        mobiliarioL.TipoMobiliario = dataReader["Descripcion"].ToString();
-                        mobiliarioL.Inventario = Convert.ToInt32(dataReader["NoInventario"]);
-                        mobiliarioL.Expediente = Convert.ToInt32(dataReader["Expediente"]);
-                        mobiliarioL.Observaciones = dataReader["Observaciones"].ToString();
-                        mobiliarioL.FechaAlta = DateTimeUtilities.GetDateFromReader(dataReader, "FechaAlta");
-                        mobiliarioL.FechaModificacion = DateTimeUtilities.GetDateFromReader(dataReader, "FechaModificacion");
+                        Mobiliario mobiliarioL = new Mobiliario()
+                        {
+                            IdMobiliario = Convert.ToInt32(dataReader["idMobiliario"]),
+                            IdTipoMobiliario = Convert.ToInt32(dataReader["idTipo"]),
+                            TipoMobiliario = dataReader["Descripcion"].ToString(),
+                            Inventario = Convert.ToInt32(dataReader["NoInventario"]),
+                            Expediente = Convert.ToInt32(dataReader["Expediente"]),
+                            Observaciones = dataReader["Observaciones"].ToString(),
+                            FechaAlta = DateTimeUtilities.GetDateFromReader(dataReader, "FechaAlta"),
+                            FechaModificacion = DateTimeUtilities.GetDateFromReader(dataReader, "FechaModificacion")
+                        };
 
                         listaMobiliario.Add(mobiliarioL);
                     }
@@ -71,12 +71,12 @@ namespace DaoProject.Model
             catch (SqlException ex)
             {
                 string methodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
-                ErrorUtilities.SetNewErrorMessage(ex, methodName + " Exception,MobiliarioModel", "Inventario");
+                ErrorUtilities.SetNewErrorMessage(ex, methodName + " Exception,MobiliarioModel", "DaoProject");
             }
             catch (Exception ex)
             {
                 string methodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
-                ErrorUtilities.SetNewErrorMessage(ex, methodName + " Exception,MobiliarioModel", "Inventario");
+                ErrorUtilities.SetNewErrorMessage(ex, methodName + " Exception,MobiliarioModel", "DaoProject");
             }
             finally
             {
@@ -98,10 +98,8 @@ namespace DaoProject.Model
                 DataSet dataSet = new DataSet();
                 DataRow dr;
 
-                string sqlCadena = "SELECT * FROM Mobiliario WHERE expediente = 0";
-
                 dataAdapter = new SqlDataAdapter();
-                dataAdapter.SelectCommand = new SqlCommand(sqlCadena, connection);
+                dataAdapter.SelectCommand = new SqlCommand("SELECT * FROM Mobiliario WHERE expediente = 0", connection);
 
                 dataAdapter.Fill(dataSet, "Mobiliario");
 
@@ -130,12 +128,12 @@ namespace DaoProject.Model
             catch (SqlException ex)
             {
                 string methodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
-                ErrorUtilities.SetNewErrorMessage(ex, methodName + " Exception,MobiliarioModel", "Inventario");
+                ErrorUtilities.SetNewErrorMessage(ex, methodName + " Exception,MobiliarioModel", "DaoProject");
             }
             catch (Exception ex)
             {
                 string methodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
-                ErrorUtilities.SetNewErrorMessage(ex, methodName + " Exception,MobiliarioModel", "Inventario");
+                ErrorUtilities.SetNewErrorMessage(ex, methodName + " Exception,MobiliarioModel", "DaoProject");
             }
             finally
             {
@@ -188,12 +186,12 @@ namespace DaoProject.Model
             catch (SqlException ex)
             {
                 string methodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
-                ErrorUtilities.SetNewErrorMessage(ex, methodName + " Exception,MobiliarioModel", "Inventario");
+                ErrorUtilities.SetNewErrorMessage(ex, methodName + " Exception,MobiliarioModel", "DaoProject");
             }
             catch (Exception ex)
             {
                 string methodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
-                ErrorUtilities.SetNewErrorMessage(ex, methodName + " Exception,MobiliarioModel", "Inventario");
+                ErrorUtilities.SetNewErrorMessage(ex, methodName + " Exception,MobiliarioModel", "DaoProject");
             }
             finally
             {
@@ -246,12 +244,12 @@ namespace DaoProject.Model
             catch (SqlException ex)
             {
                 string methodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
-                ErrorUtilities.SetNewErrorMessage(ex, methodName + " Exception,MobiliarioModel", "Inventario");
+                ErrorUtilities.SetNewErrorMessage(ex, methodName + " Exception,MobiliarioModel", "DaoProject");
             }
             catch (Exception ex)
             {
                 string methodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
-                ErrorUtilities.SetNewErrorMessage(ex, methodName + " Exception,MobiliarioModel", "Inventario");
+                ErrorUtilities.SetNewErrorMessage(ex, methodName + " Exception,MobiliarioModel", "DaoProject");
             }
             finally
             {
@@ -272,12 +270,10 @@ namespace DaoProject.Model
             DataSet dataSet = new DataSet();
             DataRow dr;
 
-            string sqlCadena = "SELECT * FROM HistorialMobiliario WHERE idMovimiento = 0";
-
             try
             {
                 dataAdapter = new SqlDataAdapter();
-                dataAdapter.SelectCommand = new SqlCommand(sqlCadena, connection);
+                dataAdapter.SelectCommand = new SqlCommand("SELECT * FROM HistorialMobiliario WHERE idMovimiento = 0", connection);
 
                 dataAdapter.Fill(dataSet, "Mobiliario");
 
@@ -324,9 +320,7 @@ namespace DaoProject.Model
         public void BajaMobiliario(String observaciones)
         {
             SqlConnection connection = Conexion.GetConexion();
-            SqlCommand cmd;
-
-            cmd = connection.CreateCommand();
+            SqlCommand cmd = connection.CreateCommand();
             cmd.Connection = connection;
 
             try
@@ -341,12 +335,12 @@ namespace DaoProject.Model
             catch (SqlException ex)
             {
                 string methodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
-                ErrorUtilities.SetNewErrorMessage(ex, methodName + " Exception,MobiliarioModel", "Inventario");
+                ErrorUtilities.SetNewErrorMessage(ex, methodName + " Exception,MobiliarioModel", "DaoProject");
             }
             catch (Exception ex)
             {
                 string methodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
-                ErrorUtilities.SetNewErrorMessage(ex, methodName + " Exception,MobiliarioModel", "Inventario");
+                ErrorUtilities.SetNewErrorMessage(ex, methodName + " Exception,MobiliarioModel", "DaoProject");
             }
             finally
             {
@@ -362,11 +356,10 @@ namespace DaoProject.Model
             DataSet dataSet = new DataSet();
             DataRow dr;
 
-            string sqlCadena = "SELECT * FROM Mobiliario WHERE NoInventario = '" + mobiliario.Inventario + "'";
-
             try
             {
-                dataAdapter.SelectCommand = new SqlCommand(sqlCadena, connection);
+                dataAdapter.SelectCommand = new SqlCommand("SELECT * FROM Mobiliario WHERE NoInventario = @Inventario", connection);
+                dataAdapter.SelectCommand.Parameters.AddWithValue("@Inventario", mobiliario.Inventario);
                 dataAdapter.Fill(dataSet, "Mobiliario");
 
                 dr = dataSet.Tables["Mobiliario"].Rows[0];
@@ -389,12 +382,12 @@ namespace DaoProject.Model
             catch (SqlException ex)
             {
                 string methodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
-                ErrorUtilities.SetNewErrorMessage(ex, methodName + " Exception,MobiliarioModel", "Inventario");
+                ErrorUtilities.SetNewErrorMessage(ex, methodName + " Exception,MobiliarioModel", "DaoProject");
             }
             catch (Exception ex)
             {
                 string methodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
-                ErrorUtilities.SetNewErrorMessage(ex, methodName + " Exception,MobiliarioModel", "Inventario");
+                ErrorUtilities.SetNewErrorMessage(ex, methodName + " Exception,MobiliarioModel", "DaoProject");
             }
             finally
             {
@@ -412,21 +405,20 @@ namespace DaoProject.Model
             try
             {
                 connection.Open();
-                string vQuery = "SELECT * FROM vMBajas ORDER By FechaBaja Desc";
 
                 vDs = new DataSet();
-                vAdap = new SqlDataAdapter(vQuery, connection);
+                vAdap = new SqlDataAdapter("SELECT * FROM vMBajas ORDER By FechaBaja Desc", connection);
                 vAdap.Fill(vDs, "vMBajas");
             }
             catch (SqlException ex)
             {
                 string methodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
-                ErrorUtilities.SetNewErrorMessage(ex, methodName + " Exception,MobiliarioModel", "Inventario");
+                ErrorUtilities.SetNewErrorMessage(ex, methodName + " Exception,MobiliarioModel", "DaoProject");
             }
             catch (Exception ex)
             {
                 string methodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
-                ErrorUtilities.SetNewErrorMessage(ex, methodName + " Exception,MobiliarioModel", "Inventario");
+                ErrorUtilities.SetNewErrorMessage(ex, methodName + " Exception,MobiliarioModel", "DaoProject");
             }
             finally
             {
@@ -454,9 +446,7 @@ namespace DaoProject.Model
             {
                 connection.Open();
 
-                string selstr = "SELECT * FROM HistorialMobiliario  WHERE IdMobiliario = @IdMobiliario ORDER BY fechaReasignacion ";
-                
-                SqlCommand cmd = new SqlCommand(selstr, connection);
+                SqlCommand cmd = new SqlCommand("SELECT * FROM HistorialMobiliario  WHERE IdMobiliario = @IdMobiliario ORDER BY fechaReasignacion ", connection);
                 cmd.Parameters.AddWithValue("@IdMobiliario", mobiliario.Inventario);
                 dataReader = cmd.ExecuteReader();
 
@@ -464,12 +454,14 @@ namespace DaoProject.Model
                 {
                     while (dataReader.Read())
                     {
-                        HistorialMobiliario historial = new HistorialMobiliario();
-                        historial.IdMovimiento = Convert.ToInt32(dataReader["IdMovimiento"]);
-                        historial.ExpAnterior = Convert.ToInt32(dataReader["ExpAnterior"]);
-                        historial.ExpActual = Convert.ToInt32(dataReader["ExpActual"]);
-                        historial.Observaciones = dataReader["Observaciones"].ToString();
-                        historial.FechaReasignacion = DateTimeUtilities.GetDateFromReader(dataReader, "FechaReasignacion"); 
+                        HistorialMobiliario historial = new HistorialMobiliario()
+                        {
+                            IdMovimiento = Convert.ToInt32(dataReader["IdMovimiento"]),
+                            ExpAnterior = Convert.ToInt32(dataReader["ExpAnterior"]),
+                            ExpActual = Convert.ToInt32(dataReader["ExpActual"]),
+                            Observaciones = dataReader["Observaciones"].ToString(),
+                            FechaReasignacion = DateTimeUtilities.GetDateFromReader(dataReader, "FechaReasignacion")
+                        };
 
                         historiales.Add(historial);
                     }
@@ -478,12 +470,12 @@ namespace DaoProject.Model
             catch (SqlException ex)
             {
                 string methodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
-                ErrorUtilities.SetNewErrorMessage(ex, methodName + " Exception,MobiliarioModel", "Inventario");
+                ErrorUtilities.SetNewErrorMessage(ex, methodName + " Exception,MobiliarioModel", "DaoProject");
             }
             catch (Exception ex)
             {
                 string methodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
-                ErrorUtilities.SetNewErrorMessage(ex, methodName + " Exception,MobiliarioModel", "Inventario");
+                ErrorUtilities.SetNewErrorMessage(ex, methodName + " Exception,MobiliarioModel", "DaoProject");
             }
             finally
             {
@@ -503,21 +495,19 @@ namespace DaoProject.Model
             try
             {
                 connection.Open();
-                string vQuery = "SELECT * FROM HMobiliario";
-
                 vDs = new DataSet();
-                vAdap = new SqlDataAdapter(vQuery, connection);
+                vAdap = new SqlDataAdapter("SELECT * FROM HMobiliario", connection);
                 vAdap.Fill(vDs, "HMobiliario");
             }
             catch (SqlException ex)
             {
                 string methodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
-                ErrorUtilities.SetNewErrorMessage(ex, methodName + " Exception,MobiliarioModel", "Inventario");
+                ErrorUtilities.SetNewErrorMessage(ex, methodName + " Exception,MobiliarioModel", "DaoProject");
             }
             catch (Exception ex)
             {
                 string methodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
-                ErrorUtilities.SetNewErrorMessage(ex, methodName + " Exception,MobiliarioModel", "Inventario");
+                ErrorUtilities.SetNewErrorMessage(ex, methodName + " Exception,MobiliarioModel", "DaoProject");
             }
             finally
             {

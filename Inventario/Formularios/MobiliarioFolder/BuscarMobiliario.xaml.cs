@@ -20,11 +20,6 @@ namespace Inventario.Formularios.MobiliarioFolder
             InitializeComponent();
         }
 
-        private void RadWindow_Loaded_1(object sender, RoutedEventArgs e)
-        {
-
-        }
-
         private void RbtnBuscar_Click(object sender, RoutedEventArgs e)
         {
             if (String.IsNullOrEmpty(TxtInventario.Text) || String.IsNullOrWhiteSpace(TxtInventario.Text))
@@ -57,23 +52,21 @@ namespace Inventario.Formularios.MobiliarioFolder
 
         private void RbtnReasignaEquipo_Click(object sender, RoutedEventArgs e)
         {
-            UpdateMobiliarioUsuario update = new UpdateMobiliarioUsuario(servidor, mobiliario);
-            update.Owner = this.Owner;
-            update.Show();
+            UpdateMobiliarioUsuario update = new UpdateMobiliarioUsuario(servidor, mobiliario) { Owner = this.Owner };
+            update.ShowDialog();
             this.Close();
         }
 
         private void RbtnBajaEquipo_Click(object sender, RoutedEventArgs e)
         {
-            DeleteMobiliario delete = new DeleteMobiliario(mobiliario);
-            delete.Owner = this.Owner;
-            delete.Show();
+            DeleteMobiliario delete = new DeleteMobiliario(mobiliario) { Owner = this.Owner };
+            delete.ShowDialog();
             this.Close();
         }
 
         private void RbtnEditaEquipo_Click(object sender, RoutedEventArgs e)
         {
-            AddUpdateMobiliario add = new AddUpdateMobiliario(mobiliario);
+            AddUpdateMobiliario add = new AddUpdateMobiliario(mobiliario) { Owner = this.Owner };
             add.ShowDialog();
         }
     }
