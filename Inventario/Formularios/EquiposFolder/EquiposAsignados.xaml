@@ -66,11 +66,11 @@
                                             DataMemberBinding="{Binding Observaciones}"
                                             Header="Observaciones" />
                 <telerik:GridViewDataColumn DataMemberBinding="{Binding Estado}" Header="Estado" />
-                <telerik:GridViewDataColumn DataFormatString="{0:dd/MM/yyyy}"
+                <telerik:GridViewDataColumn DataFormatString="{} {0:dd/MM/yyyy}"
                                             DataMemberBinding="{Binding FechaAlta}"
                                             Header="Fecha de Alta" />
                 <telerik:GridViewDataColumn Width="*"
-                                            DataFormatString="{0:dd/MM/yyyy}"
+                                            DataFormatString="{} {0:dd/MM/yyyy}"
                                             DataMemberBinding="{Binding FechaModificacion,
                                                                         Mode=TwoWay}"
                                             Header="Última modificación" />
