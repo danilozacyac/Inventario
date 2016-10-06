@@ -4,6 +4,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Windows.Forms;
 using DaoProject.DbAccess;
+using ScjnUtilities;
 
 namespace DaoProject.Model
 {
@@ -45,13 +46,15 @@ namespace DaoProject.Model
                 selstr = null;
 
             }
-            catch (SqlException sql)
+            catch (SqlException ex)
             {
-                MessageBox.Show("Error ({0}) : {1}" + sql.Source + sql.Message, "Error Interno");
+                string methodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+                ErrorUtilities.SetNewErrorMessage(ex, methodName + " Exception,AccesoModel", "DaoProject");
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error ({0}) : {1}" + ex.Source + ex.Message, "Error Interno");
+                string methodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+                ErrorUtilities.SetNewErrorMessage(ex, methodName + " Exception,AccesoModel", "DaoProject");
             }
             finally
             {

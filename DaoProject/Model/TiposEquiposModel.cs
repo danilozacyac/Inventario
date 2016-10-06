@@ -4,10 +4,10 @@ using System.Collections.ObjectModel;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Windows.Forms;
 using DaoProject.Dao;
 using DaoProject.DbAccess;
 using DaoProject.Utilities;
+using ScjnUtilities;
 
 namespace DaoProject.Model
 {
@@ -40,8 +40,7 @@ namespace DaoProject.Model
             {
                 sqlConne.Open();
 
-                string selstr = "SELECT * FROM TiposEquipos WHERE idInventario = @idInventario ORDER BY Descripcion";
-                SqlCommand cmd = new SqlCommand(selstr, sqlConne);
+                SqlCommand cmd = new SqlCommand("SELECT * FROM TiposEquipos WHERE idInventario = @idInventario ORDER BY Descripcion", sqlConne);
                 cmd.Parameters.AddWithValue("@idInventario", tipoInventario);
 
                 dataReader = cmd.ExecuteReader();
@@ -50,22 +49,26 @@ namespace DaoProject.Model
                 {
                     while (dataReader.Read())
                     {
-                        CommonProperties descEquipo = new CommonProperties();
-                        descEquipo.IdElemento = Convert.ToInt32(dataReader["idTipo"]);
-                        descEquipo.Descripcion = dataReader["Descripcion"].ToString();
-                        descEquipo.Corto = dataReader["IdInventario"].ToString();
+                        CommonProperties descEquipo = new CommonProperties()
+                        {
+                            IdElemento = Convert.ToInt32(dataReader["idTipo"]),
+                            Descripcion = dataReader["Descripcion"].ToString(),
+                            Corto = dataReader["IdInventario"].ToString()
+                        };
 
                         tipos.Add(descEquipo);
                     }
                 }
             }
-            catch (SqlException sql)
+            catch (SqlException ex)
             {
-                MessageBox.Show("Error ({0}) : {1}" + sql.Source + sql.Message, "Error Interno");
+                string methodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+                ErrorUtilities.SetNewErrorMessage(ex, methodName + " Exception,TiposEquiposModel", "DaoProject");
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error ({0}) : {1}" + ex.Source + ex.Message, "Error Interno");
+                string methodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+                ErrorUtilities.SetNewErrorMessage(ex, methodName + " Exception,TiposEquiposModel", "DaoProject");
             }
             finally
             {
@@ -86,12 +89,10 @@ namespace DaoProject.Model
             DataSet dataSet = new DataSet();
             DataRow dr;
 
-            string sqlCadena = "SELECT * FROM TiposEquipos WHERE idTipo = 0";
-
             try
             {
                 dataAdapter = new SqlDataAdapter();
-                dataAdapter.SelectCommand = new SqlCommand(sqlCadena, connectionEpsSql);
+                dataAdapter.SelectCommand = new SqlCommand("SELECT * FROM TiposEquipos WHERE idTipo = 0", connectionEpsSql);
 
                 dataAdapter.Fill(dataSet, "TiposEquipos");
 
@@ -117,13 +118,15 @@ namespace DaoProject.Model
                 dataSet.Dispose();
                 dataAdapter.Dispose();
             }
-            catch (SqlException sql)
+            catch (SqlException ex)
             {
-                MessageBox.Show("Error ({0}) : {1}" + sql.Source + sql.Message, "Error Interno");
+                string methodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+                ErrorUtilities.SetNewErrorMessage(ex, methodName + " Exception,TiposEquiposModel", "DaoProject");
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error ({0}) : {1}" + ex.Source + ex.Message, "Error Interno");
+                string methodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+                ErrorUtilities.SetNewErrorMessage(ex, methodName + " Exception,TiposEquiposModel", "DaoProject");
             }
             finally
             {
@@ -146,13 +149,14 @@ namespace DaoProject.Model
             DataSet dataSet = new DataSet();
             DataRow dr;
 
-            string sqlCadena = "SELECT * FROM TiposEquipos WHERE idTipo = " + tipo.IdElemento + " AND idInventario = " + tipoInventario;
+            const string sqlCadena = "SELECT * FROM TiposEquipos WHERE idTipo = @Tipo AND idInventario = @inventario";
 
             try
             {
                 dataAdapter = new SqlDataAdapter();
                 dataAdapter.SelectCommand = new SqlCommand(sqlCadena, connectionEpsSql);
-
+                dataAdapter.SelectCommand.Parameters.AddWithValue("@Tipo", tipo.IdElemento);
+                dataAdapter.SelectCommand.Parameters.AddWithValue("@inventario", tipoInventario);
                 dataAdapter.Fill(dataSet, "TiposEquipos");
 
                 dr = dataSet.Tables["TiposEquipos"].Rows[0];
@@ -173,13 +177,15 @@ namespace DaoProject.Model
                 dataSet.Dispose();
                 dataAdapter.Dispose();
             }
-            catch (SqlException sql)
+            catch (SqlException ex)
             {
-                MessageBox.Show("Error ({0}) : {1}" + sql.Source + sql.Message, "Error Interno");
+                string methodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+                ErrorUtilities.SetNewErrorMessage(ex, methodName + " Exception,TiposEquiposModel", "DaoProject");
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error ({0}) : {1}" + ex.Source + ex.Message, "Error Interno");
+                string methodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+                ErrorUtilities.SetNewErrorMessage(ex, methodName + " Exception,TiposEquiposModel", "DaoProject");
             }
             finally
             {
@@ -200,20 +206,22 @@ namespace DaoProject.Model
             {
                 sqlConne.Open();
 
-                string selstr = "Delete FROM TiposEquipos WHERE idTipo = @idTipo AND idInventario = @IdInventario";
+                const string selstr = "Delete FROM TiposEquipos WHERE idTipo = @idTipo AND idInventario = @IdInventario";
                 SqlCommand cmd = new SqlCommand(selstr, sqlConne);
                 cmd.Parameters.AddWithValue("@idTipo", tipo.IdElemento);
                 cmd.Parameters.AddWithValue("@IdInventario", tipoInventario);
 
                 cmd.ExecuteNonQuery();
             }
-            catch (SqlException sql)
+            catch (SqlException ex)
             {
-                MessageBox.Show("Error ({0}) : {1}" + sql.Source + sql.Message, "Error Interno");
+                string methodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+                ErrorUtilities.SetNewErrorMessage(ex, methodName + " Exception,TiposEquiposModel", "DaoProject");
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error ({0}) : {1}" + ex.Source + ex.Message, "Error Interno");
+                string methodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+                ErrorUtilities.SetNewErrorMessage(ex, methodName + " Exception,TiposEquiposModel", "DaoProject");
             }
             finally
             {
@@ -232,7 +240,7 @@ namespace DaoProject.Model
             {
                 sqlConne.Open();
 
-                string selstr = "SELECT MAX(idTipo) as idTipo FROM TiposEquipos WHERE idInventario = @idInventario";
+                const string selstr = "SELECT MAX(idTipo) as idTipo FROM TiposEquipos WHERE idInventario = @idInventario";
                 SqlCommand cmd = new SqlCommand(selstr, sqlConne);
                 SqlParameter tipoInventario = cmd.Parameters.Add("@idInventario", SqlDbType.Int, 0);
                 tipoInventario.Value = AccesoUsuarioModel.Grupo;
@@ -246,13 +254,15 @@ namespace DaoProject.Model
                     maxId = dataReader.GetInt32(0);
                 }
             }
-            catch (SqlException sql)
+            catch (SqlException ex)
             {
-                MessageBox.Show("Error ({0}) : {1}" + sql.Source + sql.Message, "Error Interno");
+                string methodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+                ErrorUtilities.SetNewErrorMessage(ex, methodName + " Exception,TiposEquiposModel", "DaoProject");
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error ({0}) : {1}" + ex.Source + ex.Message, "Error Interno");
+                string methodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+                ErrorUtilities.SetNewErrorMessage(ex, methodName + " Exception,TiposEquiposModel", "DaoProject");
             }
             finally
             {
@@ -272,7 +282,7 @@ namespace DaoProject.Model
             {
                 sqlConne.Open();
 
-                string selstr = "SELECT * FROM TiposEquipos WHERE idInventario = @idInventario AND ( " + this.ArmaCadena(descripcion) + ") ORDER BY Descripcion";
+                string selstr = String.Format("SELECT * FROM TiposEquipos WHERE idInventario = @idInventario AND ( {0}) ORDER BY Descripcion", this.ArmaCadena(descripcion));
                 SqlCommand cmd = new SqlCommand(selstr, sqlConne);
                 SqlParameter tipoInventario = cmd.Parameters.Add("@idInventario", SqlDbType.Int, 0);
                 tipoInventario.Value = AccesoUsuarioModel.Grupo;
@@ -283,21 +293,25 @@ namespace DaoProject.Model
                 {
                     while (dataReader.Read())
                     {
-                        CommonProperties descEquipo = new CommonProperties();
-                        descEquipo.IdElemento = Convert.ToInt32(dataReader["idTipo"]);
-                        descEquipo.Descripcion = dataReader["Descripcion"].ToString();
+                        CommonProperties descEquipo = new CommonProperties()
+                        {
+                            IdElemento = Convert.ToInt32(dataReader["idTipo"]),
+                            Descripcion = dataReader["Descripcion"].ToString()
+                        };
 
                         tipos.Add(descEquipo);
                     }
                 }
             }
-            catch (SqlException sql)
+            catch (SqlException ex)
             {
-                MessageBox.Show("Error ({0}) : {1}" + sql.Source + sql.Message, "Error Interno");
+                string methodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+                ErrorUtilities.SetNewErrorMessage(ex, methodName + " Exception,TiposEquiposModel", "DaoProject");
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error ({0}) : {1}" + ex.Source + ex.Message, "Error Interno");
+                string methodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+                ErrorUtilities.SetNewErrorMessage(ex, methodName + " Exception,TiposEquiposModel", "DaoProject");
             }
             finally
             {
@@ -314,7 +328,7 @@ namespace DaoProject.Model
 
             foreach (String palabra in palabras)
             {
-                sqlCadena += " OR Descripcion LIKE '%" + palabra + "%'";
+                sqlCadena += String.Format(" OR Descripcion LIKE '%{0}%'", palabra);
             }
 
             return sqlCadena = sqlCadena.Substring(3);

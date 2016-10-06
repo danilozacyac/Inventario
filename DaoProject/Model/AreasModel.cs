@@ -35,8 +35,7 @@ namespace DaoProject.Model
             {
                 connection.Open();
 
-                string selstr = "SELECT * FROM Areas";
-                SqlCommand cmd = new SqlCommand(selstr, connection);
+                SqlCommand cmd = new SqlCommand("SELECT * FROM Areas", connection);
 
                 dataReader = cmd.ExecuteReader();
 
@@ -45,11 +44,13 @@ namespace DaoProject.Model
                     while (dataReader.Read())
                     {
 
-                        CommonProperties area = new CommonProperties();
-                        area.IdElemento = Convert.ToInt32(dataReader["idArea"]);
-                        area.Descripcion = dataReader["Area"].ToString();
-                        area.Corto = dataReader["Corto"].ToString();
-                        area.Abreviatura = dataReader["Abreviatura"].ToString();
+                        CommonProperties area = new CommonProperties()
+                        {
+                            IdElemento = Convert.ToInt32(dataReader["idArea"]),
+                            Descripcion = dataReader["Area"].ToString(),
+                            Corto = dataReader["Corto"].ToString(),
+                            Abreviatura = dataReader["Abreviatura"].ToString()
+                        };
 
                         areas.Add(area);
                     }
@@ -87,8 +88,7 @@ namespace DaoProject.Model
             {
                 connection.Open();
 
-                string selstr = "SELECT * FROM Adscripciones";
-                SqlCommand cmd = new SqlCommand(selstr, connection);
+                SqlCommand cmd = new SqlCommand("SELECT * FROM Adscripciones", connection);
 
                 dataReader = cmd.ExecuteReader();
 
@@ -97,9 +97,11 @@ namespace DaoProject.Model
                     while (dataReader.Read())
                     {
 
-                        CommonProperties adscripcion = new CommonProperties();
-                        adscripcion.IdElemento = Convert.ToInt32(dataReader["idAdscipcion"]);
-                        adscripcion.Descripcion = dataReader["Adscripcion"].ToString();
+                        CommonProperties adscripcion = new CommonProperties()
+                        {
+                            IdElemento = Convert.ToInt32(dataReader["idAdscipcion"]),
+                            Descripcion = dataReader["Adscripcion"].ToString()
+                        };
 
                         adscripciones.Add(adscripcion);
                     }
@@ -131,10 +133,8 @@ namespace DaoProject.Model
 
             try
             {
-                string queryString = "INSERT INTO Areas(Area,Corto,Abreviatura)" +
-                                                        " VALUES(@Area,@Corto,@Abreviatura)";
                 connection.Open();
-                SqlCommand cmd = new SqlCommand(queryString, connection);
+                SqlCommand cmd = new SqlCommand("INSERT INTO Areas(Area,Corto,Abreviatura) VALUES(@Area,@Corto,@Abreviatura)", connection);
 
                 cmd.Parameters.AddWithValue("@Area", area.Descripcion);
                 cmd.Parameters.AddWithValue("@Corto", area.Corto);
@@ -167,8 +167,7 @@ namespace DaoProject.Model
         {
             SqlConnection connection = Conexion.GetConexion();
             SqlDataAdapter dataAdapter;
-            SqlCommand cmd;
-            cmd = connection.CreateCommand();
+            SqlCommand cmd = connection.CreateCommand();
             cmd.Connection = connection;
 
             try
@@ -195,10 +194,7 @@ namespace DaoProject.Model
 
                 dataAdapter.UpdateCommand = connection.CreateCommand();
 
-                string sSql = "UPDATE Areas SET Area = @Area, Corto = @Corto, Abreviatura = @Abreviatura WHERE IdArea = @IdArea";
-
-                dataAdapter.UpdateCommand.CommandText = sSql;
-
+                dataAdapter.UpdateCommand.CommandText = "UPDATE Areas SET Area = @Area, Corto = @Corto, Abreviatura = @Abreviatura WHERE IdArea = @IdArea";
                 dataAdapter.UpdateCommand.Parameters.Add("@Area", SqlDbType.VarChar, 0, "Area");
                 dataAdapter.UpdateCommand.Parameters.Add("@Corto", SqlDbType.VarChar, 0, "Corto");
                 dataAdapter.UpdateCommand.Parameters.Add("@Abreviatura", SqlDbType.VarChar, 0, "Abreviatura");
@@ -230,17 +226,14 @@ namespace DaoProject.Model
         public void DeleteArea()
         {
             SqlConnection connection = Conexion.GetConexion();
-            SqlCommand cmd;
-
-            cmd = connection.CreateCommand();
+            SqlCommand cmd = connection.CreateCommand();
             cmd.Connection = connection;
-
-            String sqlCadena = "DELETE FROM Areas WHERE idArea = " + area.IdElemento;
 
             try
             {
                 connection.Open();
-                cmd.CommandText = sqlCadena;
+                cmd.CommandText = "DELETE FROM Areas WHERE idArea = @Area";
+                cmd.Parameters.AddWithValue("@Area", area.IdElemento);
                 cmd.ExecuteNonQuery();
             }
             catch (SqlException ex)

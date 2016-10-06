@@ -5,6 +5,7 @@ using System.Linq;
 using System.Windows.Forms;
 using DaoProject.Dao;
 using DaoProject.DbAccess;
+using ScjnUtilities;
 
 namespace DaoProject.Model
 {
@@ -24,9 +25,7 @@ namespace DaoProject.Model
             try
             {
                 sqlConne.Open();
-
-                string selstr = "SELECT * FROM Titulos";
-                SqlCommand cmd = new SqlCommand(selstr, sqlConne);
+                SqlCommand cmd = new SqlCommand("SELECT * FROM Titulos", sqlConne);
 
                 dataReader = cmd.ExecuteReader();
 
@@ -35,22 +34,26 @@ namespace DaoProject.Model
                     while (dataReader.Read())
                     {
 
-                        CommonProperties adscripcion = new CommonProperties();
-                        adscripcion.IdElemento = Convert.ToInt32(dataReader["idTitulo"]);
-                        adscripcion.Descripcion = dataReader["Titulo"].ToString();
-                        adscripcion.Abreviatura = dataReader["abrev"].ToString();
+                        CommonProperties adscripcion = new CommonProperties()
+                        {
+                            IdElemento = Convert.ToInt32(dataReader["idTitulo"]),
+                            Descripcion = dataReader["Titulo"].ToString(),
+                            Abreviatura = dataReader["abrev"].ToString()
+                        };
 
                         adscripciones.Add(adscripcion);
                     }
                 }
             }
-            catch (SqlException sql)
+            catch (SqlException ex)
             {
-                MessageBox.Show("Error ({0}) : {1}" + sql.Source + sql.Message, "Error Interno");
+                string methodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+                ErrorUtilities.SetNewErrorMessage(ex, methodName + " Exception,TitulosModel", "DaoProject");
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error ({0}) : {1}" + ex.Source + ex.Message, "Error Interno");
+                string methodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+                ErrorUtilities.SetNewErrorMessage(ex, methodName + " Exception,TitulosModel", "DaoProject");
             }
             finally
             {

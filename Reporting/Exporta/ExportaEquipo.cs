@@ -67,12 +67,14 @@ namespace Reporting.Exporta
 
         public void GeneraXml()
         {
-            SaveFileDialog saveDialog = new SaveFileDialog();
-            saveDialog.DefaultExt = "xml";
-            saveDialog.AddExtension = true;
-            saveDialog.RestoreDirectory = true;
-            saveDialog.Title = "Guardar en";
-            saveDialog.InitialDirectory = @"C:\DOCS\";
+            SaveFileDialog saveDialog = new SaveFileDialog()
+            {
+                DefaultExt = "xml",
+                AddExtension = true,
+                RestoreDirectory = true,
+                Title = "Guardar en",
+                InitialDirectory = @"C:\DOCS\"
+            };
 
             if (saveDialog.ShowDialog() == DialogResult.OK)
             {

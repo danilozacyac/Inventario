@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Windows.Forms;
 using DaoProject.Dao;
 using DaoProject.DbAccess;
+using ScjnUtilities;
 
 namespace DaoProject.Model
 {
@@ -25,30 +25,32 @@ namespace DaoProject.Model
             {
                 sqlConne.Open();
 
-                string selstr = "SELECT * FROM Ubicaciones";
-                SqlCommand cmd = new SqlCommand(selstr, sqlConne);
-
+                SqlCommand cmd = new SqlCommand("SELECT * FROM Ubicaciones", sqlConne);
                 dataReader = cmd.ExecuteReader();
 
                 if (dataReader.HasRows)
                 {
                     while (dataReader.Read())
                     {
-                        CommonProperties ubicacion = new CommonProperties();
-                        ubicacion.IdElemento = Convert.ToInt32(dataReader["idUbicacion"]);
-                        ubicacion.Descripcion = dataReader["Ubicacion"].ToString();
+                        CommonProperties ubicacion = new CommonProperties()
+                        {
+                            IdElemento = Convert.ToInt32(dataReader["idUbicacion"]),
+                            Descripcion = dataReader["Ubicacion"].ToString()
+                        };
 
                         ubicaciones.Add(ubicacion);
                     }
                 }
             }
-            catch (SqlException sql)
+            catch (SqlException ex)
             {
-                MessageBox.Show("Error ({0}) : {1}" + sql.Source + sql.Message, "Error Interno");
+                string methodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+                ErrorUtilities.SetNewErrorMessage(ex, methodName + " Exception,UbicacionModel", "DaoProject");
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error ({0}) : {1}" + ex.Source + ex.Message, "Error Interno");
+                string methodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+                ErrorUtilities.SetNewErrorMessage(ex, methodName + " Exception,UbicacionModel", "DaoProject");
             }
             finally
             {

@@ -72,7 +72,6 @@
     <Compile Include="Singleton\TitulosSingleton.cs" />
     <Compile Include="Singleton\UbicacionesSingleton.cs" />
     <Compile Include="Utilities\ConstVariables.cs" />
-    <Compile Include="Utilities\MisExtensiones.cs" />
     <Compile Include="Utilities\MisFunt.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

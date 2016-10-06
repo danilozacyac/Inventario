@@ -16,10 +16,9 @@ namespace Reporting
         /// </summary>
         /// <param name="myDocument"></param>
         /// <returns></returns>
-        public static iTextSharp.text.Document SetPageHeader(iTextSharp.text.Document myDocument)
+        public static Document SetPageHeader(Document myDocument)
         {
-            PdfPTable table = new PdfPTable(2);
-            table.WidthPercentage = 100;
+            PdfPTable table = new PdfPTable(2) { WidthPercentage = 100 };
 
             table.SetWidths(new Single[] { 35, 150 });
 
@@ -29,13 +28,11 @@ namespace Reporting
             Image gif = Image.GetInstance(ConfigurationManager.AppSettings.Get("ImagenReportes"));
             gif.ScalePercent(24f);
 
-            PdfPCell cell = new PdfPCell();
-            cell.Border = 0;
+            PdfPCell cell = new PdfPCell() { Border = 0 };
             cell.AddElement(gif);
             table.AddCell(cell);
 
-            cell = new PdfPCell();
-            cell.Border = 0;
+            cell = new PdfPCell() { Border = 0 };
             Paragraph para = new Paragraph(ConfigurationManager.AppSettings.Get("AreaCorteL1"), Fuentes.EncabezadoReportes);
             para.Add(Environment.NewLine);
             para.Add(ConfigurationManager.AppSettings.Get("AreaCorteL2"));
@@ -61,11 +58,11 @@ namespace Reporting
         /// <param name="myDocument"></param>
         /// <param name="number"></param>
         /// <returns></returns>
-        public static iTextSharp.text.Document SetSpaces(iTextSharp.text.Document myDocument, int number)
+        public static Document SetSpaces(Document myDocument, int number)
         {
             for (int x = 0; x < number; x++)
             {
-                iTextSharp.text.Paragraph white = new iTextSharp.text.Paragraph(" ");
+                Paragraph white = new Paragraph(" ");
                 myDocument.Add(white);
             }
             return myDocument;
@@ -77,7 +74,7 @@ namespace Reporting
         /// <param name="myDocument"></param>
         /// <param name="serv"></param>
         /// <returns></returns>
-        public static iTextSharp.text.Document SetUserInfo(iTextSharp.text.Document myDocument, ServidoresPublicos serv)
+        public static Document SetUserInfo(Document myDocument, ServidoresPublicos serv)
         {
             Phrase phrase = new Phrase("Nombre: ", Fuentes.NomExpd);
             Paragraph para = new Paragraph(phrase);
@@ -111,7 +108,7 @@ namespace Reporting
             para.Add(phrase);
             phrase = new Phrase("Puerta: ", Fuentes.NomExpd);
             para.Add(phrase);
-            phrase = new Phrase(serv.Puerta.ToString(), Fuentes.NomExpdUnder);
+            phrase = new Phrase(serv.Puerta, Fuentes.NomExpdUnder);
             para.Add(phrase);
             myDocument.Add(para);
 
@@ -124,66 +121,75 @@ namespace Reporting
         /// <param name="myDocument"></param>
         /// <param name="serv"></param>
         /// <returns></returns>
-        public static iTextSharp.text.Document SetPageFooter(iTextSharp.text.Document myDocument, ServidoresPublicos serv)
+        public static Document SetPageFooter(Document myDocument, ServidoresPublicos serv)
         {
-            PdfPTable firma = new PdfPTable(3);
-            //table.TotalWidth = 400;
-            firma.WidthPercentage = 100;
-
-            //Evitan que la tabla se separe si quedca entre dos paginas
-            firma.KeepTogether = true;
-            firma.SplitLate = true;
-            firma.SplitRows = false;
-
-            //firma.SpacingBefore = 20f;
-            firma.SpacingAfter = 30f;
+            PdfPTable firma = new PdfPTable(3)
+            {
+                /*table.TotalWidth = 400;*/
+                WidthPercentage = 100, /*Evitan que la tabla se separe si quedca entre dos paginas*/
+                KeepTogether = true,
+                SplitLate = true,
+                SplitRows = false, /*firma.SpacingBefore = 20f;*/
+                SpacingAfter = 30f
+            };
 
             float[] widths = new float[] { 2f, 1f, 2f };
             firma.SetWidths(widths);
 
-            PdfPCell cell = new PdfPCell(new Phrase(" Entrega:" , Fuentes.ContenidoCelda));
-            cell.Colspan = 0;
-            cell.Border = 0;
-            cell.HorizontalAlignment = 1; //0=Left, 1=Centre, 2=Right
+            PdfPCell cell = new PdfPCell(new Phrase(" Entrega:", Fuentes.ContenidoCelda))
+            {
+                Colspan = 0,
+                Border = 0,
+                HorizontalAlignment = 1 /*0=Left, 1=Centre, 2=Right*/
+            };
             firma.AddCell(cell);
 
-            cell = new PdfPCell(new Phrase("", Fuentes.ContenidoCelda));
-            cell.Colspan = 0;
-            cell.Border = 0;
-            cell.HorizontalAlignment = 1; //0=Left, 1=Centre, 2=Right
+            cell = new PdfPCell(new Phrase("", Fuentes.ContenidoCelda))
+            {
+                Colspan = 0,
+                Border = 0,
+                HorizontalAlignment = 1 /*0=Left, 1=Centre, 2=Right*/
+            };
             firma.AddCell(cell);
 
-            cell = new PdfPCell(new Phrase("Recibe:", Fuentes.ContenidoCelda));
-            cell.Colspan = 0;
-            cell.Border = 0;
-            cell.HorizontalAlignment = 1; //0=Left, 1=Centre, 2=Right
+            cell = new PdfPCell(new Phrase("Recibe:", Fuentes.ContenidoCelda))
+            {
+                Colspan = 0,
+                Border = 0,
+                HorizontalAlignment = 1 /*0=Left, 1=Centre, 2=Right*/
+            };
             firma.AddCell(cell);
 
-            cell = new PdfPCell(new Phrase("   ", Fuentes.ContenidoCelda));
-            cell.Border = 0;
-            for(int cellX = 0;cellX < 6 ;cellX++)
+            cell = new PdfPCell(new Phrase("   ", Fuentes.ContenidoCelda)) { Border = 0 };
+            for (int cellX = 0; cellX < 6; cellX++)
                 firma.AddCell(cell);
-            
-            
 
-            cell = new PdfPCell(new Phrase("        " + ConfigurationManager.AppSettings.Get("ResponsableComputo"), Fuentes.ContenidoCelda));
-            cell.Colspan = 0;
-            cell.Border = Rectangle.TOP_BORDER;
-            cell.BorderWidthTop = 1f;
-            cell.HorizontalAlignment = 1; //0=Left, 1=Centre, 2=Right
+
+
+            cell = new PdfPCell(new Phrase("        " + ConfigurationManager.AppSettings.Get("ResponsableComputo"), Fuentes.ContenidoCelda))
+            {
+                Colspan = 0,
+                Border = Rectangle.TOP_BORDER,
+                BorderWidthTop = 1f,
+                HorizontalAlignment = 1 /*0=Left, 1=Centre, 2=Right*/
+            };
             firma.AddCell(cell);
 
-            cell = new PdfPCell(new Phrase("", Fuentes.ContenidoCelda));
-            cell.Colspan = 0;
-            cell.Border = 0;
-            cell.HorizontalAlignment = 1; //0=Left, 1=Centre, 2=Right
+            cell = new PdfPCell(new Phrase("", Fuentes.ContenidoCelda))
+            {
+                Colspan = 0,
+                Border = 0,
+                HorizontalAlignment = 1 /*0=Left, 1=Centre, 2=Right*/
+            };
             firma.AddCell(cell);
 
-            cell = new PdfPCell(new Phrase(MisFunt.GetTituloDescrip(serv.IdTitulo) + " " + serv.Nombre, Fuentes.ContenidoCelda));
-            cell.Colspan = 0;
-            cell.Border = Rectangle.TOP_BORDER;
-            cell.BorderWidthTop = 1f;
-            cell.HorizontalAlignment = 1; //0=Left, 1=Centre, 2=Right
+            cell = new PdfPCell(new Phrase(String.Format("{0} {1}", MisFunt.GetTituloDescrip(serv.IdTitulo), serv.Nombre), Fuentes.ContenidoCelda))
+            {
+                Colspan = 0,
+                Border = Rectangle.TOP_BORDER,
+                BorderWidthTop = 1f,
+                HorizontalAlignment = 1 /*0=Left, 1=Centre, 2=Right*/
+            };
             firma.AddCell(cell);
             myDocument.Add(firma);
 

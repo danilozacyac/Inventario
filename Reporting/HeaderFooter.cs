@@ -5,7 +5,7 @@ using iTextSharp.text.pdf;
 
 namespace Reporting
 {
-    public class HeaderFooter : iTextSharp.text.pdf.PdfPageEventHelper
+    public class HeaderFooter : PdfPageEventHelper
     {
 
         //override the OnStartPage event handler to add our header

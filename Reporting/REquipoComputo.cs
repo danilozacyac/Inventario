@@ -2,9 +2,8 @@
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
-using System.Windows.Forms;
 using DaoProject.Dao;
-using DaoProject.Utilities;
+using ScjnUtilities;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
 
@@ -12,7 +11,7 @@ namespace Reporting
 {
     public class REquipoComputo : IReportePdf
     {
-        private iTextSharp.text.Document myDocument;
+        private Document myDocument;
         //private Paragraph para;
 
         private ObservableCollection<ServidoresPublicos> servidores;
@@ -35,7 +34,7 @@ namespace Reporting
         /// </summary>
         public void ReportePersonal()
         {
-            myDocument = new iTextSharp.text.Document(PageSize.A4, 50, 50, 50, 50);
+            myDocument = new Document(PageSize.A4, 50, 50, 50, 50);
             string documento = Path.GetTempFileName() + ".pdf";
 
             try
@@ -65,7 +64,8 @@ namespace Reporting
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error ({0}) : {1}" + ex.Source + ex.Message, "Error Interno");
+                string methodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+                ErrorUtilities.SetNewErrorMessage(ex, methodName + " Exception,REquipoComputo", "Reporting");
             }
             finally
             {
@@ -83,7 +83,7 @@ namespace Reporting
         /// </summary>
         public void ReportePorAreas()
         {
-            myDocument = new iTextSharp.text.Document(PageSize.A4, 50, 50, 50, 50);
+            myDocument = new Document(PageSize.A4, 50, 50, 50, 50);
             string documento = Path.GetTempFileName() + ".pdf";
 
             try
@@ -121,7 +121,8 @@ namespace Reporting
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error ({0}) : {1}" + ex.Source + ex.Message, "Error Interno");
+                string methodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+                ErrorUtilities.SetNewErrorMessage(ex, methodName + " Exception,EquiposModel", "Reporting");
             }
             finally
             {
@@ -132,12 +133,13 @@ namespace Reporting
 
         private void SetEquiposInfo(ObservableCollection<Equipos> equipos)
         {
-            PdfPTable table = new PdfPTable(5);
-            //table.TotalWidth = 400;
-            table.WidthPercentage = 100;
-
-            table.SpacingBefore = 20f;
-            table.SpacingAfter = 30f;
+            PdfPTable table = new PdfPTable(5)
+            {
+                /*table.TotalWidth = 400;*/
+                WidthPercentage = 100,
+                SpacingBefore = 20f,
+                SpacingAfter = 30f
+            };
 
             string[] encabezado = { "Equipo", "SC Equipo", "Marca", "No. Serie", "Observaciones" };
             PdfPCell cell;

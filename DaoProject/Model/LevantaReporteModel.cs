@@ -119,22 +119,24 @@ namespace DaoProject.Model
                 {
                     while (reader.Read())
                     {
-                        LevantaReporte reporte = new LevantaReporte();
-                        reporte.IdReporte = Convert.ToInt32(reader["IdReporte"]);
-                        reporte.FechaReporte = DateTimeUtilities.GetDateFromReader(reader, "FechaReporte");
-                        reporte.FechaReporteInt = Convert.ToInt32(reader["FechaReporteInt"]);
-                        reporte.IdEquipo = Convert.ToInt32(reader["idEquipo"]);
-                        reporte.Expediente = Convert.ToInt32(reader["Expediente"]);
-                        reporte.Nombre = reader["Nombre"].ToString();
-                        reporte.Reporto = Convert.ToInt32(reader["Reporto"]);
-                        reporte.Atendio = reader["Atendio"].ToString();
-                        reporte.FechaCierre = DateTimeUtilities.GetDateFromReader(reader, "FechaCierre");
-                        reporte.Observaciones = DataBaseUtilities.VerifyDbNullForStrings(reader, "Observaciones");
-                        reporte.NumReporte = Convert.ToInt32(reader["NumReporte"]);
-                        reporte.ScEquipo = reader["SC_Equipo"].ToString();
-                        reporte.TipoEquipo = reader["Descripcion"].ToString();
-                        reporte.ReportoStr = reader["Reporto2"].ToString();
-                        reporte.Problema = reader["Problema"].ToString();
+                        LevantaReporte reporte = new LevantaReporte()
+                        {
+                            IdReporte = Convert.ToInt32(reader["IdReporte"]),
+                            FechaReporte = DateTimeUtilities.GetDateFromReader(reader, "FechaReporte"),
+                            FechaReporteInt = Convert.ToInt32(reader["FechaReporteInt"]),
+                            IdEquipo = Convert.ToInt32(reader["idEquipo"]),
+                            Expediente = Convert.ToInt32(reader["Expediente"]),
+                            Nombre = reader["Nombre"].ToString(),
+                            Reporto = Convert.ToInt32(reader["Reporto"]),
+                            Atendio = reader["Atendio"].ToString(),
+                            FechaCierre = DateTimeUtilities.GetDateFromReader(reader, "FechaCierre"),
+                            Observaciones = DataBaseUtilities.VerifyDbNullForStrings(reader, "Observaciones"),
+                            NumReporte = Convert.ToInt32(reader["NumReporte"]),
+                            ScEquipo = reader["SC_Equipo"].ToString(),
+                            TipoEquipo = reader["Descripcion"].ToString(),
+                            ReportoStr = reader["Reporto2"].ToString(),
+                            Problema = reader["Problema"].ToString()
+                        };
 
                         listaReportes.Add(reporte);
                     }

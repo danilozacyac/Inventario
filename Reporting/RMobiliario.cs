@@ -2,9 +2,9 @@
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
-using System.Windows.Forms;
 using DaoProject.Dao;
 using DaoProject.Utilities;
+using ScjnUtilities;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
 
@@ -12,7 +12,7 @@ namespace Reporting
 {
     public class RMobiliario : IReportePdf
     {
-        private iTextSharp.text.Document myDocument;
+        private Document myDocument;
         //private Paragraph para;
 
         private ObservableCollection<ServidoresPublicos> servidores;
@@ -35,7 +35,7 @@ namespace Reporting
         /// </summary>
         public void ReportePersonal()
         {
-            myDocument = new iTextSharp.text.Document(PageSize.A4, 50, 50, 50, 50);
+            myDocument = new Document(PageSize.A4, 50, 50, 50, 50);
             string documento = Path.GetTempFileName() + ".pdf";
 
             try
@@ -67,11 +67,10 @@ namespace Reporting
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error ({0}) : {1}" + ex.Source + ex.Message, "Error Interno");
+                string methodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+                ErrorUtilities.SetNewErrorMessage(ex, methodName + " Exception,RMobiliario", "Reporting");
             }
-            finally
-            {
-            }
+           
         }
 
         /// <summary>
@@ -80,16 +79,16 @@ namespace Reporting
         /// </summary>
         public void ReportePorAreas()
         {
-            myDocument = new iTextSharp.text.Document(PageSize.A4, 50, 50, 50, 50);
+            myDocument = new Document(PageSize.A4, 50, 50, 50, 50);
             string documento = Path.GetTempFileName() + ".pdf";
 
             try
             {
                 if (idAreaReporte != 0)
                     servidores = ((from n in servidores
-                                  where n.IdArea == idAreaReporte
-                                  select n).ToList()).ToObservableCollection();
-                
+                                   where n.IdArea == idAreaReporte
+                                   select n).ToList()).ToObservableCollection();
+
                 PdfWriter writer = PdfWriter.GetInstance(myDocument, new FileStream(documento, FileMode.Create));
 
                 myDocument.Open();
@@ -118,7 +117,8 @@ namespace Reporting
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error ({0}) : {1}" + ex.Source + ex.Message, "Error Interno");
+                string methodName = System.Reflection.MethodBase.GetCurrentMethod().Name;
+                ErrorUtilities.SetNewErrorMessage(ex, methodName + " Exception,RMobiliario", "Reporting");
             }
             finally
             {
@@ -129,11 +129,7 @@ namespace Reporting
 
         private void SetEquiposInfo(ObservableCollection<Mobiliario> mobiliarios)
         {
-            PdfPTable table = new PdfPTable(4);
-            table.WidthPercentage = 100;
-
-            table.SpacingBefore = 20f;
-            table.SpacingAfter = 5f;
+            PdfPTable table = new PdfPTable(4) { WidthPercentage = 100, SpacingBefore = 20f, SpacingAfter = 5f };
 
             float[] widths = new float[] { 0.5f, 1f, 2f, 2f };
             table.SetWidths(widths);
